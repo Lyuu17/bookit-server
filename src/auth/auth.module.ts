@@ -22,7 +22,8 @@ import { AuthController } from './auth.controller';
         },
       }),
       inject: [ConfigService],
-    })
+    }),
+    ConfigModule
   ],
   providers: [AuthService, LocalStrategy, JwtStrategy],
   exports: [AuthService],
