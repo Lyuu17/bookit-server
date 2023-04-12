@@ -2,6 +2,7 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument, now } from 'mongoose';
 import { Room, RoomSchema } from './room.schema';
 import { IsNotEmpty } from 'class-validator';
+import { Address, AddressSchema } from './address.schema';
 
 export type PropertyDocument = HydratedDocument<Property>;
 
@@ -10,6 +11,14 @@ export class Property {
   @Prop()
   @IsNotEmpty()
   name: string;
+
+  @Prop({ type: AddressSchema })
+  @IsNotEmpty()
+  address: Address;
+
+  @Prop()
+  @IsNotEmpty()
+  phone: string;
 
   @Prop({ default: now() })
   createdAt: string;
