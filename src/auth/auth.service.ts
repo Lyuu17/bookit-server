@@ -18,7 +18,7 @@ export class AuthService {
       throw new HttpException('An account with that username already exists', HttpStatus.BAD_REQUEST);
     }
 
-    const payload = { username: newUser.email };
+    const payload = { username: newUser.email, sub: newUser._id };
     return { access_token: await this.jwtService.signAsync(payload) };
   }
 
@@ -28,7 +28,7 @@ export class AuthService {
       throw new UnauthorizedException('Invalid username or password');
     }
 
-    const payload = { username: user.email };
+    const payload = { username: user.email, sub: user._id };
     return { access_token: await this.jwtService.signAsync(payload) };
   }
 }

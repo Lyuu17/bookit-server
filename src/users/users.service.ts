@@ -11,13 +11,13 @@ import { CreateUserDto } from './dto/create-user.dto';
 export class UsersService {
   constructor(@InjectModel(User.name) private userModel: Model<UserDocument>) {}
 
-  async create(createUserDto: CreateUserDto): Promise<User| null> {
+  async create(createUserDto: CreateUserDto): Promise<UserDocument| null> {
     const newUser = new this.userModel(createUserDto);
     newUser.password = await bcrypt.hash(newUser.password, 10);
     return await this.findOne(newUser.email) == null ? newUser.save() : null;
   }
 
-  async findOne(email: string): Promise<User | null> {
+  async findOne(email: string): Promise<UserDocument | null> {
     return this.userModel.findOne({ email: email }).exec();
   }
 }
