@@ -6,6 +6,10 @@ import { ApiProperty } from "@nestjs/swagger";
 export class CreatePropertyDto {
   @ApiProperty()
   @IsNotEmpty()
+  readonly name: string;
+
+  @ApiProperty()
+  @IsNotEmpty()
   @ValidateNested({ each: true })
   @Type(() => CreateRoomDto)
   readonly rooms: CreateRoomDto[];
