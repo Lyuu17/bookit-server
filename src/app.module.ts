@@ -7,6 +7,8 @@ import { AppService } from './app.service';
 import { AuthController } from './auth/auth.controller';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
+import { PropertiesController } from './properties/properties.controller';
+import { PropertiesModule } from './properties/properties.module';
 
 @Module({
   imports: [
@@ -17,9 +19,9 @@ import { UsersModule } from './users/users.module';
       useFactory: async (config: ConfigService) => ({
         uri: config.get<string>('MONGODB_URI'),
       })
-    }), AuthModule, UsersModule
+    }), AuthModule, PropertiesModule, UsersModule
   ],
-  controllers: [AppController, AuthController],
+  controllers: [AppController, AuthController, PropertiesController],
   providers: [AppService],
 })
 export class AppModule {}
