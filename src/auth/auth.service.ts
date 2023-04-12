@@ -1,9 +1,9 @@
+import * as bcrypt from 'bcrypt';
+
 import { HttpException, HttpStatus, Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { UsersService } from '../users/users.service';
-
-import * as bcrypt from 'bcrypt';
-import { UserAuthDto } from 'src/users/dto/user-auth.dto';
+import { CreateUserDto } from 'src/users/dto/create-user.dto';
 
 @Injectable()
 export class AuthService {
@@ -12,12 +12,12 @@ export class AuthService {
     private jwtService: JwtService
   ) {}
 
-  async register(userAuth: UserAuthDto) {
-    const newUser = await this.usersService.create(userAuth);
+  async register(createUserDto: CreateUserDto) {
+    const newUser = await this.usersService.create(createUserDto);
     if (!newUser) {
       throw new HttpException('An account with that username already exists', HttpStatus.BAD_REQUEST);
     }
-    
+
     const payload = { username: newUser.email };
     return { access_token: await this.jwtService.signAsync(payload) };
   }
