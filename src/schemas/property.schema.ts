@@ -9,6 +9,9 @@ export class Property {
   @Prop({ default: now() })
   createdAt: string;
 
+  @Prop({ default: 0 })
+  rating: number;
+
   @Prop([{ type: RoomSchema }])
   rooms: Room[];
 }
