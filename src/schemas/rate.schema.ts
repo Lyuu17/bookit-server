@@ -1,15 +1,16 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { IsNotEmpty, Min } from 'class-validator';
+import { IsEnum, IsNotEmpty, Min } from 'class-validator';
 import { HydratedDocument } from 'mongoose';
 import { AmenitySchema, Amenity } from './amenity.schema';
 import { Bedgroup, BedgroupSchema } from './bedgroup.schema';
+import { RateStatus } from 'src/enums/rate-status.enum';
 
 export type RateDocument = HydratedDocument<Rate>;
 
 @Schema()
 export class Rate {
   @Prop()
-  @IsNotEmpty()
+  @IsEnum(RateStatus)
   status: string;
 
   @Prop()
