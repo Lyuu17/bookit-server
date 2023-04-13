@@ -17,11 +17,13 @@ export class PropertiesController {
   }
 
   @Get('city/:q')
+  @ApiOkResponse({ description: 'Get properties based on the city', type: [CreatePropertyDto] })
   async findByCity(@Param('q') q: string) {
     return this.propertiesService.findByCity(q);
   }
 
   @Get('country/:q')
+  @ApiOkResponse({ description: 'Get properties based on the country', type: [CreatePropertyDto] })
   async findByCountry(@Param('q') q: string) {
     return this.propertiesService.findByCountry(q);
   }
