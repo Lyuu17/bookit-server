@@ -13,7 +13,7 @@ export class GeocodeService {
   constructor(
     private readonly configService: ConfigService
   ) {
-    this.geocoder = NodeGeocoder({ provider: configService.get<string>('GEOCODE_PROVIDER') });
+    this.geocoder = NodeGeocoder({ provider: configService.get<string>('GEOCODE_PROVIDER'), language: 'en' });
   }
 
   async find(text: string): Promise<GeocodeResponseData[]> {
