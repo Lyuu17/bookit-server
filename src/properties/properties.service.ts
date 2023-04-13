@@ -35,4 +35,11 @@ export class PropertiesService {
       'address.city': geoData[0]?.city
     }).exec();
   }
+
+  async findByCountry(q: string): Promise<PropertyDocument[] | null> {
+    const geoData = await this.geocodeService.find(q);
+    return this.propertyModel.find({
+      'address.country_code': geoData[0]?.countryCode
+    }).exec();
+  }
 }

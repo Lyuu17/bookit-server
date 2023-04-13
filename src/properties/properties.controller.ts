@@ -21,6 +21,11 @@ export class PropertiesController {
     return this.propertiesService.findByCity(q);
   }
 
+  @Get('country/:q')
+  async findByCountry(@Param('q') q: string) {
+    return this.propertiesService.findByCountry(q);
+  }
+
   @UseGuards(JwtAuthGuard)
   @Post()
   @ApiOkResponse({ description: 'Add a property', type: CreatePropertyDto })
