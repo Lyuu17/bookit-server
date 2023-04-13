@@ -14,9 +14,6 @@ export class Bedgroup {
   @Prop([{ type: BedgroupConfigSchema }])
   @IsNotEmpty()
   configuration: BedgroupConfig[];
-
-  @Prop()
-  test: string;
 }
 
 export const BedgroupSchema = SchemaFactory.createForClass(Bedgroup);
