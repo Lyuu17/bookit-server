@@ -9,6 +9,8 @@ import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { PropertiesController } from './properties/properties.controller';
 import { PropertiesModule } from './properties/properties.module';
+import { GeocodeController } from './geocode/geocode.controller';
+import { GeocodeModule } from './geocode/geocode.module';
 
 @Module({
   imports: [
@@ -19,9 +21,9 @@ import { PropertiesModule } from './properties/properties.module';
       useFactory: async (config: ConfigService) => ({
         uri: config.get<string>('MONGODB_URI'),
       })
-    }), AuthModule, PropertiesModule, UsersModule
+    }), AuthModule, GeocodeModule, PropertiesModule, UsersModule
   ],
-  controllers: [AppController, AuthController, PropertiesController],
+  controllers: [AppController, AuthController, GeocodeController, PropertiesController],
   providers: [AppService],
 })
 export class AppModule {}
