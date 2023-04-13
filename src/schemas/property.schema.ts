@@ -3,6 +3,7 @@ import { HydratedDocument, now } from 'mongoose';
 import { Room, RoomSchema } from './room.schema';
 import { IsNotEmpty } from 'class-validator';
 import { Address, AddressSchema } from './address.schema';
+import { LocationCoords, LocationCoordsSchema } from './locationcoords.schema';
 
 export type PropertyDocument = HydratedDocument<Property>;
 
@@ -15,6 +16,10 @@ export class Property {
   @Prop({ type: AddressSchema })
   @IsNotEmpty()
   address: Address;
+
+  @Prop({ type: LocationCoordsSchema })
+  @IsNotEmpty()
+  location_coords: LocationCoords;
 
   @Prop()
   @IsNotEmpty()
