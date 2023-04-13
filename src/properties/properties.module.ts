@@ -4,6 +4,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 
 import { PropertiesService } from './properties.service';
 import { Property, PropertySchema } from 'src/schemas/property.schema';
+import { GeocodeModule } from 'src/geocode/geocode.module';
 
 @Module({
   imports: [
@@ -15,7 +16,8 @@ import { Property, PropertySchema } from 'src/schemas/property.schema';
           return schema;
         },
       }
-    ])
+    ]),
+    GeocodeModule
   ],
   providers: [PropertiesService],
   exports: [PropertiesService],
