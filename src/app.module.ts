@@ -1,6 +1,8 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
 
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -21,6 +23,13 @@ import { GeocodeModule } from './geocode/geocode.module';
       useFactory: async (config: ConfigService) => ({
         uri: config.get<string>('MONGODB_URI'),
       })
+    }),
+    ServeStaticModule.forRootAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: async (config: ConfigService) => [{
+        rootPath: join(__dirname, '..', config.get<string>('STATIC_DIR'))
+      }]
     }), AuthModule, GeocodeModule, PropertiesModule, UsersModule
   ],
   controllers: [AppController, AuthController, GeocodeController, PropertiesController],
