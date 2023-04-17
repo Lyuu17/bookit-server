@@ -1,0 +1,67 @@
+[
+  {
+    "name": "Venicegreen Agriresort",
+    "address": {
+      "country_code": "ITA",
+      "region": "Venice",
+      "city": "Mestre",
+      "postal_code": "200000"
+    },
+    "location_coords": {
+      "latitude": 45.499601,
+      "longitude": 12.319276
+    },
+    "phone": "0000000000",
+    "rooms": [
+      {
+        "name": "test",
+        "rates": [
+          {
+            "status": "available",
+            "available_rooms": 1,
+            "refundable": true,
+            "amenities": [
+              {
+                "name": "Free WiFi",
+                "value": "",
+                "categories": "wifi"
+              },
+              {
+                "name": "Parking included",
+                "value": "",
+                "categories": "wifi"
+              },
+              {
+                "name": "Pet friendly",
+                "value": "",
+                "categories": "wifi"
+              },
+              {
+                "name": "Air conditioning",
+                "value": "",
+                "categories": "airconditioner"
+              },
+              {
+                "name": "Restaurant",
+                "value": "",
+                "categories": "restaurant"
+              }
+            ],
+            "bed_groups": [
+              {
+                "description": "Standard Room",
+                "configuration": [
+                  {
+                    "type": "City view",
+                    "size": "161 sq ft",
+                    "quantity": 1
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]

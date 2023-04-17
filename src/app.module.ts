@@ -13,8 +13,8 @@ import { PropertiesController } from './properties/properties.controller';
 import { PropertiesModule } from './properties/properties.module';
 import { GeocodeController } from './geocode/geocode.controller';
 import { GeocodeModule } from './geocode/geocode.module';
-import { UsersService } from './users/users.service';
-import { UsersSeeder } from './users/users.seed';
+import { UsersSeeder } from './users/users.seeder';
+import { PropertiesSeeder } from './properties/properties.seeder';
 
 @Module({
   imports: [
@@ -35,17 +35,20 @@ import { UsersSeeder } from './users/users.seed';
     }), AuthModule, GeocodeModule, PropertiesModule, UsersModule
   ],
   controllers: [AppController, AuthController, GeocodeController, PropertiesController],
-  providers: [AppService, UsersSeeder],
+  providers: [AppService, UsersSeeder, PropertiesSeeder],
 })
 export class AppModule implements OnModuleInit {
   constructor(
-    private usersSeeder: UsersSeeder
+    private usersSeeder: UsersSeeder,
+    private propertiesSeeder: PropertiesSeeder
   ) { }
 
   async onModuleInit() {
     if (process.env.DEV_ENV == "dev") {
       if (await this.usersSeeder.shouldRun())
         await this.usersSeeder.run();
+      if (await this.propertiesSeeder.shouldRun())
+        await this.propertiesSeeder.run();
     }
   }
 }

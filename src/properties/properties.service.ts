@@ -42,4 +42,8 @@ export class PropertiesService {
       'address.country_code': geoData[0]?.countryCode
     }).exec();
   }
+
+  async count(): Promise<number> {
+    return this.propertyModel.countDocuments().exec();
+  }
 }
