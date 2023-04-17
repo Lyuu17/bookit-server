@@ -9,8 +9,8 @@ async function bootstrap() {
   app.setGlobalPrefix('api/v1');
 
   const config = new DocumentBuilder()
-    .setTitle('Cats example')
-    .setDescription('The cats API description')
+    .setTitle('BookIt')
+    .setDescription('BookIt API documentation')
     .setVersion('1.0')
     .addBearerAuth()
     .build();
