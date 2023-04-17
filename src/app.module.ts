@@ -18,7 +18,7 @@ import { UsersSeeder } from './users/users.seed';
 
 @Module({
   imports: [
-    ConfigModule.forRoot(), 
+    ConfigModule.forRoot(),
     MongooseModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
@@ -43,8 +43,7 @@ export class AppModule implements OnModuleInit {
   ) { }
 
   async onModuleInit() {
-    if (process.env.DEV_ENV == "dev")
-    {
+    if (process.env.DEV_ENV == "dev") {
       if (await this.usersSeeder.shouldRun())
         await this.usersSeeder.run();
     }

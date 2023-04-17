@@ -8,7 +8,7 @@ import { ApiOkResponse } from '@nestjs/swagger';
 export class PropertiesController {
   constructor(
     private readonly propertiesService: PropertiesService
-  ) {}
+  ) { }
 
   @Get()
   @ApiOkResponse({ description: 'Get all properties', type: [CreatePropertyDto] })

@@ -11,7 +11,7 @@ export class AuthService {
   constructor(
     private usersService: UsersService,
     private jwtService: JwtService
-  ) {}
+  ) { }
 
   async register(createUserDto: CreateUserDto) {
     const newUser = await this.usersService.create(createUserDto);

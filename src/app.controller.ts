@@ -8,11 +8,11 @@ import { ApiBearerAuth, ApiOkResponse } from '@nestjs/swagger';
 export class AppController {
   constructor(
     private readonly appService: AppService
-  ) {}
+  ) { }
 
   @UseGuards(JwtAuthGuard)
   @Get('profile')
-  @ApiOkResponse({ description: 'Profile data.'})
+  @ApiOkResponse({ description: 'Profile data.' })
   getProfile(@Request() req) {
     return req.user;
   }

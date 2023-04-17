@@ -8,7 +8,7 @@ import { User, UserSchema } from '../schemas/user.schema';
 @Module({
   imports: [
     MongooseModule.forFeatureAsync([
-      { 
+      {
         name: User.name,
         useFactory: () => {
           const schema = UserSchema;
@@ -20,4 +20,4 @@ import { User, UserSchema } from '../schemas/user.schema';
   providers: [UsersService],
   exports: [UsersService],
 })
-export class UsersModule {}
+export class UsersModule { }

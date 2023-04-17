@@ -9,7 +9,7 @@ import { GeocodeModule } from 'src/geocode/geocode.module';
 @Module({
   imports: [
     MongooseModule.forFeatureAsync([
-      { 
+      {
         name: Property.name,
         useFactory: () => {
           const schema = PropertySchema;
@@ -22,4 +22,4 @@ import { GeocodeModule } from 'src/geocode/geocode.module';
   providers: [PropertiesService],
   exports: [PropertiesService],
 })
-export class PropertiesModule {}
+export class PropertiesModule { }

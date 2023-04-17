@@ -11,10 +11,10 @@ import { AuthSuccessDto } from 'src/users/dto/auth-success.dto';
 export class AuthController {
   constructor(
     private readonly authService: AuthService, private readonly userService: UsersService
-  ) {}
+  ) { }
 
   @Post('register')
-  @ApiUnauthorizedResponse({ description: 'Account exists.'})
+  @ApiUnauthorizedResponse({ description: 'Account exists.' })
   @ApiOkResponse({ description: 'Auth token', type: AuthSuccessDto })
   async register(@Body() createUserDto: CreateUserDto) {
     return this.authService.register(createUserDto);
@@ -22,7 +22,7 @@ export class AuthController {
 
   @UseGuards(LocalAuthGuard)
   @Post('login')
-  @ApiUnauthorizedResponse({ description: 'Invalid email/password.'})
+  @ApiUnauthorizedResponse({ description: 'Invalid email/password.' })
   @ApiOkResponse({ description: 'Auth token', type: AuthSuccessDto })
   async login(@Body() authDto: UserAuthDto) {
     return this.authService.login(authDto.email, authDto.password);

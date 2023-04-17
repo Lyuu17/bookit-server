@@ -12,9 +12,9 @@ export class PropertiesService {
     @InjectModel(Property.name)
     private propertyModel: Model<PropertyDocument>,
     private readonly geocodeService: GeocodeService
-  ) {}
+  ) { }
 
-  async create(createPropertyDto: CreatePropertyDto): Promise<PropertyDocument| null> {
+  async create(createPropertyDto: CreatePropertyDto): Promise<PropertyDocument | null> {
     const newProperty = new this.propertyModel(createPropertyDto);
     return await newProperty.save();
   }

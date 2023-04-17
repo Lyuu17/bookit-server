@@ -8,7 +8,7 @@ import { GeocodeResponseDto } from './dto/geocode-response.dto';
 export class GeocodeController {
   constructor(
     private readonly geocodeService: GeocodeService
-  ) {}
+  ) { }
 
   @Get(':q')
   @ApiOkResponse({ description: 'Search by geolocation', type: [GeocodeResponseDto] })
@@ -18,13 +18,13 @@ export class GeocodeController {
     const responsesDto = [];
     geoData.forEach(d => {
       responsesDto.push({
-        latitude : d.latitude,
-        longitude : d.longitude,
-        formattedAddress : d.formattedAddress,
-        country : d.country,
-        city : d.city,
-        state : d.state,
-        countryCode : d.countryCode,
+        latitude: d.latitude,
+        longitude: d.longitude,
+        formattedAddress: d.formattedAddress,
+        country: d.country,
+        city: d.city,
+        state: d.state,
+        countryCode: d.countryCode,
       });
     });
     return responsesDto;

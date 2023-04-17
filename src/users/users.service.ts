@@ -9,9 +9,9 @@ import { CreateUserDto } from './dto/create-user.dto';
 
 @Injectable()
 export class UsersService {
-  constructor(@InjectModel(User.name) private userModel: Model<UserDocument>) {}
+  constructor(@InjectModel(User.name) private userModel: Model<UserDocument>) { }
 
-  async create(createUserDto: CreateUserDto): Promise<UserDocument| null> {
+  async create(createUserDto: CreateUserDto): Promise<UserDocument | null> {
     const newUser = new this.userModel(createUserDto);
     newUser.password = await bcrypt.hash(newUser.password, 10);
     return await this.findOne(newUser.email) == null ? newUser.save() : null;
