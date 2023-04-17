@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Module, OnModuleInit } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ServeStaticModule } from '@nestjs/serve-static';
@@ -13,6 +13,8 @@ import { PropertiesController } from './properties/properties.controller';
 import { PropertiesModule } from './properties/properties.module';
 import { GeocodeController } from './geocode/geocode.controller';
 import { GeocodeModule } from './geocode/geocode.module';
+import { UsersService } from './users/users.service';
+import { UsersSeeder } from './users/users.seed';
 
 @Module({
   imports: [
@@ -33,6 +35,18 @@ import { GeocodeModule } from './geocode/geocode.module';
     }), AuthModule, GeocodeModule, PropertiesModule, UsersModule
   ],
   controllers: [AppController, AuthController, GeocodeController, PropertiesController],
-  providers: [AppService],
+  providers: [AppService, UsersSeeder],
 })
-export class AppModule {}
+export class AppModule implements OnModuleInit {
+  constructor(
+    private usersSeeder: UsersSeeder
+  ) { }
+
+  async onModuleInit() {
+    if (process.env.DEV_ENV == "dev")
+    {
+      if (await this.usersSeeder.shouldRun())
+        await this.usersSeeder.run();
+    }
+  }
+}

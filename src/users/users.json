@@ -1,0 +1,9 @@
+[
+  {
+    "email": "test@test.com",
+    "password": "testing",
+    "firstName": "firstname",
+    "lastName": "lastName",
+    "birthdate": "2000-01-31"
+  }
+]

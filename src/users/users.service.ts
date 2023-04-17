@@ -20,4 +20,8 @@ export class UsersService {
   async findOne(email: string): Promise<UserDocument | null> {
     return this.userModel.findOne({ email: email }).exec();
   }
+
+  async count(): Promise<number> {
+    return this.userModel.countDocuments().exec();
+  }
 }
