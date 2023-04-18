@@ -1,4 +1,4 @@
-import { Model } from 'mongoose';
+import { Model, isValidObjectId } from 'mongoose';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 
@@ -24,7 +24,7 @@ export class PropertiesService {
   }
 
   async findOne(id: string): Promise<PropertyDocument | null> {
-    return this.propertyModel.findById(id).exec();
+    return isValidObjectId(id) ? this.propertyModel.findById(id).exec() : null;
   }
 
   async findByCity(q: string): Promise<PropertyDocument[] | null> {
@@ -48,15 +48,20 @@ export class PropertiesService {
   }
 
   async addAdminUser(propertyId: string, userId: string) {
-    return this.propertyModel.findByIdAndUpdate(propertyId, { $addToSet: { adminUsers: userId } }, { new: true }).exec();
+    return isValidObjectId(propertyId) && isValidObjectId(userId)
+      ? this.propertyModel.findByIdAndUpdate(propertyId, { $addToSet: { adminUsers: userId } }, { new: true }).exec()
+      : null;
   }
 
-  async removeAdminUser(propertyId: string, ownerId: string) {
-    return this.propertyModel.findByIdAndUpdate(propertyId, { $pull: { owners: ownerId } }, { new: true }).exec();
+  async removeAdminUser(propertyId: string, userId: string) {
+    return isValidObjectId(propertyId) && isValidObjectId(userId)
+      ? this.propertyModel.findByIdAndUpdate(propertyId, { $pull: { adminUsers: userId } }, { new: true }).exec()
+      : null;
   }
 
   async getAdminUsers(propertyId: string) {
-    const property = await this.propertyModel.findById(propertyId).populate('adminUsers');
-    return property.adminUsers;
+    return isValidObjectId(propertyId)
+      ? (await this.propertyModel.findById(propertyId).populate('adminUsers')).adminUsers
+      : null;
   }
 }
