@@ -30,22 +30,22 @@
               {
                 "name": "Parking included",
                 "value": "",
-                "categories": "wifi"
+                "categories": "parking"
               },
               {
                 "name": "Pet friendly",
                 "value": "",
-                "categories": "wifi"
+                "categories": "pets_allowed"
               },
               {
                 "name": "Air conditioning",
                 "value": "",
-                "categories": "airconditioner"
+                "categories": "air_conditioning"
               },
               {
                 "name": "Restaurant",
                 "value": "",
-                "categories": "restaurant"
+                "categories": "restaurant_in_hotel"
               }
             ],
             "bed_groups": [
