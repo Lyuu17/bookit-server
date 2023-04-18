@@ -30,7 +30,8 @@ import { PropertiesSeeder } from './properties/properties.seeder';
       imports: [ConfigModule],
       inject: [ConfigService],
       useFactory: async (config: ConfigService) => [{
-        rootPath: join(__dirname, '..', config.get<string>('STATIC_DIR'))
+        rootPath: join(__dirname, '..', config.get<string>('STATIC_DIR')),
+        exclude: ['/api/(.*)']
       }]
     }), AuthModule, GeocodeModule, PropertiesModule, UsersModule
   ],
