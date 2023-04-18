@@ -4,6 +4,10 @@ import { IsNotEmpty, MaxLength, MinLength } from "class-validator";
 export class CreateAddressDto {
   @ApiProperty()
   @IsNotEmpty()
+  readonly street: string;
+
+  @ApiProperty()
+  @IsNotEmpty()
   @MinLength(2)
   @MaxLength(3)
   readonly country_code: string;

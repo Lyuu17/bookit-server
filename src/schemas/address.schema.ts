@@ -8,6 +8,10 @@ export type AddressDocument = HydratedDocument<Address>;
 export class Address {
   @Prop()
   @IsNotEmpty()
+  street: string;
+
+  @Prop()
+  @IsNotEmpty()
   @MinLength(2)
   @MaxLength(3)
   country_code: string;

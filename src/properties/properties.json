@@ -2,6 +2,7 @@
   {
     "name": "Venicegreen Agriresort",
     "address": {
+      "street": "Via Piovega 7, Tessera",
       "country_code": "ITA",
       "region": "Venice",
       "city": "Mestre",
