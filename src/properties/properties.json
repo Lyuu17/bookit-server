@@ -13,53 +13,48 @@
       "longitude": 12.319276
     },
     "phone": "0000000000",
+    "amenities": [
+      {
+        "name": "Free WiFi",
+        "value": "",
+        "categories": "wifi"
+      },
+      {
+        "name": "Parking included",
+        "value": "",
+        "categories": "parking"
+      },
+      {
+        "name": "Pet friendly",
+        "value": "",
+        "categories": "pets_allowed"
+      },
+      {
+        "name": "Restaurant",
+        "value": "",
+        "categories": "restaurant_in_hotel"
+      }
+    ],
     "rooms": [
       {
-        "name": "test",
-        "rates": [
+        "name": "Single Room",
+        "bed_groups": [
           {
-            "status": "available",
-            "available_rooms": 1,
-            "refundable": true,
-            "amenities": [
+            "description": "1 King Bed",
+            "configuration": [
               {
-                "name": "Free WiFi",
-                "value": "",
-                "categories": "wifi"
-              },
-              {
-                "name": "Parking included",
-                "value": "",
-                "categories": "parking"
-              },
-              {
-                "name": "Pet friendly",
-                "value": "",
-                "categories": "pets_allowed"
-              },
-              {
-                "name": "Air conditioning",
-                "value": "",
-                "categories": "air_conditioning"
-              },
-              {
-                "name": "Restaurant",
-                "value": "",
-                "categories": "restaurant_in_hotel"
-              }
-            ],
-            "bed_groups": [
-              {
-                "description": "Standard Room",
-                "configuration": [
-                  {
-                    "type": "City view",
-                    "size": "161 sq ft",
-                    "quantity": 1
-                  }
-                ]
+                "type": "KingBed",
+                "size": "King",
+                "quantity": 1
               }
             ]
+          }
+        ],
+        "amenities": [
+          {
+            "name": "Air conditioning",
+            "value": "",
+            "categories": "air_conditioning"
           }
         ]
       }

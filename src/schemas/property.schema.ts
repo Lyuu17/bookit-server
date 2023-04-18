@@ -5,6 +5,7 @@ import { IsNotEmpty } from 'class-validator';
 import { Address, AddressSchema } from './address.schema';
 import { LocationCoords, LocationCoordsSchema } from './locationcoords.schema';
 import { User } from './user.schema';
+import { Amenity, AmenitySchema } from './amenity.schema';
 
 export type PropertyDocument = HydratedDocument<Property>;
 
@@ -34,6 +35,9 @@ export class Property {
 
   @Prop({ default: 0 })
   rating: number;
+
+  @Prop([{ type: AmenitySchema }])
+  amenities: Amenity[];
 
   @Prop([{ type: RoomSchema }])
   rooms: Room[];

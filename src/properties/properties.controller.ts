@@ -3,6 +3,7 @@ import { PropertiesService } from './properties.service';
 import { CreatePropertyDto } from './dto/create-property.dto';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { ApiOkResponse } from '@nestjs/swagger';
+import { Property } from 'src/schemas/property.schema';
 
 @Controller('properties')
 export class PropertiesController {
@@ -11,32 +12,32 @@ export class PropertiesController {
   ) { }
 
   @Get()
-  @ApiOkResponse({ description: 'Get all properties', type: [CreatePropertyDto] })
+  @ApiOkResponse({ description: 'Get all properties', type: [Property] })
   async getAll(@Req() req) {
     return this.propertiesService.findAll();
   }
 
   @Get(':q')
-  @ApiOkResponse({ description: 'Get one property', type: [CreatePropertyDto] })
+  @ApiOkResponse({ description: 'Get one property', type: [Property] })
   async getOne(@Param('q') q: string) {
     return this.propertiesService.findOne(q);
   }
 
   @Get('city/:q')
-  @ApiOkResponse({ description: 'Get properties based on the city', type: [CreatePropertyDto] })
+  @ApiOkResponse({ description: 'Get properties based on the city', type: [Property] })
   async findByCity(@Param('q') q: string) {
     return this.propertiesService.findByCity(q);
   }
 
   @Get('country/:q')
-  @ApiOkResponse({ description: 'Get properties based on the country', type: [CreatePropertyDto] })
+  @ApiOkResponse({ description: 'Get properties based on the country', type: [Property] })
   async findByCountry(@Param('q') q: string) {
     return this.propertiesService.findByCountry(q);
   }
 
   @UseGuards(JwtAuthGuard)
   @Post()
-  @ApiOkResponse({ description: 'Add a property', type: CreatePropertyDto })
+  @ApiOkResponse({ description: 'Add a property', type: Property })
   async addOne(@Body() createPropertyDto: CreatePropertyDto) {
     return this.propertiesService.create(createPropertyDto);
   }

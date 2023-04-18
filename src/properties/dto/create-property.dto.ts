@@ -4,6 +4,7 @@ import { Type } from "class-transformer";
 import { ApiProperty } from "@nestjs/swagger";
 import { CreateAddressDto } from "./create-address.dto";
 import { CreateLocationCoordsDto } from "./create-locationcoords.dto";
+import { CreateAmenityDto } from "./create-amenity.dto";
 
 export class CreatePropertyDto {
   @ApiProperty()
@@ -25,6 +26,11 @@ export class CreatePropertyDto {
   @ApiProperty()
   @IsPhoneNumber()
   readonly phone: string;
+
+  @ApiProperty()
+  @ValidateNested({ each: true })
+  @Type(() => CreateAmenityDto)
+  readonly amenities: CreateAmenityDto[];
 
   @ApiProperty()
   @IsNotEmpty()
