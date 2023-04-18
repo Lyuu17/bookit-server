@@ -13,6 +13,12 @@
       "longitude": 12.319276
     },
     "phone": "0000000000",
+    "checkin": {
+      "begin_time": "7:00 AM",
+      "end_time": "11:00 PM",
+      "instructions": "Extra-person charges may apply and vary depending on hotel policy. &lt;br />Government-issued photo identification and a credit card or cash deposit are required at check-in for incidental charges. &lt;br />Special requests are subject to availability upon check-in and may incur additional charges. Special requests cannot be guaranteed. &lt;br />",
+      "min_age": 18
+    },
     "amenities": [
       {
         "name": "Free WiFi",

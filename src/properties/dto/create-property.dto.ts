@@ -5,6 +5,7 @@ import { ApiProperty } from "@nestjs/swagger";
 import { CreateAddressDto } from "./create-address.dto";
 import { CreateLocationCoordsDto } from "./create-locationcoords.dto";
 import { CreateAmenityDto } from "./create-amenity.dto";
+import { CreateCheckin } from "./create-checkin.dto";
 
 export class CreatePropertyDto {
   @ApiProperty()
@@ -26,6 +27,12 @@ export class CreatePropertyDto {
   @ApiProperty()
   @IsPhoneNumber()
   readonly phone: string;
+
+  @ApiProperty()
+  @IsNotEmpty()
+  @ValidateNested({ each: true })
+  @Type(() => CreateCheckin)
+  readonly checkin: CreateCheckin;
 
   @ApiProperty()
   @ValidateNested({ each: true })
