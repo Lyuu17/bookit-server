@@ -24,7 +24,7 @@ export class PropertiesService {
   }
 
   async findOne(id: string): Promise<PropertyDocument | null> {
-    return this.propertyModel.findOne({ _id: id }).exec();
+    return this.propertyModel.findById(id).exec();
   }
 
   async findByCity(q: string): Promise<PropertyDocument[] | null> {

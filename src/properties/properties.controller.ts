@@ -16,6 +16,12 @@ export class PropertiesController {
     return this.propertiesService.findAll();
   }
 
+  @Get(':q')
+  @ApiOkResponse({ description: 'Get one property', type: [CreatePropertyDto] })
+  async getOne(@Param('q') q: string) {
+    return this.propertiesService.findOne(q);
+  }
+
   @Get('city/:q')
   @ApiOkResponse({ description: 'Get properties based on the city', type: [CreatePropertyDto] })
   async findByCity(@Param('q') q: string) {
