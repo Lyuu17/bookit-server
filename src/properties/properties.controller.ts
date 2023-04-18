@@ -18,7 +18,7 @@ export class PropertiesController {
   }
 
   @Get(':q')
-  @ApiOkResponse({ description: 'Get one property', type: [Property] })
+  @ApiOkResponse({ description: 'Get one property', type: Property })
   async getOne(@Param('q') q: string) {
     return this.propertiesService.findOne(q);
   }
