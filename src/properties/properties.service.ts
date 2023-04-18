@@ -46,4 +46,17 @@ export class PropertiesService {
   async count(): Promise<number> {
     return this.propertyModel.countDocuments().exec();
   }
+
+  async addAdminUser(propertyId: string, userId: string) {
+    return this.propertyModel.findByIdAndUpdate(propertyId, { $addToSet: { adminUsers: userId } }, { new: true }).exec();
+  }
+
+  async removeAdminUser(propertyId: string, ownerId: string) {
+    return this.propertyModel.findByIdAndUpdate(propertyId, { $pull: { owners: ownerId } }, { new: true }).exec();
+  }
+
+  async getAdminUsers(propertyId: string) {
+    const property = await this.propertyModel.findById(propertyId).populate('adminUsers');
+    return property.adminUsers;
+  }
 }

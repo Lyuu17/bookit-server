@@ -1,9 +1,10 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { HydratedDocument, now } from 'mongoose';
+import { HydratedDocument, SchemaTypes, now } from 'mongoose';
 import { Room, RoomSchema } from './room.schema';
 import { IsNotEmpty } from 'class-validator';
 import { Address, AddressSchema } from './address.schema';
 import { LocationCoords, LocationCoordsSchema } from './locationcoords.schema';
+import { User } from './user.schema';
 
 export type PropertyDocument = HydratedDocument<Property>;
 
@@ -27,6 +28,9 @@ export class Property {
 
   @Prop({ default: now() })
   createdAt: string;
+
+  @Prop([{ type: SchemaTypes.ObjectId, ref: User.name }])
+  adminUsers: [User];
 
   @Prop({ default: 0 })
   rating: number;
