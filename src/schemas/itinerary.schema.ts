@@ -18,13 +18,13 @@ export class Itinerary {
   @Prop({ type: SchemaTypes.ObjectId, ref: BedgroupConfig.name })
   bed_group: string;
 
-  @Prop()
+  @Prop({ type: SchemaTypes.Date })
   @IsDateString({ strict: true })
-  checkin: string;
+  checkin: Date;
 
-  @Prop()
+  @Prop({ type: SchemaTypes.Date })
   @IsDateString({ strict: true })
-  checkout: string;
+  checkout: Date;
 
   @Prop()
   @Min(1)
