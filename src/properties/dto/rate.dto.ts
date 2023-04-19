@@ -1,10 +1,13 @@
-import { Type } from "class-transformer";
+import { Transform, Type } from "class-transformer";
 import { IsIn, IsNotEmpty, Min, ValidateNested } from "class-validator";
-import { CreateAmenityDto } from "./create-amenity.dto";
-import { CreateBedgroupDto } from "./create-bedgroup.dto";
 import { ApiProperty } from "@nestjs/swagger";
+import { AmenityDto } from "./amenity.dto";
+import { BedgroupDto } from "./bedgroup.dto";
 
-export class CreateRateDto {
+export class RateDto {
+  @Transform(({ value }) => value.toString())
+  readonly _id?: string;
+
   @ApiProperty()
   @IsIn(["available", "unavailable"])
   readonly status: string;
@@ -19,12 +22,12 @@ export class CreateRateDto {
 
   @ApiProperty()
   @ValidateNested({ each: true })
-  @Type(() => CreateAmenityDto)
-  readonly amenities: CreateAmenityDto[];
+  @Type(() => AmenityDto)
+  readonly amenities: AmenityDto[];
 
   @ApiProperty()
   @IsNotEmpty()
   @ValidateNested({ each: true })
-  @Type(() => CreateBedgroupDto)
-  readonly bed_groups: CreateBedgroupDto[];
+  @Type(() => BedgroupDto)
+  readonly bed_groups: BedgroupDto[];
 }

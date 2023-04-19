@@ -3,7 +3,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 
 import { Property, PropertyDocument } from '../schemas/property.schema';
-import { CreatePropertyDto } from './dto/create-property.dto';
+import { PropertyDto } from './dto/property.dto';
 import { GeocodeService } from 'src/geocode/geocode.service';
 import { ItinerariesService } from 'src/itineraries/itineraries.service';
 
@@ -16,9 +16,9 @@ export class PropertiesService {
     private readonly geocodeService: GeocodeService
   ) { }
 
-  async create(createPropertyDto: CreatePropertyDto): Promise<PropertyDocument | null> {
-    const newProperty = new this.propertyModel(createPropertyDto);
-    return await newProperty.save();
+  async create(propertyDto: PropertyDto): Promise<PropertyDocument | null> {
+    const newProperty = new this.propertyModel(propertyDto);
+    return newProperty.save();
   }
 
   async findById(id: string): Promise<PropertyDocument> {

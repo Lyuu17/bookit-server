@@ -1,7 +1,12 @@
 import { ApiProperty } from "@nestjs/swagger";
+import { Exclude, Transform } from "class-transformer";
 import { IsNotEmpty, Min } from "class-validator";
 
-export class CreateCheckin {
+export class CheckinDto {
+  @Exclude()
+  @Transform(({ value }) => value.toString())
+  readonly _id?: string;
+
   @ApiProperty()
   @IsNotEmpty()
   readonly begin_time: string;

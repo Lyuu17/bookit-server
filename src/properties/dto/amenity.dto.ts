@@ -1,8 +1,13 @@
 import { ApiProperty } from "@nestjs/swagger";
+import { Exclude, Transform } from "class-transformer";
 import { IsEnum, IsNotEmpty } from "class-validator";
 import { AmenityCategories } from "src/enums/amenity-categories.enum";
 
-export class CreateAmenityDto {
+export class AmenityDto {
+  @Transform(({ value }) => value.toString())
+  @Exclude()
+  readonly _id?: string;
+
   @ApiProperty()
   @IsNotEmpty()
   readonly name: string;

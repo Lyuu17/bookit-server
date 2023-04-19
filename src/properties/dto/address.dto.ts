@@ -1,7 +1,12 @@
 import { ApiProperty } from "@nestjs/swagger";
+import { Exclude, Transform } from "class-transformer";
 import { IsNotEmpty, MaxLength, MinLength } from "class-validator";
 
-export class CreateAddressDto {
+export class AddressDto {
+  @Exclude()
+  @Transform(({ value }) => value.toString())
+  readonly _id?: string;
+
   @ApiProperty()
   @IsNotEmpty()
   readonly street: string;
