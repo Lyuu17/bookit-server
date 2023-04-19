@@ -15,6 +15,8 @@ import { GeocodeController } from './geocode/geocode.controller';
 import { GeocodeModule } from './geocode/geocode.module';
 import { UsersSeeder } from './users/users.seeder';
 import { PropertiesSeeder } from './properties/properties.seeder';
+import { ItinerariesModule } from './itineraries/itineraries.module';
+import { ItinerariesController } from './itineraries/itineraries.controller';
 
 @Module({
   imports: [
@@ -33,9 +35,9 @@ import { PropertiesSeeder } from './properties/properties.seeder';
         rootPath: join(__dirname, '..', config.get<string>('STATIC_DIR')),
         exclude: ['/api/(.*)']
       }]
-    }), AuthModule, GeocodeModule, PropertiesModule, UsersModule
+    }), AuthModule, GeocodeModule, PropertiesModule, UsersModule, ItinerariesModule
   ],
-  controllers: [AppController, AuthController, GeocodeController, PropertiesController],
+  controllers: [AppController, AuthController, GeocodeController, PropertiesController, ItinerariesController],
   providers: [AppService, UsersSeeder, PropertiesSeeder],
 })
 export class AppModule implements OnModuleInit {

@@ -19,6 +19,10 @@ export class PropertiesService {
     return await newProperty.save();
   }
 
+  async findById(id: string): Promise<PropertyDocument> {
+    return this.propertyModel.findById(id).exec();
+  }
+
   async findAll(): Promise<PropertyDocument[] | null> {
     return this.propertyModel.find().exec();
   }
