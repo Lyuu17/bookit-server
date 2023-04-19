@@ -30,6 +30,17 @@ export class ItinerariesService {
     return this.itineraryModel.find().exec();
   }
 
+  /* https://stackoverflow.com/a/32149021 */
+  async findAllBetweenDates(checkin: Date, checkout: Date): Promise<ItineraryDocument[]> {
+    return this.itineraryModel.find({ $or: [
+      { checkin : { $lte: checkin.toUTCString() }, checkout : { $gt: checkin.toUTCString() } },
+      { checkin : { $lt: checkout.toUTCString() }, checkout : { $gte: checkout.toUTCString() } },
+      { checkin : { $gt: checkin.toUTCString() }, checkout : { $lt: checkout.toUTCString() } },
+      { checkin : checkin.toUTCString()},
+      { checkout : checkout.toUTCString()}
+    ]}).exec();
+  }
+
   async findAllByUserId(id: string): Promise<ItineraryDocument[]> {
     return this.itineraryModel.find({ user: id }).exec();
   }

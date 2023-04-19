@@ -5,6 +5,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { PropertiesService } from './properties.service';
 import { Property, PropertySchema } from 'src/schemas/property.schema';
 import { GeocodeModule } from 'src/geocode/geocode.module';
+import { ItinerariesModule } from 'src/itineraries/itineraries.module';
 
 @Module({
   imports: [
@@ -17,7 +18,7 @@ import { GeocodeModule } from 'src/geocode/geocode.module';
         },
       }
     ]),
-    GeocodeModule
+    ItinerariesModule, GeocodeModule
   ],
   providers: [PropertiesService],
   exports: [PropertiesService],

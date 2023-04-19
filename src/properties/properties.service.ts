@@ -5,12 +5,14 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Property, PropertyDocument } from '../schemas/property.schema';
 import { CreatePropertyDto } from './dto/create-property.dto';
 import { GeocodeService } from 'src/geocode/geocode.service';
+import { ItinerariesService } from 'src/itineraries/itineraries.service';
 
 @Injectable()
 export class PropertiesService {
   constructor(
     @InjectModel(Property.name)
     private propertyModel: Model<PropertyDocument>,
+    private readonly itinerariesService: ItinerariesService,
     private readonly geocodeService: GeocodeService
   ) { }
 
@@ -25,6 +27,12 @@ export class PropertiesService {
 
   async findAll(): Promise<PropertyDocument[] | null> {
     return this.propertyModel.find().exec();
+  }
+
+  async findAllByAvailability(checkin: Date, checkout: Date): Promise<PropertyDocument[] | null> {
+    const itineraries = await this.itinerariesService.findAllBetweenDates(checkin, checkout);
+    const propertyIds = itineraries.map(itinerary => itinerary.property);
+    return this.propertyModel.find({ _id: { $nin: propertyIds } }).exec();
   }
 
   async findOne(id: string): Promise<PropertyDocument | null> {
