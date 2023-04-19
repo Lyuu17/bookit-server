@@ -6,7 +6,6 @@ import { InjectModel } from '@nestjs/mongoose';
 import { CreateItineraryDto } from './dto/create-itinerary.dto';
 import { Itinerary, ItineraryDocument } from 'src/schemas/itinerary.schema';
 import { UsersService } from 'src/users/users.service';
-import { PropertiesService } from 'src/properties/properties.service';
 
 @Injectable()
 export class ItinerariesService {
@@ -14,8 +13,7 @@ export class ItinerariesService {
     @InjectModel(Itinerary.name)
     private itineraryModel: Model<ItineraryDocument>,
 
-    private usersService: UsersService,
-    private propertiesService: PropertiesService
+    private usersService: UsersService
   ) { }
 
   async create(createItineraryDto: CreateItineraryDto, userId: string): Promise<ItineraryDocument> {
@@ -33,13 +31,11 @@ export class ItinerariesService {
   }
 
   async findAllByUserId(id: string): Promise<ItineraryDocument[]> {
-    const user = await this.usersService.findById(id);
-    return this.itineraryModel.find({ user: user }).exec();
+    return this.itineraryModel.find({ user: id }).exec();
   }
 
   async findAllByPropertyId(id: string): Promise<ItineraryDocument[]> {
-    const property = await this.propertiesService.findById(id);
-    return this.itineraryModel.find({ property: property }).exec();
+    return this.itineraryModel.find({ property: id }).exec();
   }
 
   async count(): Promise<number> {
