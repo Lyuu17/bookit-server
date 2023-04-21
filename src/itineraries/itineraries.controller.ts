@@ -1,9 +1,9 @@
-import { Controller, Post, UseGuards, Body, Get, Req, Param } from '@nestjs/common';
-import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import { Body, Controller, Get, Param, Post, Req, UseGuards } from '@nestjs/common';
 import { ApiOkResponse } from '@nestjs/swagger';
-import { ItinerariesService } from './itineraries.service';
 import { isValidObjectId } from 'mongoose';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { CreateItineraryDto } from './dto/create-itinerary.dto';
+import { ItinerariesService } from './itineraries.service';
 import { Itinerary } from './schema/itinerary.schema';
 
 @Controller('itineraries')

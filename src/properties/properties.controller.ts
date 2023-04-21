@@ -1,9 +1,9 @@
-import { Controller, Post, UseGuards, Body, Get, Req, Param, Query, ClassSerializerInterceptor, UseInterceptors } from '@nestjs/common';
-import { PropertiesService } from './properties.service';
-import { PropertyDto } from './dto/property.dto';
-import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import { Body, Controller, Get, Param, Post, Query, Req, UseGuards } from '@nestjs/common';
 import { ApiOkResponse } from '@nestjs/swagger';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import { PropertyDto } from './dto/property.dto';
 import { PropertiesConverter } from './properties.converter';
+import { PropertiesService } from './properties.service';
 
 @Controller('properties')
 export class PropertiesController {

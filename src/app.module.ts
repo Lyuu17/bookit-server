@@ -8,17 +8,17 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthController } from './auth/auth.controller';
 import { AuthModule } from './auth/auth.module';
-import { UsersModule } from './users/users.module';
-import { PropertiesController } from './properties/properties.controller';
-import { PropertiesModule } from './properties/properties.module';
 import { GeocodeController } from './geocode/geocode.controller';
 import { GeocodeModule } from './geocode/geocode.module';
-import { UsersSeeder } from './users/users.seeder';
-import { PropertiesSeeder } from './properties/properties.seeder';
-import { ItinerariesModule } from './itineraries/itineraries.module';
 import { ItinerariesController } from './itineraries/itineraries.controller';
-import { PropertiesConverter } from './properties/properties.converter';
 import { ItinerariesConverter } from './itineraries/itineraries.converter';
+import { ItinerariesModule } from './itineraries/itineraries.module';
+import { PropertiesController } from './properties/properties.controller';
+import { PropertiesConverter } from './properties/properties.converter';
+import { PropertiesModule } from './properties/properties.module';
+import { PropertiesSeeder } from './properties/properties.seeder';
+import { UsersModule } from './users/users.module';
+import { UsersSeeder } from './users/users.seeder';
 
 @Module({
   imports: [

@@ -1,11 +1,11 @@
-import { Controller, Post, Request, UseGuards, Body } from '@nestjs/common';
-import { AuthService } from './auth.service';
-import { UsersService } from '../users/users.service';
-import { LocalAuthGuard } from './local-auth.guard';
-import { UserAuthDto } from 'src/users/dto/user-auth.dto';
-import { CreateUserDto } from 'src/users/dto/create-user.dto';
+import { Body, Controller, Post, UseGuards } from '@nestjs/common';
 import { ApiOkResponse, ApiUnauthorizedResponse } from '@nestjs/swagger';
 import { AuthSuccessDto } from 'src/users/dto/auth-success.dto';
+import { CreateUserDto } from 'src/users/dto/create-user.dto';
+import { UserAuthDto } from 'src/users/dto/user-auth.dto';
+import { UsersService } from '../users/users.service';
+import { AuthService } from './auth.service';
+import { LocalAuthGuard } from './local-auth.guard';
 
 @Controller('auth')
 export class AuthController {

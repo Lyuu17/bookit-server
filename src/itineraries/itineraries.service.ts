@@ -1,10 +1,10 @@
 
-import { Model } from 'mongoose';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
 
-import { CreateItineraryDto } from './dto/create-itinerary.dto';
 import { UsersService } from 'src/users/users.service';
+import { CreateItineraryDto } from './dto/create-itinerary.dto';
 import { Itinerary, ItineraryDocument } from './schema/itinerary.schema';
 
 @Injectable()

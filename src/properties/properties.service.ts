@@ -1,10 +1,10 @@
-import { Model, isValidObjectId } from 'mongoose';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
+import { Model, isValidObjectId } from 'mongoose';
 
-import { PropertyDto } from './dto/property.dto';
 import { GeocodeService } from 'src/geocode/geocode.service';
 import { ItinerariesService } from 'src/itineraries/itineraries.service';
+import { PropertyDto } from './dto/property.dto';
 import { Property, PropertyDocument } from './schemas/property.schema';
 
 @Injectable()

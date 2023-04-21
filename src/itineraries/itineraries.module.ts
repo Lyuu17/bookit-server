@@ -2,8 +2,8 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 
-import { ItinerariesService } from './itineraries.service';
 import { UsersModule } from 'src/users/users.module';
+import { ItinerariesService } from './itineraries.service';
 import { Itinerary, ItinerarySchema } from './schema/itinerary.schema';
 
 @Module({

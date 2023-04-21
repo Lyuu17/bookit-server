@@ -1,6 +1,6 @@
 import { Controller, Get, Param } from '@nestjs/common';
-import { GeocodeService } from './geocode.service';
 import { ApiOkResponse } from '@nestjs/swagger';
+import { GeocodeService } from './geocode.service';
 
 import { GeocodeResponseDto } from './dto/geocode-response.dto';
 
