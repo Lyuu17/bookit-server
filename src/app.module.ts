@@ -37,10 +37,25 @@ import { ItinerariesConverter } from './itineraries/itineraries.converter';
         rootPath: join(__dirname, '..', config.get<string>('STATIC_DIR')),
         exclude: ['/api/(.*)']
       }]
-    }), AuthModule, GeocodeModule, PropertiesModule, UsersModule, ItinerariesModule
+    }),
+    AuthModule,
+    GeocodeModule,
+    PropertiesModule,
+    UsersModule,
+    ItinerariesModule
   ],
-  controllers: [AppController, AuthController, GeocodeController, PropertiesController, ItinerariesController],
-  providers: [AppService, UsersSeeder, PropertiesSeeder, PropertiesConverter, ItinerariesConverter],
+  controllers: [
+    AppController,
+    AuthController,
+    GeocodeController,
+    PropertiesController,
+    ItinerariesController],
+  providers: [
+    AppService,
+    UsersSeeder,
+    PropertiesSeeder,
+    PropertiesConverter,
+    ItinerariesConverter],
 })
 export class AppModule implements OnModuleInit {
   constructor(
