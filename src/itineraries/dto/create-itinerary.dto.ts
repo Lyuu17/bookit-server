@@ -28,4 +28,8 @@ export class CreateItineraryDto {
 
   @ApiProperty()
   readonly special_request: string;
+
+  constructor(partial: Partial<CreateItineraryDto>) {
+    Object.assign(this, partial);
+  }
 }
