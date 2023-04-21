@@ -4,7 +4,7 @@ import { Room, RoomSchema } from './room.schema';
 import { IsNotEmpty } from 'class-validator';
 import { Address, AddressSchema } from './address.schema';
 import { LocationCoords, LocationCoordsSchema } from './locationcoords.schema';
-import { User } from './user.schema';
+import { User } from '../../users/schemas/user.schema';
 import { Amenity, AmenitySchema } from './amenity.schema';
 import { Checkin, CheckinSchema } from './checkin.schema';
 

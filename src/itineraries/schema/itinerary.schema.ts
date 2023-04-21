@@ -1,8 +1,8 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument, SchemaTypes } from 'mongoose';
-import { Property } from './property.schema';
-import { User } from './user.schema';
-import { BedgroupConfig } from './bedgroupconfig.schema';
+import { Property } from '../../properties/schemas/property.schema';
+import { User } from '../../users/schemas/user.schema';
+import { BedgroupConfig } from '../../properties/schemas/bedgroupconfig.schema';
 import { IsDateString, Min } from 'class-validator';
 
 export type ItineraryDocument = HydratedDocument<Itinerary>;

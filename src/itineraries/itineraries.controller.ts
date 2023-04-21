@@ -2,9 +2,9 @@ import { Controller, Post, UseGuards, Body, Get, Req, Param } from '@nestjs/comm
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { ApiOkResponse } from '@nestjs/swagger';
 import { ItinerariesService } from './itineraries.service';
-import { Itinerary } from 'src/schemas/itinerary.schema';
 import { isValidObjectId } from 'mongoose';
 import { CreateItineraryDto } from './dto/create-itinerary.dto';
+import { Itinerary } from './schema/itinerary.schema';
 
 @Controller('itineraries')
 export class ItinerariesController {

@@ -4,8 +4,8 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 
 import { CreateItineraryDto } from './dto/create-itinerary.dto';
-import { Itinerary, ItineraryDocument } from 'src/schemas/itinerary.schema';
 import { UsersService } from 'src/users/users.service';
+import { Itinerary, ItineraryDocument } from './schema/itinerary.schema';
 
 @Injectable()
 export class ItinerariesService {
