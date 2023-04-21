@@ -15,8 +15,8 @@ export class Itinerary {
   @Prop({ type: SchemaTypes.ObjectId, ref: Property.name })
   property: Property;
 
-  @Prop({ type: SchemaTypes.ObjectId, ref: BedgroupConfig.name })
-  bed_group: string;
+  @Prop([{ type: SchemaTypes.ObjectId, ref: BedgroupConfig.name }])
+  bed_groups: [BedgroupConfig];
 
   @Prop({ type: SchemaTypes.Date })
   @IsDateString({ strict: true })

@@ -3,7 +3,6 @@ import { PropertiesService } from './properties.service';
 import { PropertyDto } from './dto/property.dto';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { ApiOkResponse } from '@nestjs/swagger';
-import { Property } from 'src/schemas/property.schema';
 
 @Controller('properties')
 export class PropertiesController {
