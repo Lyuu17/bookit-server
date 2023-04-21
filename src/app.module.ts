@@ -17,6 +17,7 @@ import { UsersSeeder } from './users/users.seeder';
 import { PropertiesSeeder } from './properties/properties.seeder';
 import { ItinerariesModule } from './itineraries/itineraries.module';
 import { ItinerariesController } from './itineraries/itineraries.controller';
+import { PropertiesConverter } from './properties/properties.converter';
 
 @Module({
   imports: [
@@ -38,7 +39,7 @@ import { ItinerariesController } from './itineraries/itineraries.controller';
     }), AuthModule, GeocodeModule, PropertiesModule, UsersModule, ItinerariesModule
   ],
   controllers: [AppController, AuthController, GeocodeController, PropertiesController, ItinerariesController],
-  providers: [AppService, UsersSeeder, PropertiesSeeder],
+  providers: [AppService, UsersSeeder, PropertiesSeeder, PropertiesConverter],
 })
 export class AppModule implements OnModuleInit {
   constructor(

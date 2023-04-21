@@ -3,18 +3,21 @@ import { PropertiesService } from './properties.service';
 import { PropertyDto } from './dto/property.dto';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { ApiOkResponse } from '@nestjs/swagger';
+import { PropertiesConverter } from './properties.converter';
 
 @Controller('properties')
 export class PropertiesController {
   constructor(
-    private readonly propertiesService: PropertiesService
+    private readonly propertiesService: PropertiesService,
+    private readonly propertiesConverter: PropertiesConverter
   ) { }
 
   @Get()
   @ApiOkResponse({ description: 'Get all properties', type: [PropertyDto] })
   async getAll(@Req() req) {
-    return (await this.propertiesService.findAll())
-      .map(prop => new PropertyDto(prop.toObject({ versionKey: false })));
+    return this.propertiesConverter.convertToDtoArray(
+      await this.propertiesService.findAll()
+    );
   }
 
   @Get('availability/')
@@ -22,34 +25,41 @@ export class PropertiesController {
   async getAllByAvailability(
     @Query('checkin') checkin: string,
     @Query('checkout') checkout: string) {
-    return (await this.propertiesService.findAllByAvailability(new Date(checkin), new Date(checkout)))
-      .map(prop => new PropertyDto(prop.toObject({ versionKey: false })));
+    return this.propertiesConverter.convertToDtoArray(
+      await this.propertiesService.findAllByAvailability(new Date(checkin), new Date(checkout))
+    );
   }
 
   @Get(':q')
   @ApiOkResponse({ description: 'Get one property', type: PropertyDto })
   async getOne(@Param('q') q: string) {
-    return new PropertyDto((await this.propertiesService.findOne(q)).toObject({ versionKey: false }));
+    return this.propertiesConverter.convertToDto(
+      await this.propertiesService.findOne(q)
+    );
   }
 
   @Get('city/:q')
   @ApiOkResponse({ description: 'Get properties based on the city', type: [PropertyDto] })
   async findByCity(@Param('q') q: string) {
-    return (await this.propertiesService.findByCity(q))
-      .map(prop => new PropertyDto(prop.toObject({ versionKey: false })));
+    return this.propertiesConverter.convertToDtoArray(
+      await this.propertiesService.findByCity(q)
+    );
   }
 
   @Get('country/:q')
   @ApiOkResponse({ description: 'Get properties based on the country', type: [PropertyDto] })
   async findByCountry(@Param('q') q: string) {
-    return (await this.propertiesService.findByCountry(q))
-      .map(prop => new PropertyDto(prop.toObject({ versionKey: false })));
+    return this.propertiesConverter.convertToDtoArray(
+      await this.propertiesService.findByCountry(q)
+    );
   }
 
   @UseGuards(JwtAuthGuard)
   @Post()
   @ApiOkResponse({ description: 'Add a property', type: PropertyDto })
   async addOne(@Body() propertyDto: PropertyDto) {
-    return new PropertyDto((await this.propertiesService.create(propertyDto)).toObject({ versionKey: false }));
+    return this.propertiesConverter.convertToDto(
+      await this.propertiesService.create(propertyDto)
+    );
   }
 }
