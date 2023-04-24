@@ -29,8 +29,10 @@ export class PropertiesService {
     return this.propertyModel.find().exec();
   }
 
-  async findAllByAvailability(checkin: Date, checkout: Date): Promise<PropertyDocument[] | null> {
-    const itineraries = await this.itinerariesService.findAllBetweenDates(checkin, checkout);
+  async findOneOrAllByAvailability(checkin: Date, checkout: Date, id?: string): Promise<PropertyDocument[] | null> {
+    const itineraries = typeof id === 'undefined'
+      ? await this.itinerariesService.findAllBetweenDates(checkin, checkout)
+      : await this.itinerariesService.findAllBetweenDatesWithinProperty(id, checkin, checkout);
 
     /* store bed configuration as key: id, value: array */
     const bedconfigs = {};
@@ -41,7 +43,9 @@ export class PropertiesService {
       });
     });
 
-    const propertyModels = await this.propertyModel.find().exec();
+    const propertyModels = typeof id === 'undefined'
+      ? await this.findAll()
+      : [await this.findOne(id)];
 
     // update availability based on itineraries
     propertyModels.forEach(prop => {

@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post, Query, Req, UseGuards } from '@nestjs/common';
+import { BadRequestException, Body, Controller, Get, Param, Post, Query, Req, UseGuards } from '@nestjs/common';
 import { ApiOkResponse } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { Role } from 'src/enums/role.enum';
@@ -27,9 +27,10 @@ export class PropertiesController {
   @ApiOkResponse({ description: 'Get all properties by availability', type: [PropertyDto] })
   async getAllByAvailability(
     @Query('checkin') checkin: string,
-    @Query('checkout') checkout: string) {
+    @Query('checkout') checkout: string
+  ) {
     return this.propertiesConverter.convertToDtoArray(
-      await this.propertiesService.findAllByAvailability(new Date(checkin), new Date(checkout))
+      await this.propertiesService.findOneOrAllByAvailability(new Date(checkin), new Date(checkout))
     );
   }
 
@@ -39,6 +40,21 @@ export class PropertiesController {
     return this.propertiesConverter.convertToDto(
       await this.propertiesService.findOne(q)
     );
+  }
+
+  @Get('availability/:q')
+  @ApiOkResponse({ description: 'Get one property by availability', type: PropertyDto })
+  async getOneByAvailability(
+    @Param('q') q: string,
+    @Query('checkin') checkin: string,
+    @Query('checkout') checkout: string
+  ) {
+    const properties = await this.propertiesService.findOneOrAllByAvailability(new Date(checkin), new Date(checkout), q);
+    if (properties.length < 1) {
+      throw new BadRequestException('Invalid property id');
+    }
+
+    return properties[0];
   }
 
   @Get('city/:q')
