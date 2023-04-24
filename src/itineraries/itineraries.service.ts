@@ -1,5 +1,5 @@
 
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 
@@ -17,6 +17,13 @@ export class ItinerariesService {
   ) { }
 
   async create(createItineraryDto: CreateItineraryDto, userId: string): Promise<ItineraryDocument> {
+    const itineraries
+      = await this.findAllBetweenDatesWithinProperty(createItineraryDto.property, new Date(createItineraryDto.checkin), new Date(createItineraryDto.checkout));
+
+    if (itineraries.length > 0) {
+      throw new BadRequestException('Invalid checkin/checkout date.');
+    }
+
     const itinerary = new this.itineraryModel(createItineraryDto);
     itinerary.user = await this.usersService.findById(userId);
     return await itinerary.save();
@@ -32,13 +39,29 @@ export class ItinerariesService {
 
   /* https://stackoverflow.com/a/32149021 */
   async findAllBetweenDates(checkin: Date, checkout: Date): Promise<ItineraryDocument[]> {
-    return this.itineraryModel.find({ $or: [
-      { checkin : { $lte: checkin.toUTCString() }, checkout : { $gt: checkin.toUTCString() } },
-      { checkin : { $lt: checkout.toUTCString() }, checkout : { $gte: checkout.toUTCString() } },
-      { checkin : { $gt: checkin.toUTCString() }, checkout : { $lt: checkout.toUTCString() } },
-      { checkin : checkin.toUTCString()},
-      { checkout : checkout.toUTCString()}
-    ]}).exec();
+    return this.itineraryModel.find({
+      $or: [
+        { checkin: { $lte: checkin.toUTCString() }, checkout: { $gt: checkin.toUTCString() } },
+        { checkin: { $lt: checkout.toUTCString() }, checkout: { $gte: checkout.toUTCString() } },
+        { checkin: { $gt: checkin.toUTCString() }, checkout: { $lt: checkout.toUTCString() } },
+        { checkin: checkin.toUTCString() },
+        { checkout: checkout.toUTCString() }
+      ]
+    }).exec();
+  }
+
+  async findAllBetweenDatesWithinProperty(id: string, checkin: Date, checkout: Date): Promise<ItineraryDocument[]> {
+    return this.itineraryModel.find({
+      $and: [{
+        $or: [
+          { checkin: { $lte: checkin.toUTCString() }, checkout: { $gt: checkin.toUTCString() } },
+          { checkin: { $lt: checkout.toUTCString() }, checkout: { $gte: checkout.toUTCString() } },
+          { checkin: { $gt: checkin.toUTCString() }, checkout: { $lt: checkout.toUTCString() } },
+          { checkin: checkin.toUTCString() },
+          { checkout: checkout.toUTCString() }
+        ]
+      }, { property: id }]
+    }).exec();
   }
 
   async findAllByUserId(id: string): Promise<ItineraryDocument[]> {
