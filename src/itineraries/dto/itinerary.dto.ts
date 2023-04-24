@@ -1,6 +1,6 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { Transform } from "class-transformer";
-import { IsDateString, IsNotEmpty, Min } from "class-validator";
+import { IsArray, IsDateString, IsMongoId, IsNotEmpty, Min } from "class-validator";
 
 export class ItineraryDto {
   @Transform(({ value }) => value.toString())
@@ -12,7 +12,9 @@ export class ItineraryDto {
 
   @ApiProperty()
   @IsNotEmpty()
-  readonly bed_group: string;
+  @IsArray()
+  @IsMongoId({ each: true })
+  readonly bed_groups: string;
 
   @ApiProperty()
   @IsDateString({ strict: true })
