@@ -4,6 +4,9 @@
     "password": "testing",
     "firstName": "firstname",
     "lastName": "lastName",
-    "birthdate": "2000-01-31"
+    "birthdate": "2000-01-31",
+    "roles": [
+      "Admin"
+    ]
   }
 ]
