@@ -31,8 +31,37 @@ export class PropertiesService {
 
   async findAllByAvailability(checkin: Date, checkout: Date): Promise<PropertyDocument[] | null> {
     const itineraries = await this.itinerariesService.findAllBetweenDates(checkin, checkout);
-    const propertyIds = itineraries.map(itinerary => itinerary.property);
-    return this.propertyModel.find({ _id: { $nin: propertyIds } }).exec();
+
+    /* store bed configuration as key: id, value: array */
+    const bedconfigs = {};
+    itineraries.forEach(itinerary => {
+      itinerary.bed_groups.forEach(bedgroupConfig => {
+        bedconfigs[bedgroupConfig._id.toString()] ||= [];
+        bedconfigs[bedgroupConfig._id.toString()] = [...bedconfigs[bedgroupConfig._id.toString()], itinerary];
+      });
+    });
+
+    const propertyModels = await this.propertyModel.find().exec();
+
+    // update availability based on itineraries
+    propertyModels.forEach(prop => {
+      prop.rooms.forEach(room => {
+        room.bed_groups.forEach(bedgroup => {
+          bedgroup.configuration.forEach(bedgroupConfig => {
+            if (bedgroupConfig._id.toString() in bedconfigs)
+              bedgroupConfig.quantity = bedgroupConfig.quantity - bedconfigs[bedgroupConfig._id.toString()].length; // update quantity
+          });
+        });
+      });
+    });
+
+    return propertyModels
+      .filter(prop => prop.rooms
+        .filter(room => room.bed_groups
+          .filter(bedgroup => bedgroup.configuration
+            .filter(bedgroupConfig => bedgroupConfig.quantity == 0).length == 0
+            ).length == 0
+          ).length == 0);
   }
 
   async findOne(id: string): Promise<PropertyDocument | null> {
