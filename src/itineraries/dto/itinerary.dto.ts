@@ -7,6 +7,10 @@ export class ItineraryDto {
   readonly _id?: string;
 
   @ApiProperty()
+  @Type(() => String)
+  readonly user: string;
+
+  @ApiProperty()
   @IsNotEmpty()
   @Type(() => String)
   readonly property: string;
