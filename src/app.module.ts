@@ -49,13 +49,15 @@ import { UsersSeeder } from './users/users.seeder';
     AuthController,
     GeocodeController,
     PropertiesController,
-    ItinerariesController],
+    ItinerariesController
+  ],
   providers: [
     AppService,
     UsersSeeder,
     PropertiesSeeder,
     PropertiesConverter,
-    ItinerariesConverter],
+    ItinerariesConverter
+  ],
 })
 export class AppModule implements OnModuleInit {
   constructor(
