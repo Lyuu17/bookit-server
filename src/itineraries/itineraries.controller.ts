@@ -2,41 +2,50 @@ import { Body, Controller, Get, Param, Post, Req, UseGuards } from '@nestjs/comm
 import { ApiOkResponse } from '@nestjs/swagger';
 import { isValidObjectId } from 'mongoose';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
-import { CreateItineraryDto } from './dto/create-itinerary.dto';
+import { ItineraryDto } from './dto/itinerary.dto';
+import { ItinerariesConverter } from './itineraries.converter';
 import { ItinerariesService } from './itineraries.service';
-import { Itinerary } from './schema/itinerary.schema';
 
 @Controller('itineraries')
 export class ItinerariesController {
   constructor(
-    private readonly itinerariesService: ItinerariesService
+    private readonly itinerariesService: ItinerariesService,
+    private readonly itinerariesConverter: ItinerariesConverter
   ) { }
 
   @UseGuards(JwtAuthGuard)
   @Get()
-  @ApiOkResponse({ description: 'Get all itineraries of the current user', type: [Itinerary] })
+  @ApiOkResponse({ description: 'Get all itineraries of the current user', type: [ItineraryDto] })
   async getAll(@Req() req) {
-    return this.itinerariesService.findAllByUserId(req.user.userId);
+    return this.itinerariesConverter.convertToDtoArray(
+      await this.itinerariesService.findAllByUserId(req.user.userId)
+    );
   }
 
   @UseGuards(JwtAuthGuard)
   @Get('user/:q')
-  @ApiOkResponse({ description: 'Get all itineraries by user id', type: [Itinerary] })
+  @ApiOkResponse({ description: 'Get all itineraries by user id', type: [ItineraryDto] })
   async getAllByUserId(@Param('q') q: string) {
-    return isValidObjectId(q) ? this.itinerariesService.findAllByUserId(q) : [];
+    return isValidObjectId(q)
+      ? this.itinerariesConverter.convertToDtoArray(await this.itinerariesService.findAllByUserId(q))
+      : [];
   }
 
   @UseGuards(JwtAuthGuard)
   @Get('property/:q')
-  @ApiOkResponse({ description: 'Get all itineraries by property id', type: [Itinerary] })
+  @ApiOkResponse({ description: 'Get all itineraries by property id', type: [ItineraryDto] })
   async getAllByPropertyId(@Param('q') q: string) {
-    return isValidObjectId(q) ? this.itinerariesService.findAllByPropertyId(q) : [];
+    return isValidObjectId(q)
+      ? this.itinerariesConverter.convertToDtoArray(await this.itinerariesService.findAllByPropertyId(q))
+      : [];
   }
 
   @UseGuards(JwtAuthGuard)
   @Post()
-  @ApiOkResponse({ description: 'Add an itinerary', type: Itinerary })
-  async addOne(@Body() createItineraryDto: CreateItineraryDto, @Req() req) {
-    return this.itinerariesService.create(createItineraryDto, req.user?.userId);
+  @ApiOkResponse({ description: 'Add an itinerary', type: ItineraryDto })
+  async addOne(@Body() itineraryDto: ItineraryDto, @Req() req) {
+    return this.itinerariesConverter.convertToDto(
+      await this.itinerariesService.create(itineraryDto, req.user?.userId)
+    );
   }
 }

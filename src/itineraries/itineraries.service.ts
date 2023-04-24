@@ -4,7 +4,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 
 import { UsersService } from 'src/users/users.service';
-import { CreateItineraryDto } from './dto/create-itinerary.dto';
+import { ItineraryDto } from './dto/itinerary.dto';
 import { Itinerary, ItineraryDocument } from './schema/itinerary.schema';
 
 @Injectable()
@@ -16,15 +16,15 @@ export class ItinerariesService {
     private usersService: UsersService
   ) { }
 
-  async create(createItineraryDto: CreateItineraryDto, userId: string): Promise<ItineraryDocument> {
+  async create(itineraryDto: ItineraryDto, userId: string): Promise<ItineraryDocument> {
     const itineraries
-      = await this.findAllBetweenDatesWithinProperty(createItineraryDto.property, new Date(createItineraryDto.checkin), new Date(createItineraryDto.checkout));
+      = await this.findAllBetweenDatesWithinProperty(itineraryDto.property, new Date(itineraryDto.checkin), new Date(itineraryDto.checkout));
 
     if (itineraries.length > 0) {
       throw new BadRequestException('Invalid checkin/checkout date.');
     }
 
-    const itinerary = new this.itineraryModel(createItineraryDto);
+    const itinerary = new this.itineraryModel(itineraryDto);
     itinerary.user = await this.usersService.findById(userId);
     return await itinerary.save();
   }
