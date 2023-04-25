@@ -10,6 +10,23 @@ bookit-server is a travel agency API backend
 $ npm install
 ```
 
+## Environment Variables
+
+```properties
+# Environment used. Use 'dev' to populate the db with default data
+DEV_ENV=dev
+# Port to be used
+PORT=3005
+# MongoDB URI
+MONGODB_URI=mongodb://mongouser:mongopassword@127.0.0.1
+# JWT Secret for auth. It can be generated on https://jwt.io/ site
+JWT_SECRET=
+# Geocode provider
+GEOCODE_PROVIDER=openstreetmap
+# Static folder where to the SPA
+STATIC_DIR=../client/dist
+```
+
 ## Running the app
 
 ```bash
