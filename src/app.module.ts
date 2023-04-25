@@ -35,7 +35,7 @@ import { UsersSeeder } from './users/users.seeder';
       inject: [ConfigService],
       useFactory: async (config: ConfigService) => [{
         rootPath: join(__dirname, '..', config.get<string>('STATIC_DIR')),
-        exclude: ['/api/(.*)']
+        exclude: ['/api/(.*)', '/public/(.*)']
       }]
     }),
     AuthModule,
