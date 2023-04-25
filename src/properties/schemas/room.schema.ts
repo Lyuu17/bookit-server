@@ -1,9 +1,9 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { HydratedDocument } from 'mongoose';
-import { Rate, RateSchema } from './rate.schema';
 import { IsNotEmpty } from 'class-validator';
-import { AmenitySchema, Amenity } from './amenity.schema';
-import { BedgroupSchema, Bedgroup } from './bedgroup.schema';
+import { HydratedDocument } from 'mongoose';
+import { Amenity, AmenitySchema } from './amenity.schema';
+import { Bedgroup, BedgroupSchema } from './bedgroup.schema';
+import { Image, ImageSchema } from './image.schema';
 
 export type RoomDocument = HydratedDocument<Room>;
 
@@ -18,6 +18,9 @@ export class Room {
 
   @Prop([{ type: BedgroupSchema }])
   bed_groups: Bedgroup[];
+
+  @Prop([{ type: ImageSchema }])
+  images: Image[];
 
   /*
   @Prop([{ type: RateSchema }])

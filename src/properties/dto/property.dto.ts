@@ -1,10 +1,11 @@
-import { IsNotEmpty, IsPhoneNumber, ValidateNested } from "class-validator";
-import { Exclude, Transform, Type } from "class-transformer";
 import { ApiProperty } from "@nestjs/swagger";
+import { Exclude, Transform, Type } from "class-transformer";
+import { IsNotEmpty, IsPhoneNumber, ValidateNested } from "class-validator";
 import { CreateUserDto } from "src/users/dto/create-user.dto";
 import { AddressDto } from "./address.dto";
 import { AmenityDto } from "./amenity.dto";
 import { CheckinDto } from "./checkin.dto";
+import { ImageDto } from "./image.dto";
 import { LocationCoordsDto } from "./locationcoords.dto";
 import { RoomDto } from "./room.dto";
 
@@ -52,6 +53,12 @@ export class PropertyDto {
   @ValidateNested({ each: true })
   @Type(() => RoomDto)
   readonly rooms: RoomDto[];
+
+  @ApiProperty()
+  @IsNotEmpty()
+  @ValidateNested({ each: true })
+  @Type(() => ImageDto)
+  readonly images: ImageDto[];
 
   constructor(partial: Partial<PropertyDto>) {
     Object.assign(this, partial);
