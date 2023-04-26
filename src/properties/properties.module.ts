@@ -6,6 +6,7 @@ import { ConfigModule } from '@nestjs/config';
 import { GeocodeModule } from 'src/geocode/geocode.module';
 import { ItinerariesModule } from 'src/itineraries/itineraries.module';
 import { PropertiesService } from './properties.service';
+import { Image } from './schemas/image.schema';
 import { Property, PropertySchema } from './schemas/property.schema';
 
 @Module({
@@ -13,6 +14,13 @@ import { Property, PropertySchema } from './schemas/property.schema';
     MongooseModule.forFeatureAsync([
       {
         name: Property.name,
+        useFactory: () => {
+          const schema = PropertySchema;
+          return schema;
+        },
+      },
+      {
+        name: Image.name,
         useFactory: () => {
           const schema = PropertySchema;
           return schema;

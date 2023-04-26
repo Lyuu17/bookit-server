@@ -2,13 +2,13 @@ import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, isValidObjectId } from 'mongoose';
 
-import { ConfigService } from '@nestjs/config';
 import { rm } from 'fs';
-import { join, parse, relative } from 'path';
+import { join, relative } from 'path';
 import { GeocodeService } from 'src/geocode/geocode.service';
 import { ItinerariesService } from 'src/itineraries/itineraries.service';
 import { ImageDto } from './dto/image.dto';
 import { PropertyDto } from './dto/property.dto';
+import { Image, ImageDocument } from './schemas/image.schema';
 import { Property, PropertyDocument } from './schemas/property.schema';
 
 @Injectable()
@@ -16,9 +16,10 @@ export class PropertiesService {
   constructor(
     @InjectModel(Property.name)
     private propertyModel: Model<PropertyDocument>,
+    @InjectModel(Image.name)
+    private imageModel: Model<ImageDocument>,
     private readonly itinerariesService: ItinerariesService,
-    private readonly geocodeService: GeocodeService,
-    private readonly configService: ConfigService
+    private readonly geocodeService: GeocodeService
   ) { }
 
   async create(propertyDto: PropertyDto): Promise<PropertyDocument | null> {
@@ -69,8 +70,8 @@ export class PropertiesService {
         .filter(room => room.bed_groups
           .filter(bedgroup => bedgroup.configuration
             .filter(bedgroupConfig => bedgroupConfig.quantity == 0).length == 0
-            ).length == 0
-          ).length == 0);
+          ).length == 0
+        ).length == 0);
   }
 
   async findOne(id: string): Promise<PropertyDocument | null> {
@@ -121,13 +122,15 @@ export class PropertiesService {
       throw new BadRequestException('Property not found');
     }
 
+    const imageDoc = new this.imageModel({});
+
     const imageDtoWithLink = new ImageDto({
       ...imageDto,
-      image_id: parse(file.filename).name,
+      _id: imageDoc._id.toString(),
       link: join(relative(process.cwd(), file.destination), file.filename)
     });
 
-    await this.propertyModel.findByIdAndUpdate(propertyId, { $addToSet: { images: imageDtoWithLink } }, { new: true }).exec();
+    await this.propertyModel.findOneAndUpdate({ _id: propertyId }, { $addToSet: { images: imageDtoWithLink } }, { new: true }).exec();
 
     return imageDtoWithLink;
   }
@@ -138,13 +141,13 @@ export class PropertiesService {
       throw new BadRequestException('Property not found');
     }
 
-    const images = property.images.filter(image => image.image_id == imageId);
+    const images = property.images.filter(image => image._id == imageId);
     if (images.length == 0) {
       throw new BadRequestException('Image not found');
     }
 
-    this.propertyModel.findByIdAndUpdate(propertyId, { $pull: { images: { image_id: images[0].image_id } } }, { new: true }).exec();
+    await this.propertyModel.findByIdAndUpdate(propertyId, { $pull: { images: { _id: images[0]._id } } }, { new: true }).exec();
 
-    rm(join(process.cwd(), images[0].link), () => {});
+    rm(join(process.cwd(), images[0].link), () => { });
   }
 }

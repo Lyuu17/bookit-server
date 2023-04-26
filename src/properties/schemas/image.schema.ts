@@ -7,7 +7,7 @@ export type ImageDocument = HydratedDocument<Image>;
 @Schema()
 export class Image {
   @Prop()
-  image_id: string;
+  _id: string;
 
   @Prop()
   @IsNotEmpty()

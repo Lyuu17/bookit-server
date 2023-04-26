@@ -9,6 +9,9 @@ export type RoomDocument = HydratedDocument<Room>;
 
 @Schema()
 export class Room {
+  @Prop()
+  _id: string;
+
   @Prop({ required: true })
   @IsNotEmpty()
   name: string;

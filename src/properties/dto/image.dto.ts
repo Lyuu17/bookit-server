@@ -3,7 +3,7 @@ import { IsNotEmpty } from "class-validator";
 
 export class ImageDto {
   @ApiProperty()
-  readonly image_id?: string;
+  readonly _id?: string;
 
   @ApiProperty()
   @IsNotEmpty()
