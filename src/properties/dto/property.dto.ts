@@ -1,5 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { Exclude, Transform, Type } from "class-transformer";
+import { Exclude, Expose, Transform, Type } from "class-transformer";
 import { IsNotEmpty, IsPhoneNumber, ValidateNested } from "class-validator";
 import { CreateUserDto } from "src/users/dto/create-user.dto";
 import { AddressDto } from "./address.dto";
@@ -10,7 +10,9 @@ import { LocationCoordsDto } from "./locationcoords.dto";
 import { RoomDto } from "./room.dto";
 
 export class PropertyDto {
-  @Transform(({ value }) => value.toString())
+  @ApiProperty()
+  @Transform(({ value }) => value?.toString())
+  @Expose({ name: 'id' })
   readonly _id?: string;
 
   @ApiProperty()

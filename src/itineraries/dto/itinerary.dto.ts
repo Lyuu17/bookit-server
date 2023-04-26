@@ -1,9 +1,11 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { Transform, Type } from "class-transformer";
+import { Expose, Transform, Type } from "class-transformer";
 import { IsArray, IsDateString, IsMongoId, IsNotEmpty, Min } from "class-validator";
 
 export class ItineraryDto {
-  @Transform(({ value }) => value.toString())
+  @ApiProperty()
+  @Transform(({ value }) => value?.toString())
+  @Expose({ name: 'id' })
   readonly _id?: string;
 
   @ApiProperty()

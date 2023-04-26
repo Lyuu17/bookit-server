@@ -3,8 +3,8 @@ import { Exclude, Transform } from "class-transformer";
 import { IsNotEmpty, Min } from "class-validator";
 
 export class CheckinDto {
+  @Transform(({ value }) => value?.toString())
   @Exclude()
-  @Transform(({ value }) => value.toString())
   readonly _id?: string;
 
   @ApiProperty()

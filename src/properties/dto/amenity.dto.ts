@@ -4,7 +4,8 @@ import { IsEnum, IsNotEmpty } from "class-validator";
 import { AmenityCategories } from "src/enums/amenity-categories.enum";
 
 export class AmenityDto {
-  @Transform(({ value }) => value.toString())
+  @ApiProperty()
+  @Transform(({ value }) => value?.toString())
   @Exclude()
   readonly _id?: string;
 
