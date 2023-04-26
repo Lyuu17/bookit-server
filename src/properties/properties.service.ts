@@ -1,9 +1,13 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, isValidObjectId } from 'mongoose';
 
+import { ConfigService } from '@nestjs/config';
+import { rm } from 'fs';
+import { join, parse, relative } from 'path';
 import { GeocodeService } from 'src/geocode/geocode.service';
 import { ItinerariesService } from 'src/itineraries/itineraries.service';
+import { ImageDto } from './dto/image.dto';
 import { PropertyDto } from './dto/property.dto';
 import { Property, PropertyDocument } from './schemas/property.schema';
 
@@ -13,7 +17,8 @@ export class PropertiesService {
     @InjectModel(Property.name)
     private propertyModel: Model<PropertyDocument>,
     private readonly itinerariesService: ItinerariesService,
-    private readonly geocodeService: GeocodeService
+    private readonly geocodeService: GeocodeService,
+    private readonly configService: ConfigService
   ) { }
 
   async create(propertyDto: PropertyDto): Promise<PropertyDocument | null> {
@@ -108,5 +113,38 @@ export class PropertiesService {
     return isValidObjectId(propertyId)
       ? (await this.propertyModel.findById(propertyId).populate('adminUsers')).adminUsers
       : null;
+  }
+
+  async uploadPropertyImage(propertyId: string, imageDto: ImageDto, file: Express.Multer.File): Promise<ImageDto> {
+    const property = await this.propertyModel.findById(propertyId);
+    if (property == null) {
+      throw new BadRequestException('Property not found');
+    }
+
+    const imageDtoWithLink = new ImageDto({
+      ...imageDto,
+      image_id: parse(file.filename).name,
+      link: join(relative(process.cwd(), file.destination), file.filename)
+    });
+
+    await this.propertyModel.findByIdAndUpdate(propertyId, { $addToSet: { images: imageDtoWithLink } }, { new: true }).exec();
+
+    return imageDtoWithLink;
+  }
+
+  async deletePropertyImage(propertyId: string, imageId: string) {
+    const property = await this.propertyModel.findById(propertyId);
+    if (property == null) {
+      throw new BadRequestException('Property not found');
+    }
+
+    const images = property.images.filter(image => image.image_id == imageId);
+    if (images.length == 0) {
+      throw new BadRequestException('Image not found');
+    }
+
+    this.propertyModel.findByIdAndUpdate(propertyId, { $pull: { images: { image_id: images[0].image_id } } }, { new: true }).exec();
+
+    rm(join(process.cwd(), images[0].link), () => {});
   }
 }

@@ -7,6 +7,9 @@ export type ImageDocument = HydratedDocument<Image>;
 @Schema()
 export class Image {
   @Prop()
+  image_id: string;
+
+  @Prop()
   @IsNotEmpty()
   caption: string;
 

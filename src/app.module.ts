@@ -33,10 +33,18 @@ import { UsersSeeder } from './users/users.seeder';
     ServeStaticModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
-      useFactory: async (config: ConfigService) => [{
-        rootPath: join(__dirname, '..', config.get<string>('STATIC_DIR')),
-        exclude: ['/api/(.*)', '/public/(.*)']
-      }]
+      useFactory: async (config: ConfigService) => [
+        {
+          rootPath: join(__dirname, '..', config.get<string>('STATIC_DIR')),
+          exclude: ['/api/(.*)'],
+          renderPath: '/'
+        },
+        {
+          rootPath: join(__dirname, '..', config.get<string>('PUBLIC_DIR')),
+          exclude: ['/public/(.*)'],
+          serveRoot: '/public',
+        }
+      ]
     }),
     AuthModule,
     GeocodeModule,

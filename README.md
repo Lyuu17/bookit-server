@@ -25,6 +25,8 @@ JWT_SECRET=
 GEOCODE_PROVIDER=openstreetmap
 # Static folder where to the SPA
 STATIC_DIR=../client/dist
+# Public folder where static assets are saved
+PUBLIC_DIR=public/
 ```
 
 ## Running the app

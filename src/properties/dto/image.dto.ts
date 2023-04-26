@@ -3,13 +3,19 @@ import { IsNotEmpty } from "class-validator";
 
 export class ImageDto {
   @ApiProperty()
-  @IsNotEmpty()
-  caption: string;
-
-  @ApiProperty()
-  hero_image: boolean;
+  readonly image_id?: string;
 
   @ApiProperty()
   @IsNotEmpty()
-  link: string;
+  readonly caption: string;
+
+  @ApiProperty()
+  readonly hero_image: boolean;
+
+  @ApiProperty()
+  readonly link: string;
+
+  constructor(partial: Partial<ImageDto>) {
+    Object.assign(this, partial);
+  }
 }
