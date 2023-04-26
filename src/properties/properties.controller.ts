@@ -1,4 +1,4 @@
-import { BadRequestException, Body, Controller, Delete, Get, Param, Post, Query, Req, UploadedFile, UseGuards, UseInterceptors } from '@nestjs/common';
+import { BadRequestException, Body, Controller, Delete, Get, Param, Post, Put, Query, Req, UploadedFile, UseGuards, UseInterceptors } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ApiBadRequestResponse, ApiOkResponse } from '@nestjs/swagger';
 import { existsSync, mkdirSync } from 'fs';
@@ -134,5 +134,35 @@ export class PropertiesController {
     @Param('image') imageId: string
   ) {
     return this.propertiesService.deletePropertyImage(propertyId, imageId);
+  }
+
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(Role.PROPERTY_OWNER)
+  @Put('room/image/:property/:room/:image')
+  @ApiOkResponse({ description: 'Add a property image to a room' })
+  @ApiBadRequestResponse({ description: 'Invalid property' })
+  @ApiBadRequestResponse({ description: 'Invalid room' })
+  @ApiBadRequestResponse({ description: 'Invalid image' })
+  async addRoomImage(
+    @Param('property') propertyId: string,
+    @Param('room') roomId: string,
+    @Param('image') imageId: string
+  ) {
+    return this.propertiesService.addRoomImage(propertyId, roomId, imageId);
+  }
+
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(Role.PROPERTY_OWNER)
+  @Delete('room/image/:property/:room/:image')
+  @ApiOkResponse({ description: 'Remove a property image from a room' })
+  @ApiBadRequestResponse({ description: 'Invalid property' })
+  @ApiBadRequestResponse({ description: 'Invalid room' })
+  @ApiBadRequestResponse({ description: 'Invalid image' })
+  async removeRoomImage(
+    @Param('property') propertyId: string,
+    @Param('room') roomId: string,
+    @Param('image') imageId: string
+  ) {
+    return this.propertiesService.removeRoomImage(propertyId, roomId, imageId);
   }
 }

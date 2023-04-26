@@ -150,4 +150,48 @@ export class PropertiesService {
 
     rm(join(process.cwd(), images[0].link), () => { });
   }
+
+  async addRoomImage(propertyId: string, roomId: string, imageId: string) {
+    const property = await this.propertyModel.findById(propertyId);
+    if (property == null) {
+      throw new BadRequestException('Property not found');
+    }
+
+    const rooms = property.rooms.filter(room => room._id == roomId);
+    if (rooms.length == 0) {
+      throw new BadRequestException('Room not found');
+    }
+
+    const images = property.images.filter(image => image._id == imageId);
+    if (images.length == 0) {
+      throw new BadRequestException('Image not found');
+    }
+
+    await this.propertyModel.findOneAndUpdate(
+      { _id: propertyId, 'rooms.name': rooms[0].name },
+      { $addToSet: { 'rooms.$.images': imageId }})
+      .exec();
+  }
+
+  async removeRoomImage(propertyId: string, roomId: string, imageId: string) {
+    const property = await this.propertyModel.findById(propertyId);
+    if (property == null) {
+      throw new BadRequestException('Property not found');
+    }
+
+    const rooms = property.rooms.filter(room => room._id == roomId);
+    if (rooms.length == 0) {
+      throw new BadRequestException('Room not found');
+    }
+
+    const images = property.images.filter(image => image._id == imageId);
+    if (images.length == 0) {
+      throw new BadRequestException('Image not found');
+    }
+
+    await this.propertyModel.findOneAndUpdate(
+      { _id: propertyId, 'rooms.name': rooms[0].name },
+      { $pull: { 'rooms.$.images': imageId }})
+      .exec();
+  }
 }
