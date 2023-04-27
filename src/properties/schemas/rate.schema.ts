@@ -1,9 +1,9 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { IsEnum, IsNotEmpty, Min } from 'class-validator';
-import { HydratedDocument } from 'mongoose';
-import { AmenitySchema, Amenity } from './amenity.schema';
-import { Bedgroup, BedgroupSchema } from './bedgroup.schema';
+import { HydratedDocument, Types } from 'mongoose';
 import { RateStatus } from 'src/enums/rate-status.enum';
+import { Amenity, AmenitySchema } from './amenity.schema';
+import { Bedgroup, BedgroupSchema } from './bedgroup.schema';
 
 export type RateDocument = HydratedDocument<Rate>;
 
@@ -22,10 +22,10 @@ export class Rate {
   refundable: boolean;
 
   @Prop([{ type: AmenitySchema }])
-  amenities: Amenity[];
+  amenities: Types.DocumentArray<Amenity>;
 
   @Prop([{ type: BedgroupSchema }])
-  bed_groups: Bedgroup[];
+  bed_groups: Types.DocumentArray<Bedgroup>;
 }
 
 export const RateSchema = SchemaFactory.createForClass(Rate);

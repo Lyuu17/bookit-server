@@ -1,6 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { IsNotEmpty } from 'class-validator';
-import { HydratedDocument, SchemaTypes, now } from 'mongoose';
+import { HydratedDocument, SchemaTypes, Types, now } from 'mongoose';
 import { User } from '../../users/schemas/user.schema';
 import { Address, AddressSchema } from './address.schema';
 import { Amenity, AmenitySchema } from './amenity.schema';
@@ -33,7 +33,7 @@ export class Property {
   createdAt: string;
 
   @Prop([{ type: SchemaTypes.ObjectId, ref: User.name }])
-  adminUsers: [User];
+  adminUsers: Types.DocumentArray<User>;
 
   @Prop({ default: 0 })
   rating: number;
@@ -43,13 +43,13 @@ export class Property {
   checkin: Checkin;
 
   @Prop([{ type: AmenitySchema }])
-  amenities: Amenity[];
+  amenities: Types.DocumentArray<Amenity>;
 
   @Prop([{ type: RoomSchema }])
-  rooms: Room[];
+  rooms: Types.DocumentArray<Room>;
 
   @Prop([{ type: ImageSchema }])
-  images: Image[];
+  images: Types.DocumentArray<Image>;
 }
 
 export const PropertySchema = SchemaFactory.createForClass(Property);

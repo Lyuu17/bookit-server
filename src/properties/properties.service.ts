@@ -8,7 +8,6 @@ import { GeocodeService } from 'src/geocode/geocode.service';
 import { ItinerariesService } from 'src/itineraries/itineraries.service';
 import { ImageDto } from './dto/image.dto';
 import { PropertyDto } from './dto/property.dto';
-import { Image, ImageDocument } from './schemas/image.schema';
 import { Property, PropertyDocument } from './schemas/property.schema';
 
 @Injectable()
@@ -16,8 +15,6 @@ export class PropertiesService {
   constructor(
     @InjectModel(Property.name)
     private propertyModel: Model<PropertyDocument>,
-    @InjectModel(Image.name)
-    private imageModel: Model<ImageDocument>,
     private readonly itinerariesService: ItinerariesService,
     private readonly geocodeService: GeocodeService
   ) { }
@@ -44,8 +41,8 @@ export class PropertiesService {
     const bedconfigs = {};
     itineraries.forEach(itinerary => {
       itinerary.bed_groups.forEach(bedgroupConfig => {
-        bedconfigs[bedgroupConfig._id.toString()] ||= [];
-        bedconfigs[bedgroupConfig._id.toString()] = [...bedconfigs[bedgroupConfig._id.toString()], itinerary];
+        bedconfigs[bedgroupConfig.id.toString()] ||= [];
+        bedconfigs[bedgroupConfig.id.toString()] = [...bedconfigs[bedgroupConfig.id.toString()], itinerary];
       });
     });
 
@@ -58,8 +55,8 @@ export class PropertiesService {
       prop.rooms.forEach(room => {
         room.bed_groups.forEach(bedgroup => {
           bedgroup.configuration.forEach(bedgroupConfig => {
-            if (bedgroupConfig._id.toString() in bedconfigs)
-              bedgroupConfig.quantity = bedgroupConfig.quantity - bedconfigs[bedgroupConfig._id.toString()].length; // update quantity
+            if (bedgroupConfig.id.toString() in bedconfigs)
+              bedgroupConfig.quantity = bedgroupConfig.quantity - bedconfigs[bedgroupConfig.id.toString()].length; // update quantity
           });
         });
       });
@@ -122,11 +119,8 @@ export class PropertiesService {
       throw new BadRequestException('Property not found');
     }
 
-    const imageDoc = new this.imageModel({});
-
     const imageDtoWithLink = new ImageDto({
       ...imageDto,
-      _id: imageDoc._id.toString(),
       link: join(relative(process.cwd(), file.destination), file.filename)
     });
 
@@ -141,12 +135,12 @@ export class PropertiesService {
       throw new BadRequestException('Property not found');
     }
 
-    const images = property.images.filter(image => image._id == imageId);
+    const images = property.images.filter(image => image.id == imageId);
     if (images.length == 0) {
       throw new BadRequestException('Image not found');
     }
 
-    await this.propertyModel.findByIdAndUpdate(propertyId, { $pull: { images: { _id: images[0]._id } } }, { new: true }).exec();
+    await this.propertyModel.findByIdAndUpdate(propertyId, { $pull: { images: { _id: images[0].id } } }, { new: true }).exec();
 
     rm(join(process.cwd(), images[0].link), () => { });
   }
@@ -157,12 +151,12 @@ export class PropertiesService {
       throw new BadRequestException('Property not found');
     }
 
-    const rooms = property.rooms.filter(room => room._id == roomId);
+    const rooms = property.rooms.filter(room => room.id == roomId);
     if (rooms.length == 0) {
       throw new BadRequestException('Room not found');
     }
 
-    const images = property.images.filter(image => image._id == imageId);
+    const images = property.images.filter(image => image.id == imageId);
     if (images.length == 0) {
       throw new BadRequestException('Image not found');
     }
@@ -179,12 +173,12 @@ export class PropertiesService {
       throw new BadRequestException('Property not found');
     }
 
-    const rooms = property.rooms.filter(room => room._id == roomId);
+    const rooms = property.rooms.filter(room => room.id == roomId);
     if (rooms.length == 0) {
       throw new BadRequestException('Room not found');
     }
 
-    const images = property.images.filter(image => image._id == imageId);
+    const images = property.images.filter(image => image.id == imageId);
     if (images.length == 0) {
       throw new BadRequestException('Image not found');
     }

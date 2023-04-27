@@ -1,6 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { IsNotEmpty } from 'class-validator';
-import { HydratedDocument } from 'mongoose';
+import { HydratedDocument, Types } from 'mongoose';
 import { BedgroupConfig, BedgroupConfigSchema } from './bedgroupconfig.schema';
 
 export type BedgroupDocument = HydratedDocument<Bedgroup>;
@@ -13,7 +13,7 @@ export class Bedgroup {
 
   @Prop([{ type: BedgroupConfigSchema }])
   @IsNotEmpty()
-  configuration: BedgroupConfig[];
+  configuration: Types.DocumentArray<BedgroupConfig>;
 }
 
 export const BedgroupSchema = SchemaFactory.createForClass(Bedgroup);

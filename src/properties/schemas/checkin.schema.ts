@@ -1,5 +1,5 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { IsNotEmpty, MaxLength, Min, MinLength } from 'class-validator';
+import { IsNotEmpty, Min } from 'class-validator';
 import { HydratedDocument } from 'mongoose';
 
 export type CheckinDocument = HydratedDocument<Checkin>;

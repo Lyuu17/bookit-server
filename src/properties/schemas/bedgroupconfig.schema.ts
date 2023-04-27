@@ -7,9 +7,6 @@ export type BedgroupConfigDocument = HydratedDocument<BedgroupConfig>;
 @Schema()
 export class BedgroupConfig {
   @Prop()
-  _id: string;
-
-  @Prop()
   @IsNotEmpty()
   type: string;
 
