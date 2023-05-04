@@ -1,5 +1,5 @@
 import { Body, Controller, Get, Param, Post, Req, UseGuards } from '@nestjs/common';
-import { ApiOkResponse } from '@nestjs/swagger';
+import { ApiBadRequestResponse, ApiOkResponse } from '@nestjs/swagger';
 import { isValidObjectId } from 'mongoose';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { Role } from 'src/enums/role.enum';
@@ -48,6 +48,7 @@ export class ItinerariesController {
   @UseGuards(JwtAuthGuard)
   @Post()
   @ApiOkResponse({ description: 'Add an itinerary', type: ItineraryDto })
+  @ApiBadRequestResponse({ description: 'Invalid checkin/checkout date' })
   async addOne(@Body() itineraryDto: ItineraryDto, @Req() req) {
     return this.itinerariesConverter.convertToDto(
       await this.itinerariesService.create(itineraryDto, req.user?.userId)

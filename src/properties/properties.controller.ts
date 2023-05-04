@@ -114,6 +114,7 @@ export class PropertiesController {
     }
   }))
   @ApiOkResponse({ description: 'Upload an image for a property' })
+  @ApiBadRequestResponse({ description: 'Upload failed' })
   @ApiBadRequestResponse({ description: 'Invalid property' })
   async uploadImage(
     @Param('q') propertyId: string,
