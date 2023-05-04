@@ -5,7 +5,6 @@ import { IsNotEmpty, MaxLength, MinLength } from "class-validator";
 export class AddressDto {
   @Exclude()
   @Transform(({ value }) => value?.toString())
-  @Exclude()
   readonly _id?: string;
 
   @ApiProperty()

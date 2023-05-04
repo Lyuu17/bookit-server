@@ -1,9 +1,10 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { Transform } from "class-transformer";
+import { Expose, Transform } from "class-transformer";
 import { IsNotEmpty, Min } from "class-validator";
 
 export class BedgroupConfigDto {
   @Transform(({ value }) => value.toString())
+  @Expose({ name: 'id' })
   readonly _id?: string;
 
   @ApiProperty()
