@@ -114,6 +114,10 @@ export class PropertiesService {
   }
 
   async uploadPropertyImage(propertyId: string, imageDto: ImageDto, file: Express.Multer.File): Promise<ImageDto> {
+    if (file == null) {
+      throw new BadRequestException('Upload failed');
+    }
+
     const property = await this.propertyModel.findById(propertyId);
     if (property == null) {
       throw new BadRequestException('Property not found');
