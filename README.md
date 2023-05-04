@@ -54,3 +54,9 @@ $ npm run test:e2e
 # test coverage
 $ npm run test:cov
 ```
+
+## OpenAPI Documentation
+
+While the application is running, open your browser and navigate to http://localhost:3000/api. You should see the Swagger UI.
+
+![image](https://i.imgur.com/Q32DHyF.png)
