@@ -20,7 +20,11 @@ export class AuthService {
       throw new UnauthorizedException('An account with that username already exists');
     }
 
-    const payload = { username: newUser.email, sub: newUser._id };
+    const payload = {
+      sub: newUser._id,
+      username: newUser.email,
+      roles: newUser.roles
+    };
     return new AuthSuccessDto({ access_token: await this.jwtService.signAsync(payload) });
   }
 
@@ -30,7 +34,11 @@ export class AuthService {
       throw new UnauthorizedException('Invalid username or password');
     }
 
-    const payload = { username: user.email, sub: user._id };
+    const payload = {
+      sub: user._id,
+      username: user.email,
+      roles: user.roles
+    };
     return new AuthSuccessDto({ access_token: await this.jwtService.signAsync(payload) });
   }
 }
