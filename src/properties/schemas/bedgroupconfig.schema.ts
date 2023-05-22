@@ -17,6 +17,10 @@ export class BedgroupConfig {
   @Prop()
   @Min(0)
   quantity: number;
+
+  @Prop()
+  @Min(0)
+  base_price: number;
 }
 
 export const BedgroupConfigSchema = SchemaFactory.createForClass(BedgroupConfig);

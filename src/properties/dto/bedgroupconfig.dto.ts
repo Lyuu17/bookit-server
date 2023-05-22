@@ -18,4 +18,8 @@ export class BedgroupConfigDto {
   @ApiProperty()
   @Min(0)
   readonly quantity: number;
+
+  @ApiProperty()
+  @Min(0)
+  readonly base_price: number;
 }

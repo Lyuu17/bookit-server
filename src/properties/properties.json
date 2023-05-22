@@ -51,7 +51,8 @@
               {
                 "type": "KingBed",
                 "size": "King",
-                "quantity": 1
+                "quantity": 1,
+                "base_price": 100.0
               }
             ]
           }
