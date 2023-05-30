@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post, Req, UseGuards } from '@nestjs/common';
+import { BadRequestException, Body, Controller, Get, Param, Post, Req, UseGuards } from '@nestjs/common';
 import { ApiBadRequestResponse, ApiOkResponse } from '@nestjs/swagger';
 import { isValidObjectId } from 'mongoose';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
@@ -53,6 +53,16 @@ export class ItinerariesController {
     const dto = new ItineraryDto({ ...itineraryDto,
       user: req.user?.userId
     });
+
+    const
+      checkinDate = new Date(itineraryDto.checkin),
+      checkoutDate = new Date(itineraryDto.checkout),
+      currentDate = new Date();
+
+    currentDate.setHours(0, 0, 0);
+    if (checkinDate < currentDate || checkoutDate < currentDate) {
+      throw new BadRequestException('Invalid checkin/checkout date. Date must be greater than today.');
+    }
 
     return this.itinerariesConverter.convertToDto(
       await this.itinerariesService.create(dto)
