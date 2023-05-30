@@ -18,7 +18,7 @@ export class ItinerariesService {
 
   async create(itineraryDto: ItineraryDto, userId: string): Promise<ItineraryDocument> {
     const itineraries
-      = await this.findAllBetweenDatesWithinProperty(itineraryDto.property, new Date(itineraryDto.checkin), new Date(itineraryDto.checkout));
+      = await this.findAllBetweenDatesWithinProperty(itineraryDto.property, itineraryDto.checkin, itineraryDto.checkout);
 
     if (itineraries.length > 0) {
       throw new BadRequestException('Invalid checkin/checkout date.');
@@ -74,5 +74,9 @@ export class ItinerariesService {
 
   async count(): Promise<number> {
     return this.itineraryModel.countDocuments().exec();
+  }
+
+  async deleteMany(): Promise<void> {
+    await this.itineraryModel.deleteMany().exec();
   }
 }

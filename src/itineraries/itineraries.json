@@ -1,0 +1,14 @@
+[
+  {
+    "property": "64427bcabd3b5d19efe58f62",
+    "bed_groups": [
+      "64427bcabd3b5d19efe58f6d"
+    ],
+    "checkin": "2023-05-30T06:39:00.000Z",
+    "checkout": "2023-06-15T06:39:00.000Z",
+    "num_adults": 2,
+    "num_children": 1,
+    "user": "643d56ff59e55925bb7b0313",
+    "special_request": ""
+  }
+]

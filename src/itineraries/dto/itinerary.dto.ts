@@ -22,7 +22,7 @@ export class ItineraryDto {
   @IsArray()
   @IsMongoId({ each: true })
   @Type(() => String)
-  readonly bed_groups: string;
+  readonly bed_groups: string[];
 
   @ApiProperty()
   @IsDateString({ strict: true })

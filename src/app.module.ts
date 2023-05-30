@@ -13,6 +13,7 @@ import { GeocodeModule } from './geocode/geocode.module';
 import { ItinerariesController } from './itineraries/itineraries.controller';
 import { ItinerariesConverter } from './itineraries/itineraries.converter';
 import { ItinerariesModule } from './itineraries/itineraries.module';
+import { ItinerariesSeeder } from './itineraries/itineraries.seeder';
 import { PropertiesController } from './properties/properties.controller';
 import { PropertiesConverter } from './properties/properties.converter';
 import { PropertiesModule } from './properties/properties.module';
@@ -64,17 +65,20 @@ import { UsersSeeder } from './users/users.seeder';
     UsersSeeder,
     PropertiesSeeder,
     PropertiesConverter,
-    ItinerariesConverter
+    ItinerariesConverter,
+    ItinerariesSeeder
   ],
 })
 export class AppModule implements OnModuleInit {
   constructor(
     private usersSeeder: UsersSeeder,
-    private propertiesSeeder: PropertiesSeeder
+    private propertiesSeeder: PropertiesSeeder,
+    private itinerariesSeeder: ItinerariesSeeder
   ) { }
 
   async onModuleInit() {
     await this.usersSeeder.run();
     await this.propertiesSeeder.run();
+    await this.itinerariesSeeder.run();
   }
 }
