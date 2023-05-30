@@ -3,6 +3,8 @@ import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 
 import { UsersModule } from 'src/users/users.module';
+import { ItinerariesConverter } from './itineraries.converter';
+import { ItinerariesFacade } from './itineraries.facade';
 import { ItinerariesService } from './itineraries.service';
 import { Itinerary, ItinerarySchema } from './schema/itinerary.schema';
 
@@ -19,7 +21,7 @@ import { Itinerary, ItinerarySchema } from './schema/itinerary.schema';
     ]),
     UsersModule
   ],
-  providers: [ItinerariesService],
-  exports: [ItinerariesService],
+  providers: [ItinerariesService, ItinerariesConverter, ItinerariesFacade],
+  exports: [ItinerariesService, ItinerariesFacade],
 })
 export class ItinerariesModule { }
