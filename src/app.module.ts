@@ -74,11 +74,7 @@ export class AppModule implements OnModuleInit {
   ) { }
 
   async onModuleInit() {
-    if (process.env.DEV_ENV == "dev") {
-      if (await this.usersSeeder.shouldRun())
-        await this.usersSeeder.run();
-      if (await this.propertiesSeeder.shouldRun())
-        await this.propertiesSeeder.run();
-    }
+    await this.usersSeeder.run();
+    await this.propertiesSeeder.run();
   }
 }

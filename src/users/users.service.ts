@@ -30,6 +30,10 @@ export class UsersService {
     return this.userModel.countDocuments().exec();
   }
 
+  async deleteMany(): Promise<void> {
+    await this.userModel.deleteMany().exec();
+  }
+
   async addRole(id: string, role: Role): Promise<UserDocument> {
     return this.userModel.findByIdAndUpdate(id, { $addToSet: { roles: role } }, { new: true });
   }

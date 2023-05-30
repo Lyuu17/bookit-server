@@ -8,11 +8,9 @@ export class UsersSeeder {
     private usersService: UsersService
   ) { }
 
-  async shouldRun() {
-    return await this.usersService.count() == 0;
-  }
-
   async run() {
+    await this.usersService.deleteMany();
+
     import('./users.json')
       .then(e => e.forEach(async u => await this.usersService.create(u)));
   }

@@ -95,6 +95,10 @@ export class PropertiesService {
     return this.propertyModel.countDocuments().exec();
   }
 
+  async deleteMany(): Promise<void> {
+    await this.propertyModel.deleteMany().exec();
+  }
+
   async addAdminUser(propertyId: string, userId: string) {
     return isValidObjectId(propertyId) && isValidObjectId(userId)
       ? this.propertyModel.findByIdAndUpdate(propertyId, { $addToSet: { adminUsers: userId } }, { new: true }).exec()

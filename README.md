@@ -13,8 +13,6 @@ $ npm install
 ## Environment Variables
 
 ```properties
-# Environment used. Use 'dev' to populate the db with default data
-DEV_ENV=dev
 # Port to be used
 PORT=3005
 # MongoDB URI
