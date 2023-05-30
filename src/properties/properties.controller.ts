@@ -79,7 +79,7 @@ export class PropertiesController {
   }
 
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(Role.PROPERTY_OWNER)
+  @Roles(Role.PROPERTY_MANAGER)
   @Post()
   @ApiOkResponse({ description: 'Add a property', type: PropertyDto })
   async addOne(@Body() propertyDto: PropertyDto) {
@@ -89,7 +89,7 @@ export class PropertiesController {
   }
 
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(Role.PROPERTY_OWNER)
+  @Roles(Role.PROPERTY_MANAGER)
   @Post('image/:q')
   @UseInterceptors(FileInterceptor('file', {
     storage: diskStorage({
@@ -125,7 +125,7 @@ export class PropertiesController {
   }
 
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(Role.PROPERTY_OWNER)
+  @Roles(Role.PROPERTY_MANAGER)
   @Delete('image/:property/:image')
   @ApiOkResponse({ description: 'Delete an image of a property' })
   @ApiBadRequestResponse({ description: 'Invalid property' })
@@ -138,7 +138,7 @@ export class PropertiesController {
   }
 
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(Role.PROPERTY_OWNER)
+  @Roles(Role.PROPERTY_MANAGER)
   @Put('room/image/:property/:room/:image')
   @ApiOkResponse({ description: 'Add a property image to a room' })
   @ApiBadRequestResponse({ description: 'Invalid property' })
@@ -153,7 +153,7 @@ export class PropertiesController {
   }
 
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(Role.PROPERTY_OWNER)
+  @Roles(Role.PROPERTY_MANAGER)
   @Delete('room/image/:property/:room/:image')
   @ApiOkResponse({ description: 'Remove a property image from a room' })
   @ApiBadRequestResponse({ description: 'Invalid property' })
