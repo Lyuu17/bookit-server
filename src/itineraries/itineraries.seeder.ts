@@ -16,7 +16,7 @@ export class ItinerariesSeeder {
         dto.checkin = new Date(dto.checkin);
         dto.checkout = new Date(dto.checkout);
 
-        await this.itinerariesService.create(dto, dto.user);
+        await this.itinerariesService.create(dto);
     }));
   }
 }

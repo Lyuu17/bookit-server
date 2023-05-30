@@ -3,7 +3,6 @@ import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 
-import { UsersService } from 'src/users/users.service';
 import { ItineraryDto } from './dto/itinerary.dto';
 import { Itinerary, ItineraryDocument } from './schema/itinerary.schema';
 
@@ -12,20 +11,17 @@ export class ItinerariesService {
   constructor(
     @InjectModel(Itinerary.name)
     private itineraryModel: Model<ItineraryDocument>,
-
-    private usersService: UsersService
   ) { }
 
-  async create(itineraryDto: ItineraryDto, userId: string): Promise<ItineraryDocument> {
+  async create(itineraryDto: ItineraryDto): Promise<ItineraryDocument> {
     const itineraries
-      = await this.findAllBetweenDatesWithinProperty(itineraryDto.property, itineraryDto.checkin, itineraryDto.checkout);
+      = await this.findAllBetweenDatesWithinProperty(itineraryDto.property, new Date(itineraryDto.checkin), new Date(itineraryDto.checkout));
 
     if (itineraries.length > 0) {
       throw new BadRequestException('Invalid checkin/checkout date.');
     }
 
     const itinerary = new this.itineraryModel(itineraryDto);
-    itinerary.user = await this.usersService.findById(userId);
     return await itinerary.save();
   }
 
@@ -41,11 +37,11 @@ export class ItinerariesService {
   async findAllBetweenDates(checkin: Date, checkout: Date): Promise<ItineraryDocument[]> {
     return this.itineraryModel.find({
       $or: [
-        { checkin: { $lte: checkin.toUTCString() }, checkout: { $gt: checkin.toUTCString() } },
-        { checkin: { $lt: checkout.toUTCString() }, checkout: { $gte: checkout.toUTCString() } },
-        { checkin: { $gt: checkin.toUTCString() }, checkout: { $lt: checkout.toUTCString() } },
-        { checkin: checkin.toUTCString() },
-        { checkout: checkout.toUTCString() }
+        { checkin: { $lte: checkin }, checkout: { $gt: checkin } },
+        { checkin: { $lt: checkout }, checkout: { $gte: checkout } },
+        { checkin: { $gt: checkin }, checkout: { $lt: checkout } },
+        { checkin: checkin },
+        { checkout: checkout }
       ]
     }).exec();
   }
@@ -54,11 +50,11 @@ export class ItinerariesService {
     return this.itineraryModel.find({
       $and: [{
         $or: [
-          { checkin: { $lte: checkin.toUTCString() }, checkout: { $gt: checkin.toUTCString() } },
-          { checkin: { $lt: checkout.toUTCString() }, checkout: { $gte: checkout.toUTCString() } },
-          { checkin: { $gt: checkin.toUTCString() }, checkout: { $lt: checkout.toUTCString() } },
-          { checkin: checkin.toUTCString() },
-          { checkout: checkout.toUTCString() }
+          { checkin: { $lte: checkin }, checkout: { $gt: checkin } },
+          { checkin: { $lt: checkout }, checkout: { $gte: checkout } },
+          { checkin: { $gt: checkin }, checkout: { $lt: checkout } },
+          { checkin: checkin },
+          { checkout: checkout }
         ]
       }, { property: id }]
     }).exec();

@@ -50,8 +50,12 @@ export class ItinerariesController {
   @ApiOkResponse({ description: 'Add an itinerary', type: ItineraryDto })
   @ApiBadRequestResponse({ description: 'Invalid checkin/checkout date' })
   async addOne(@Body() itineraryDto: ItineraryDto, @Req() req) {
+    const dto = new ItineraryDto({ ...itineraryDto,
+      user: req.user?.userId
+    });
+
     return this.itinerariesConverter.convertToDto(
-      await this.itinerariesService.create(itineraryDto, req.user?.userId)
+      await this.itinerariesService.create(dto)
     );
   }
 }

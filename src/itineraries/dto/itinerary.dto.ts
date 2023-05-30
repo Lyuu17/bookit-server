@@ -26,11 +26,11 @@ export class ItineraryDto {
 
   @ApiProperty()
   @IsDateString({ strict: true })
-  readonly checkin: Date;
+  readonly checkin: string;
 
   @ApiProperty()
   @IsDateString({ strict: true })
-  readonly checkout: Date;
+  readonly checkout: string;
 
   @ApiProperty()
   @Min(1)
