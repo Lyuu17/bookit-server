@@ -5,6 +5,8 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule } from '@nestjs/config';
 import { GeocodeModule } from 'src/geocode/geocode.module';
 import { ItinerariesModule } from 'src/itineraries/itineraries.module';
+import { PropertiesConverter } from './properties.converter';
+import { PropertiesFacade } from './properties.facade';
 import { PropertiesService } from './properties.service';
 import { Property, PropertySchema } from './schemas/property.schema';
 
@@ -23,7 +25,7 @@ import { Property, PropertySchema } from './schemas/property.schema';
     GeocodeModule,
     ConfigModule
   ],
-  providers: [PropertiesService],
-  exports: [PropertiesService],
+  providers: [PropertiesService, PropertiesConverter, PropertiesFacade],
+  exports: [PropertiesService, PropertiesFacade],
 })
 export class PropertiesModule { }

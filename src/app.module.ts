@@ -15,7 +15,6 @@ import { ItinerariesConverter } from './itineraries/itineraries.converter';
 import { ItinerariesModule } from './itineraries/itineraries.module';
 import { ItinerariesSeeder } from './itineraries/itineraries.seeder';
 import { PropertiesController } from './properties/properties.controller';
-import { PropertiesConverter } from './properties/properties.converter';
 import { PropertiesModule } from './properties/properties.module';
 import { PropertiesSeeder } from './properties/properties.seeder';
 import { UsersModule } from './users/users.module';
@@ -64,7 +63,6 @@ import { UsersSeeder } from './users/users.seeder';
     AppService,
     UsersSeeder,
     PropertiesSeeder,
-    PropertiesConverter,
     ItinerariesConverter,
     ItinerariesSeeder
   ],

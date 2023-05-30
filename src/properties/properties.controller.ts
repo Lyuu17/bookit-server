@@ -1,4 +1,4 @@
-import { BadRequestException, Body, Controller, Delete, Get, Param, Post, Put, Query, Req, UploadedFile, UseGuards, UseInterceptors } from '@nestjs/common';
+import { BadRequestException, Body, Controller, Delete, Get, Param, Post, Put, Query, UploadedFile, UseGuards, UseInterceptors } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ApiBadRequestResponse, ApiOkResponse } from '@nestjs/swagger';
 import { existsSync, mkdirSync } from 'fs';
@@ -10,22 +10,20 @@ import { Roles } from 'src/roles/roles.decorator';
 import { RolesGuard } from 'src/roles/roles.guard';
 import { ImageDto } from './dto/image.dto';
 import { PropertyDto } from './dto/property.dto';
-import { PropertiesConverter } from './properties.converter';
+import { PropertiesFacade } from './properties.facade';
 import { PropertiesService } from './properties.service';
 
 @Controller('properties')
 export class PropertiesController {
   constructor(
     private readonly propertiesService: PropertiesService,
-    private readonly propertiesConverter: PropertiesConverter
+    private readonly propertiesFacade: PropertiesFacade
   ) { }
 
   @Get()
   @ApiOkResponse({ description: 'Get all properties', type: [PropertyDto] })
-  async getAll(@Req() req) {
-    return this.propertiesConverter.convertToDtoArray(
-      await this.propertiesService.findAll()
-    );
+  async getAll() {
+    return this.propertiesFacade.getAll();
   }
 
   @Get('availability/')
@@ -34,17 +32,13 @@ export class PropertiesController {
     @Query('checkin') checkin: string,
     @Query('checkout') checkout: string
   ) {
-    return this.propertiesConverter.convertToDtoArray(
-      await this.propertiesService.findOneOrAllByAvailability(new Date(checkin), new Date(checkout))
-    );
+    return this.propertiesFacade.getAllByAvailability(new Date(checkin), new Date(checkout));
   }
 
   @Get(':q')
   @ApiOkResponse({ description: 'Get one property', type: PropertyDto })
   async getOne(@Param('q') q: string) {
-    return this.propertiesConverter.convertToDto(
-      await this.propertiesService.findOne(q)
-    );
+    return this.propertiesFacade.getOne(q);
   }
 
   @Get('availability/:q')
@@ -54,7 +48,7 @@ export class PropertiesController {
     @Query('checkin') checkin: string,
     @Query('checkout') checkout: string
   ) {
-    const properties = await this.propertiesService.findOneOrAllByAvailability(new Date(checkin), new Date(checkout), q);
+    const properties = await this.propertiesFacade.findOneOrAllByAvailability(new Date(checkin), new Date(checkout), q);
     if (properties.length < 1) {
       throw new BadRequestException('Invalid property id');
     }
@@ -65,17 +59,13 @@ export class PropertiesController {
   @Get('city/:q')
   @ApiOkResponse({ description: 'Get properties based on the city', type: [PropertyDto] })
   async findByCity(@Param('q') q: string) {
-    return this.propertiesConverter.convertToDtoArray(
-      await this.propertiesService.findByCity(q)
-    );
+    return this.propertiesFacade.findByCity(q);
   }
 
   @Get('country/:q')
   @ApiOkResponse({ description: 'Get properties based on the country', type: [PropertyDto] })
   async findByCountry(@Param('q') q: string) {
-    return this.propertiesConverter.convertToDtoArray(
-      await this.propertiesService.findByCountry(q)
-    );
+    return this.propertiesFacade.findByCountry(q);
   }
 
   @UseGuards(JwtAuthGuard, RolesGuard)
@@ -83,9 +73,7 @@ export class PropertiesController {
   @Post()
   @ApiOkResponse({ description: 'Add a property', type: PropertyDto })
   async addOne(@Body() propertyDto: PropertyDto) {
-    return this.propertiesConverter.convertToDto(
-      await this.propertiesService.create(propertyDto)
-    );
+    return this.propertiesFacade.addOne(propertyDto);
   }
 
   @UseGuards(JwtAuthGuard, RolesGuard)
