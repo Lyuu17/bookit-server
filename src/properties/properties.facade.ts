@@ -51,4 +51,10 @@ export class PropertiesFacade {
       await this.propertiesService.create(propertyDto)
     );
   }
+
+  async updateOne(propertyDto: PropertyDto) {
+    return this.propertiesConverter.convertToDto(
+      await this.propertiesService.update(propertyDto)
+    );
+  }
 }

@@ -24,6 +24,10 @@ export class PropertiesService {
     return newProperty.save();
   }
 
+  async update(propertyDto: PropertyDto): Promise<PropertyDocument> {
+    return this.propertyModel.findByIdAndUpdate(propertyDto._id, propertyDto).setOptions({ overwrite: true, new: true });
+  }
+
   async findOne(id: string): Promise<PropertyDocument> {
     return this.propertyModel.findById(id).exec();
   }

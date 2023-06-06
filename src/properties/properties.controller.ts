@@ -1,4 +1,4 @@
-import { BadRequestException, Body, Controller, Delete, Get, NotFoundException, Param, Post, Put, Query, UploadedFile, UseGuards, UseInterceptors } from '@nestjs/common';
+import { BadRequestException, Body, Controller, Delete, Get, NotFoundException, Param, Patch, Post, Put, Query, UploadedFile, UseGuards, UseInterceptors } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ApiBadRequestResponse, ApiNotFoundResponse, ApiOkResponse } from '@nestjs/swagger';
 import { isMongoId } from 'class-validator';
@@ -87,6 +87,19 @@ export class PropertiesController {
   @Post()
   @ApiOkResponse({ description: 'Add a property', type: PropertyDto })
   async addOne(@Body() propertyDto: PropertyDto) {
+    return this.propertiesFacade.addOne(propertyDto);
+  }
+
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(Role.PROPERTY_MANAGER, Role.ADMIN)
+  @Patch(':id')
+  @ApiOkResponse({ description: 'Update a property', type: PropertyDto })
+  @ApiBadRequestResponse()
+  async updateOne(@Param('id') id: string, @Body() propertyDto: PropertyDto) {
+    if (!isMongoId(id)) {
+      throw new BadRequestException();
+    }
+
     return this.propertiesFacade.addOne(propertyDto);
   }
 
