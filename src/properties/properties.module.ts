@@ -1,5 +1,5 @@
 
-import { Module } from '@nestjs/common';
+import { Module, forwardRef } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 
 import { ConfigModule } from '@nestjs/config';
@@ -22,7 +22,7 @@ import { Property, PropertySchema } from './schemas/property.schema';
         },
       }
     ]),
-    ItinerariesModule,
+    forwardRef(() => ItinerariesModule),
     GeocodeModule,
     ConfigModule
   ],

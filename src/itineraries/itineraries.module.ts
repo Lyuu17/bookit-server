@@ -1,7 +1,8 @@
 
-import { Module } from '@nestjs/common';
+import { Module, forwardRef } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 
+import { PropertiesModule } from 'src/properties/properties.module';
 import { UsersModule } from 'src/users/users.module';
 import { ItinerariesController } from './itineraries.controller';
 import { ItinerariesConverter } from './itineraries.converter';
@@ -20,7 +21,8 @@ import { Itinerary, ItinerarySchema } from './schema/itinerary.schema';
         },
       }
     ]),
-    UsersModule
+    UsersModule,
+    forwardRef(() => PropertiesModule)
   ],
   providers: [ItinerariesService, ItinerariesConverter, ItinerariesFacade],
   exports: [ItinerariesService],
