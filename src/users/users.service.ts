@@ -18,6 +18,10 @@ export class UsersService {
     return await this.findOne(newUser.email) == null ? newUser.save() : null;
   }
 
+  async findAll(): Promise<UserDocument[]> {
+    return this.userModel.find().exec();
+  }
+
   async findOne(email: string): Promise<UserDocument | null> {
     return this.userModel.findOne({ email: email }).exec();
   }

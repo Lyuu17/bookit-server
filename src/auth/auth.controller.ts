@@ -10,7 +10,8 @@ import { LocalAuthGuard } from './local-auth.guard';
 @Controller('auth')
 export class AuthController {
   constructor(
-    private readonly authService: AuthService, private readonly userService: UsersService
+    private readonly authService: AuthService,
+    private readonly userService: UsersService
   ) { }
 
   @Post('register')

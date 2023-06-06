@@ -17,6 +17,7 @@ import { ItinerariesSeeder } from './itineraries/itineraries.seeder';
 import { PropertiesController } from './properties/properties.controller';
 import { PropertiesModule } from './properties/properties.module';
 import { PropertiesSeeder } from './properties/properties.seeder';
+import { UsersController } from './users/users.controller';
 import { UsersModule } from './users/users.module';
 import { UsersSeeder } from './users/users.seeder';
 
@@ -57,7 +58,8 @@ import { UsersSeeder } from './users/users.seeder';
     AuthController,
     GeocodeController,
     PropertiesController,
-    ItinerariesController
+    ItinerariesController,
+    UsersController
   ],
   providers: [
     AppService,
