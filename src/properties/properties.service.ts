@@ -24,7 +24,7 @@ export class PropertiesService {
     return newProperty.save();
   }
 
-  async findById(id: string): Promise<PropertyDocument> {
+  async findOne(id: string): Promise<PropertyDocument> {
     return this.propertyModel.findById(id).exec();
   }
 
@@ -69,10 +69,6 @@ export class PropertiesService {
             .filter(bedgroupConfig => bedgroupConfig.quantity == 0).length == 0
           ).length == 0
         ).length == 0);
-  }
-
-  async findOne(id: string): Promise<PropertyDocument | null> {
-    return isValidObjectId(id) ? this.propertyModel.findById(id).exec() : null;
   }
 
   async findByCity(q: string): Promise<PropertyDocument[] | null> {

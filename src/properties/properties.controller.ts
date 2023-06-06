@@ -1,6 +1,7 @@
-import { BadRequestException, Body, Controller, Delete, Get, Param, Post, Put, Query, UploadedFile, UseGuards, UseInterceptors } from '@nestjs/common';
+import { BadRequestException, Body, Controller, Delete, Get, NotFoundException, Param, Post, Put, Query, UploadedFile, UseGuards, UseInterceptors } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { ApiBadRequestResponse, ApiOkResponse } from '@nestjs/swagger';
+import { ApiBadRequestResponse, ApiNotFoundResponse, ApiOkResponse } from '@nestjs/swagger';
+import { isMongoId } from 'class-validator';
 import { existsSync, mkdirSync } from 'fs';
 import { diskStorage } from 'multer';
 import { extname, join } from 'path';
@@ -39,8 +40,19 @@ export class PropertiesController {
 
   @Get(':q')
   @ApiOkResponse({ description: 'Get one property', type: PropertyDto })
+  @ApiNotFoundResponse({ description: 'Property not found' })
+  @ApiBadRequestResponse()
   async getOne(@Param('q') q: string) {
-    return this.propertiesFacade.getOne(q);
+    if (!isMongoId(q)) {
+      throw new BadRequestException();
+    }
+
+    const property = await this.propertiesFacade.getOne(q);
+    if (!property) {
+      throw new NotFoundException();
+    }
+
+    return property;
   }
 
   @Get('availability/:q')

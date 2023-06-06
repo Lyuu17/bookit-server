@@ -17,10 +17,9 @@ export class PropertiesFacade {
     );
   }
 
-  async getOne(q: string) {
-    return this.propertiesConverter.convertToDto(
-      await this.propertiesService.findOne(q)
-    );
+  async getOne(q: string): Promise<PropertyDto> {
+    const doc = await this.propertiesService.findOne(q);
+    return doc ? this.propertiesConverter.convertToDto(doc) : null;
   }
 
   async getAllByAvailability(checkin: Date, checkout: Date, country: string, city: string) {

@@ -1,5 +1,6 @@
-import { Controller, Get, Param, UseGuards } from '@nestjs/common';
-import { ApiOkResponse } from '@nestjs/swagger';
+import { BadRequestException, Controller, Get, NotFoundException, Param, UseGuards } from '@nestjs/common';
+import { ApiBadRequestResponse, ApiNotFoundResponse, ApiOkResponse } from '@nestjs/swagger';
+import { isMongoId } from 'class-validator';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { Role } from 'src/enums/role.enum';
 import { Roles } from 'src/roles/roles.decorator';
@@ -25,7 +26,18 @@ export class UsersController {
   @Roles(Role.ADMIN)
   @Get(':q')
   @ApiOkResponse({ description: 'Get user by user id', type: UserDto })
+  @ApiNotFoundResponse({ description: 'User not found' })
+  @ApiBadRequestResponse()
   async getOneById(@Param('q') id: string) {
-    return this.usersFacade.getOneById(id);
+    if (!isMongoId(id)) {
+      throw new BadRequestException();
+    }
+
+    const user = await this.usersFacade.getOneById(id);
+    if (!user) {
+      throw new NotFoundException();
+    }
+
+    return user;
   }
 }

@@ -1,17 +1,16 @@
 import { BadRequestException, Body, Controller, Get, Param, Post, Req, UseGuards } from '@nestjs/common';
 import { ApiBadRequestResponse, ApiOkResponse } from '@nestjs/swagger';
+import { isMongoId } from 'class-validator';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { Role } from 'src/enums/role.enum';
 import { Roles } from 'src/roles/roles.decorator';
 import { RolesGuard } from 'src/roles/roles.guard';
 import { ItineraryDto } from './dto/itinerary.dto';
 import { ItinerariesFacade } from './itineraries.facade';
-import { ItinerariesService } from './itineraries.service';
 
 @Controller('itineraries')
 export class ItinerariesController {
   constructor(
-    private readonly itinerariesService: ItinerariesService,
     private readonly itinerariesFacade: ItinerariesFacade
   ) { }
 
@@ -26,7 +25,12 @@ export class ItinerariesController {
   @Roles(Role.ADMIN)
   @Get('user/:q')
   @ApiOkResponse({ description: 'Get all itineraries by user id', type: [ItineraryDto] })
+  @ApiBadRequestResponse()
   async getAllByUserId(@Param('q') q: string) {
+    if (!isMongoId(q)) {
+      throw new BadRequestException();
+    }
+
     return this.itinerariesFacade.getAllByUserId(q);
   }
 
@@ -34,7 +38,12 @@ export class ItinerariesController {
   @Roles(Role.ADMIN)
   @Get('property/:q')
   @ApiOkResponse({ description: 'Get all itineraries by property id', type: [ItineraryDto] })
+  @ApiBadRequestResponse()
   async getAllByPropertyId(@Param('q') q: string) {
+    if (!isMongoId(q)) {
+      throw new BadRequestException();
+    }
+
     return this.itinerariesFacade.getAllByPropertyId(q);
   }
 

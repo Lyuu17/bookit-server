@@ -16,9 +16,8 @@ export class UsersFacade {
     );
   }
 
-  async getOneById(q: string) {
-    return this.usersConverter.convertToDto(
-      await this.usersService.findById(q)
-    );
+  async getOneById(q: string): Promise<UserDto> {
+    const doc = await this.usersService.findById(q);
+    return doc ? this.usersConverter.convertToDto(doc) : null;
   }
 }
