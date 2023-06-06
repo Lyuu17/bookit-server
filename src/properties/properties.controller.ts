@@ -30,9 +30,11 @@ export class PropertiesController {
   @ApiOkResponse({ description: 'Get all properties by availability', type: [PropertyDto] })
   async getAllByAvailability(
     @Query('checkin') checkin: string,
-    @Query('checkout') checkout: string
+    @Query('checkout') checkout: string,
+    @Query('country') country: string,
+    @Query('city') city: string
   ) {
-    return this.propertiesFacade.getAllByAvailability(new Date(checkin), new Date(checkout));
+    return this.propertiesFacade.getAllByAvailability(new Date(checkin), new Date(checkout), country, city);
   }
 
   @Get(':q')

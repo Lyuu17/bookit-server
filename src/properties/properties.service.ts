@@ -32,7 +32,7 @@ export class PropertiesService {
     return this.propertyModel.find().exec();
   }
 
-  async findOneOrAllByAvailability(checkin: Date, checkout: Date, id?: string): Promise<PropertyDocument[] | null> {
+  async findOneOrAllByAvailability(checkin: Date, checkout: Date, id?: string, country?: string, city?: string): Promise<PropertyDocument[] | null> {
     const itineraries = typeof id === 'undefined'
       ? await this.itinerariesService.findAllBetweenDates(checkin, checkout)
       : await this.itinerariesService.findAllBetweenDatesWithinProperty(id, checkin, checkout);
@@ -47,7 +47,7 @@ export class PropertiesService {
     });
 
     const propertyModels = typeof id === 'undefined'
-      ? await this.findAll()
+      ? await this.findByCountryAndCity(country, city)
       : [await this.findOne(id)];
 
     // update availability based on itineraries
@@ -88,6 +88,15 @@ export class PropertiesService {
     const geoData = await this.geocodeService.find(q);
     return this.propertyModel.find({
       'address.country_code': geoData[0]?.countryCode
+    }).exec();
+  }
+
+  async findByCountryAndCity(country: string, city: string): Promise<PropertyDocument[] | null> {
+    const geoData = await this.geocodeService.find(`${city}, ${country}`);
+    return this.propertyModel.find({
+      'address.country_code': geoData[0]?.countryCode,
+      'address.region': geoData[0]?.state,
+      'address.city': geoData[0]?.city
     }).exec();
   }
 

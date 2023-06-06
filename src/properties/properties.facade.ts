@@ -23,9 +23,9 @@ export class PropertiesFacade {
     );
   }
 
-  async getAllByAvailability(checkin: Date, checkout: Date) {
+  async getAllByAvailability(checkin: Date, checkout: Date, country: string, city: string) {
     return this.propertiesConverter.convertToDtoArray(
-      await this.propertiesService.findOneOrAllByAvailability(checkin, checkout)
+      await this.propertiesService.findOneOrAllByAvailability(checkin, checkout, undefined, country, city)
     );
   }
 
