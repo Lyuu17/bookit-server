@@ -6,18 +6,12 @@ import { join } from 'path';
 
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { AuthController } from './auth/auth.controller';
 import { AuthModule } from './auth/auth.module';
-import { GeocodeController } from './geocode/geocode.controller';
 import { GeocodeModule } from './geocode/geocode.module';
-import { ItinerariesController } from './itineraries/itineraries.controller';
-import { ItinerariesConverter } from './itineraries/itineraries.converter';
 import { ItinerariesModule } from './itineraries/itineraries.module';
 import { ItinerariesSeeder } from './itineraries/itineraries.seeder';
-import { PropertiesController } from './properties/properties.controller';
 import { PropertiesModule } from './properties/properties.module';
 import { PropertiesSeeder } from './properties/properties.seeder';
-import { UsersController } from './users/users.controller';
 import { UsersModule } from './users/users.module';
 import { UsersSeeder } from './users/users.seeder';
 
@@ -55,17 +49,11 @@ import { UsersSeeder } from './users/users.seeder';
   ],
   controllers: [
     AppController,
-    AuthController,
-    GeocodeController,
-    PropertiesController,
-    ItinerariesController,
-    UsersController
   ],
   providers: [
     AppService,
     UsersSeeder,
     PropertiesSeeder,
-    ItinerariesConverter,
     ItinerariesSeeder
   ],
 })
