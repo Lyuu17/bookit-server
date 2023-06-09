@@ -1,4 +1,4 @@
-import { BadRequestException, Controller, Get, NotFoundException, Param, UseGuards } from '@nestjs/common';
+import { BadRequestException, Controller, Get, NotFoundException, Param, Request, UseGuards } from '@nestjs/common';
 import { ApiBadRequestResponse, ApiNotFoundResponse, ApiOkResponse } from '@nestjs/swagger';
 import { isMongoId } from 'class-validator';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
@@ -13,6 +13,13 @@ export class UsersController {
   constructor(
     private readonly usersFacade: UsersFacade
   ) { }
+
+  @UseGuards(JwtAuthGuard)
+  @Get('profile')
+  @ApiOkResponse({ description: 'Profile data.' })
+  async getProfile(@Request() req) {
+    return this.usersFacade.findById(req.user.userId);
+  }
 
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(Role.ADMIN)
