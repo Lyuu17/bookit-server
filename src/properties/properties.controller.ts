@@ -11,6 +11,7 @@ import { Roles } from 'src/roles/roles.decorator';
 import { RolesGuard } from 'src/roles/roles.guard';
 import { ImageDto } from './dto/image.dto';
 import { PropertyDto } from './dto/property.dto';
+import { UpdatePropertyDto } from './dto/updateproperty.dto';
 import { PropertiesFacade } from './properties.facade';
 import { PropertiesService } from './properties.service';
 
@@ -95,12 +96,12 @@ export class PropertiesController {
   @Patch(':id')
   @ApiOkResponse({ description: 'Update a property', type: PropertyDto })
   @ApiBadRequestResponse()
-  async updateOne(@Param('id') id: string, @Body() propertyDto: PropertyDto) {
+  async updateOne(@Param('id') id: string, @Body() updatePropertyDto: UpdatePropertyDto) {
     if (!isMongoId(id)) {
       throw new BadRequestException();
     }
 
-    return this.propertiesFacade.updateOne(propertyDto);
+    return this.propertiesFacade.updateOne(id, updatePropertyDto);
   }
 
   @UseGuards(JwtAuthGuard, RolesGuard)

@@ -8,6 +8,7 @@ import { GeocodeService } from 'src/geocode/geocode.service';
 import { ItinerariesService } from 'src/itineraries/itineraries.service';
 import { ImageDto } from './dto/image.dto';
 import { PropertyDto } from './dto/property.dto';
+import { UpdatePropertyDto } from './dto/updateproperty.dto';
 import { Property, PropertyDocument } from './schemas/property.schema';
 
 @Injectable()
@@ -24,8 +25,8 @@ export class PropertiesService {
     return newProperty.save();
   }
 
-  async update(propertyDto: PropertyDto): Promise<PropertyDocument> {
-    return this.propertyModel.findByIdAndUpdate(propertyDto._id, propertyDto).setOptions({ overwrite: true, new: true });
+  async update(id: string, updatePropertyDto: UpdatePropertyDto): Promise<PropertyDocument> {
+    return this.propertyModel.findByIdAndUpdate(id, { $set: updatePropertyDto }, { new: true, strict: true }).exec();
   }
 
   async findOne(id: string): Promise<PropertyDocument> {

@@ -1,7 +1,7 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { Exclude, Expose, Transform, Type } from "class-transformer";
 import { IsNotEmpty, IsPhoneNumber, ValidateNested } from "class-validator";
-import { CreateUserDto } from "src/users/dto/create-user.dto";
+import { UserDto } from "src/users/dto/user.dto";
 import { AddressDto } from "./address.dto";
 import { AmenityDto } from "./amenity.dto";
 import { CheckinDto } from "./checkin.dto";
@@ -36,8 +36,8 @@ export class PropertyDto {
   readonly phone: string;
 
   @Exclude()
-  @Type(() => CreateUserDto)
-  readonly adminUsers?: [CreateUserDto];
+  @Type(() => UserDto)
+  readonly adminUsers?: [UserDto];
 
   @ApiProperty()
   @IsNotEmpty()

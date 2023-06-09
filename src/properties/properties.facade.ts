@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 
 import { PropertyDto } from './dto/property.dto';
+import { UpdatePropertyDto } from './dto/updateproperty.dto';
 import { PropertiesConverter } from './properties.converter';
 import { PropertiesService } from './properties.service';
 
@@ -52,9 +53,9 @@ export class PropertiesFacade {
     );
   }
 
-  async updateOne(propertyDto: PropertyDto) {
+  async updateOne(id: string, updatePropertyDto: UpdatePropertyDto) {
     return this.propertiesConverter.convertToDto(
-      await this.propertiesService.update(propertyDto)
+      await this.propertiesService.update(id, updatePropertyDto)
     );
   }
 }
