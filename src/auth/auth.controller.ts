@@ -15,7 +15,7 @@ export class AuthController {
   @Post('register')
   @ApiUnauthorizedResponse({ description: 'Account exists.' })
   @ApiOkResponse({ description: 'Auth token', type: AuthSuccessDto })
-  async register(@Body() createUserDto: CreateUserDto) {
+  async register(@Body() createUserDto: CreateUserDto): Promise<AuthSuccessDto> {
     return this.authService.register(createUserDto);
   }
 
@@ -23,7 +23,7 @@ export class AuthController {
   @Post('login')
   @ApiUnauthorizedResponse({ description: 'Invalid email/password.' })
   @ApiOkResponse({ description: 'Auth token', type: AuthSuccessDto })
-  async login(@Body() authDto: UserAuthDto) {
+  async login(@Body() authDto: UserAuthDto): Promise<AuthSuccessDto> {
     return this.authService.login(authDto.email, authDto.password);
   }
 }

@@ -16,7 +16,7 @@ export class UsersFacade {
     );
   }
 
-  async getOneById(q: string): Promise<UserDto> {
+  async findById(q: string): Promise<UserDto> {
     const doc = await this.usersService.findById(q);
     return doc ? this.usersConverter.convertToDto(doc) : null;
   }

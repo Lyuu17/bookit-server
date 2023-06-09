@@ -9,10 +9,10 @@ import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { Role } from 'src/enums/role.enum';
 import { Roles } from 'src/roles/roles.decorator';
 import { RolesGuard } from 'src/roles/roles.guard';
+import { UserDto } from 'src/users/dto/user.dto';
 import { UsersFacade } from 'src/users/users.facade';
 import { ImageDto } from './dto/image.dto';
-import { PropertyDto } from './dto/property.dto';
-import { UpdatePropertyDto } from './dto/updateproperty.dto';
+import { PropertyDto, UpdatePropertyDto } from './dto/property.dto';
 import { PropertiesFacade } from './properties.facade';
 import { PropertiesGuard } from './properties.guard';
 import { PropertiesService } from './properties.service';
@@ -27,7 +27,7 @@ export class PropertiesController {
 
   @Get()
   @ApiOkResponse({ description: 'Get all properties', type: [PropertyDto] })
-  async getAll() {
+  async getAll(): Promise<PropertyDto[]> {
     return this.propertiesFacade.getAll();
   }
 
@@ -38,7 +38,7 @@ export class PropertiesController {
     @Query('checkout') checkout: string,
     @Query('country') country: string,
     @Query('city') city: string
-  ) {
+  ): Promise<PropertyDto[]> {
     return this.propertiesFacade.getAllByAvailability(new Date(checkin), new Date(checkout), country, city);
   }
 
@@ -46,12 +46,12 @@ export class PropertiesController {
   @ApiOkResponse({ description: 'Get one property', type: PropertyDto })
   @ApiNotFoundResponse({ description: 'Property not found' })
   @ApiBadRequestResponse()
-  async getOne(@Param('q') q: string) {
+  async getOne(@Param('q') q: string): Promise<PropertyDto> {
     if (!isMongoId(q)) {
       throw new BadRequestException();
     }
 
-    const property = await this.propertiesFacade.getOne(q);
+    const property = await this.propertiesFacade.findById(q);
     if (!property) {
       throw new NotFoundException();
     }
@@ -65,7 +65,7 @@ export class PropertiesController {
     @Param('q') q: string,
     @Query('checkin') checkin: string,
     @Query('checkout') checkout: string
-  ) {
+  ): Promise<PropertyDto> {
     const properties = await this.propertiesFacade.findOneOrAllByAvailability(new Date(checkin), new Date(checkout), q);
     if (properties.length < 1) {
       throw new BadRequestException('Invalid property id');
@@ -76,13 +76,13 @@ export class PropertiesController {
 
   @Get('city/:q')
   @ApiOkResponse({ description: 'Get properties based on the city', type: [PropertyDto] })
-  async findByCity(@Param('q') q: string) {
+  async findByCity(@Param('q') q: string): Promise<PropertyDto[]> {
     return this.propertiesFacade.findByCity(q);
   }
 
   @Get('country/:q')
   @ApiOkResponse({ description: 'Get properties based on the country', type: [PropertyDto] })
-  async findByCountry(@Param('q') q: string) {
+  async findByCountry(@Param('q') q: string): Promise<PropertyDto[]> {
     return this.propertiesFacade.findByCountry(q);
   }
 
@@ -90,7 +90,7 @@ export class PropertiesController {
   @Roles(Role.ADMIN)
   @Post()
   @ApiOkResponse({ description: 'Add a property', type: PropertyDto })
-  async addOne(@Body() propertyDto: PropertyDto) {
+  async addOne(@Body() propertyDto: PropertyDto): Promise<PropertyDto> {
     return this.propertiesFacade.addOne(propertyDto);
   }
 
@@ -98,7 +98,7 @@ export class PropertiesController {
   @Patch(':id')
   @ApiOkResponse({ description: 'Update a property', type: PropertyDto })
   @ApiBadRequestResponse()
-  async updateOne(@Param('id') id: string, @Body() updatePropertyDto: UpdatePropertyDto) {
+  async updateOne(@Param('id') id: string, @Body() updatePropertyDto: UpdatePropertyDto): Promise<PropertyDto> {
     if (!isMongoId(id)) {
       throw new BadRequestException();
     }
@@ -110,7 +110,7 @@ export class PropertiesController {
   @Get(':property/admins')
   @ApiOkResponse({ description: 'Retrieve a list of property admin users' })
   @ApiBadRequestResponse({ description: 'Invalid property' })
-  async getAdmins(@Param('property') propertyId: string) {
+  async getAdmins(@Param('property') propertyId: string): Promise<UserDto[]> {
     if (!isMongoId(propertyId)) {
       throw new BadRequestException();
     }
@@ -123,12 +123,12 @@ export class PropertiesController {
   @ApiOkResponse({ description: 'Add a property admin user' })
   @ApiBadRequestResponse({ description: 'Invalid property' })
   @ApiBadRequestResponse({ description: 'Invalid user' })
-  async addAdmin(@Param('property') propertyId: string, @Param('user') userId: string) {
+  async addAdmin(@Param('property') propertyId: string, @Param('user') userId: string): Promise<UserDto[]> {
     if (!isMongoId(propertyId) || !isMongoId(userId)) {
       throw new BadRequestException('Invalid property');
     }
 
-    if (await this.usersFacade.getOneById(userId) == null) {
+    if (await this.usersFacade.findById(userId) == null) {
       throw new BadRequestException('Invalid user');
     }
 
@@ -142,12 +142,12 @@ export class PropertiesController {
   @ApiOkResponse({ description: 'Remove a property admin user' })
   @ApiBadRequestResponse({ description: 'Invalid property' })
   @ApiBadRequestResponse({ description: 'Invalid user' })
-  async removeAdmin(@Param('property') propertyId: string, @Param('user') userId: string) {
+  async removeAdmin(@Param('property') propertyId: string, @Param('user') userId: string): Promise<UserDto[]> {
     if (!isMongoId(propertyId) || !isMongoId(userId)) {
       throw new BadRequestException('Invalid property');
     }
 
-    if (await this.usersFacade.getOneById(userId) == null) {
+    if (await this.usersFacade.findById(userId) == null) {
       throw new BadRequestException('Invalid user');
     }
 
@@ -187,7 +187,7 @@ export class PropertiesController {
     @Param('id') propertyId: string,
     @Body() imageData: ImageDto,
     @UploadedFile() file: Express.Multer.File
-  ) {
+  ): Promise<ImageDto> {
     return this.propertiesService.uploadPropertyImage(propertyId, imageData, file);
   }
 
@@ -199,7 +199,7 @@ export class PropertiesController {
   async deleteImage(
     @Param('property') propertyId: string,
     @Param('image') imageId: string
-  ) {
+  ): Promise<void> {
     return this.propertiesService.deletePropertyImage(propertyId, imageId);
   }
 
@@ -213,7 +213,7 @@ export class PropertiesController {
     @Param('property') propertyId: string,
     @Param('room') roomId: string,
     @Param('image') imageId: string
-  ) {
+  ): Promise<void> {
     return this.propertiesService.addRoomImage(propertyId, roomId, imageId);
   }
 
@@ -227,7 +227,7 @@ export class PropertiesController {
     @Param('property') propertyId: string,
     @Param('room') roomId: string,
     @Param('image') imageId: string
-  ) {
+  ): Promise<void> {
     return this.propertiesService.removeRoomImage(propertyId, roomId, imageId);
   }
 }

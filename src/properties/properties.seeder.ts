@@ -6,12 +6,11 @@ import { PropertiesService } from './properties.service';
 export class PropertiesSeeder {
   constructor(
     private propertiesService: PropertiesService
-  ) { }
-
-  async run() {
-    await this.propertiesService.deleteMany();
-
-    import('./properties.json')
-      .then(e => e.forEach(async p => await this.propertiesService.create(p)));
+  ) {
+    this.propertiesService.deleteMany()
+      .then(() => {
+        import('./properties.json')
+          .then(e => e.forEach(async p => await this.propertiesService.create(p)));
+      })
   }
 }

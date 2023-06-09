@@ -25,7 +25,7 @@ export class ItinerariesService {
     return await itinerary.save();
   }
 
-  async findOne(id: string): Promise<ItineraryDocument> {
+  async findById(id: string): Promise<ItineraryDocument> {
     return this.itineraryModel.findById(id).exec();
   }
 
@@ -72,7 +72,7 @@ export class ItinerariesService {
     return this.itineraryModel.countDocuments().exec();
   }
 
-  async deleteMany(): Promise<void> {
+  async deleteAll(): Promise<void> {
     await this.itineraryModel.deleteMany().exec();
   }
 }

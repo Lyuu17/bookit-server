@@ -1,4 +1,4 @@
-import { ApiProperty } from "@nestjs/swagger";
+import { ApiProperty, PartialType } from "@nestjs/swagger";
 import { Exclude, Expose, Transform, Type } from "class-transformer";
 import { IsNotEmpty, IsPhoneNumber, ValidateNested } from "class-validator";
 import { UserDto } from "src/users/dto/user.dto";
@@ -66,3 +66,5 @@ export class PropertyDto {
     Object.assign(this, partial);
   }
 }
+
+export class UpdatePropertyDto extends PartialType(PropertyDto) { }

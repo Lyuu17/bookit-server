@@ -15,14 +15,14 @@ export class UsersService {
   async create(createUserDto: CreateUserDto): Promise<UserDocument | null> {
     const newUser = new this.userModel(createUserDto);
     newUser.password = await bcrypt.hash(newUser.password, 10);
-    return await this.findOne(newUser.email) == null ? newUser.save() : null;
+    return await this.findByEmail(newUser.email) == null ? newUser.save() : null;
   }
 
   async findAll(): Promise<UserDocument[]> {
     return this.userModel.find().exec();
   }
 
-  async findOne(email: string): Promise<UserDocument | null> {
+  async findByEmail(email: string): Promise<UserDocument | null> {
     return this.userModel.findOne({ email: email }).exec();
   }
 
@@ -34,7 +34,7 @@ export class UsersService {
     return this.userModel.countDocuments().exec();
   }
 
-  async deleteMany(): Promise<void> {
+  async deleteAll(): Promise<void> {
     await this.userModel.deleteMany().exec();
   }
 

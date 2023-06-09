@@ -12,7 +12,7 @@ export const PropertiesGuard = (reqParam: string): Type<CanActivate> => {
       const { user, params } = context.switchToHttp().getRequest();
       const id = params[reqParam];
 
-      const { adminUsers } = await this.propertiesService.findOne(id);
+      const { adminUsers } = await this.propertiesService.findById(id);
       return [...adminUsers].map(id => id.toString()).includes(user.userId) || user.roles?.includes(Role.ADMIN);
     }
   }

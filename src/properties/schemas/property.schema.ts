@@ -3,11 +3,11 @@ import { IsNotEmpty } from 'class-validator';
 import { HydratedDocument, SchemaTypes, Types, now } from 'mongoose';
 import { User, UserDocument } from '../../users/schemas/user.schema';
 import { Address, AddressSchema } from './address.schema';
-import { Amenity, AmenitySchema } from './amenity.schema';
+import { AmenityDocument, AmenitySchema } from './amenity.schema';
 import { Checkin, CheckinSchema } from './checkin.schema';
-import { Image, ImageSchema } from './image.schema';
+import { ImageDocument, ImageSchema } from './image.schema';
 import { LocationCoords, LocationCoordsSchema } from './locationcoords.schema';
-import { Room, RoomSchema } from './room.schema';
+import { RoomDocument, RoomSchema } from './room.schema';
 
 export type PropertyDocument = HydratedDocument<Property>;
 
@@ -43,13 +43,13 @@ export class Property {
   checkin: Checkin;
 
   @Prop([{ type: AmenitySchema }])
-  amenities: Types.DocumentArray<Amenity>;
+  amenities: Types.DocumentArray<AmenityDocument>;
 
   @Prop([{ type: RoomSchema }])
-  rooms: Types.DocumentArray<Room>;
+  rooms: Types.DocumentArray<RoomDocument>;
 
   @Prop([{ type: ImageSchema }])
-  images: Types.DocumentArray<Image>;
+  images: Types.DocumentArray<ImageDocument>;
 }
 
 export const PropertySchema = SchemaFactory.createForClass(Property);

@@ -1,4 +1,4 @@
-import { Module, OnModuleInit } from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ServeStaticModule } from '@nestjs/serve-static';
@@ -9,11 +9,8 @@ import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 import { GeocodeModule } from './geocode/geocode.module';
 import { ItinerariesModule } from './itineraries/itineraries.module';
-import { ItinerariesSeeder } from './itineraries/itineraries.seeder';
 import { PropertiesModule } from './properties/properties.module';
-import { PropertiesSeeder } from './properties/properties.seeder';
 import { UsersModule } from './users/users.module';
-import { UsersSeeder } from './users/users.seeder';
 
 @Module({
   imports: [
@@ -51,22 +48,7 @@ import { UsersSeeder } from './users/users.seeder';
     AppController,
   ],
   providers: [
-    AppService,
-    UsersSeeder,
-    PropertiesSeeder,
-    ItinerariesSeeder
+    AppService
   ],
 })
-export class AppModule implements OnModuleInit {
-  constructor(
-    private usersSeeder: UsersSeeder,
-    private propertiesSeeder: PropertiesSeeder,
-    private itinerariesSeeder: ItinerariesSeeder
-  ) { }
-
-  async onModuleInit() {
-    await this.usersSeeder.run();
-    await this.propertiesSeeder.run();
-    await this.itinerariesSeeder.run();
-  }
-}
+export class AppModule { }

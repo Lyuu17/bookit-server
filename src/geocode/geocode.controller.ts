@@ -12,10 +12,10 @@ export class GeocodeController {
 
   @Get(':q')
   @ApiOkResponse({ description: 'Search by geolocation', type: [GeocodeResponseDto] })
-  async find(@Param('q') q) {
+  async find(@Param('q') q): Promise<GeocodeResponseDto[]> {
     const geoData = await this.geocodeService.find(q);
 
-    const responsesDto = [];
+    const responsesDto: GeocodeResponseDto[] = [];
     geoData.forEach(d => {
       responsesDto.push({
         latitude: d.latitude,

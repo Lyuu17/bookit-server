@@ -1,8 +1,8 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { IsDateString, Min } from 'class-validator';
 import { HydratedDocument, SchemaTypes, Types } from 'mongoose';
-import { BedgroupConfig } from '../../properties/schemas/bedgroupconfig.schema';
-import { Property } from '../../properties/schemas/property.schema';
+import { BedgroupConfig, BedgroupConfigDocument } from '../../properties/schemas/bedgroupconfig.schema';
+import { Property, PropertyDocument } from '../../properties/schemas/property.schema';
 import { User } from '../../users/schemas/user.schema';
 
 export type ItineraryDocument = HydratedDocument<Itinerary>;
@@ -13,10 +13,10 @@ export class Itinerary {
   user: User;
 
   @Prop({ type: SchemaTypes.ObjectId, ref: Property.name })
-  property: Property;
+  property: PropertyDocument;
 
   @Prop([{ type: SchemaTypes.ObjectId, ref: BedgroupConfig.name }])
-  bed_groups: Types.DocumentArray<BedgroupConfig>;
+  bed_groups: Types.DocumentArray<BedgroupConfigDocument>;
 
   @Prop({ type: SchemaTypes.Date })
   @IsDateString({ strict: true })

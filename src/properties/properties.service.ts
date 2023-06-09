@@ -7,8 +7,7 @@ import { join, relative } from 'path';
 import { GeocodeService } from 'src/geocode/geocode.service';
 import { ItinerariesService } from 'src/itineraries/itineraries.service';
 import { ImageDto } from './dto/image.dto';
-import { PropertyDto } from './dto/property.dto';
-import { UpdatePropertyDto } from './dto/updateproperty.dto';
+import { PropertyDto, UpdatePropertyDto } from './dto/property.dto';
 import { Property, PropertyDocument } from './schemas/property.schema';
 
 @Injectable()
@@ -29,15 +28,15 @@ export class PropertiesService {
     return this.propertyModel.findByIdAndUpdate(id, { $set: updatePropertyDto }, { new: true, strict: true }).exec();
   }
 
-  async findOne(id: string): Promise<PropertyDocument> {
+  async findById(id: string): Promise<PropertyDocument> {
     return this.propertyModel.findById(id).exec();
   }
 
-  async findAll(): Promise<PropertyDocument[] | null> {
+  async findAll(): Promise<PropertyDocument[]> {
     return this.propertyModel.find().exec();
   }
 
-  async findOneOrAllByAvailability(checkin: Date, checkout: Date, id?: string, country?: string, city?: string): Promise<PropertyDocument[] | null> {
+  async findOneOrAllByAvailability(checkin: Date, checkout: Date, id?: string, country?: string, city?: string): Promise<PropertyDocument[]> {
     const itineraries = typeof id === 'undefined'
       ? await this.itinerariesService.findAllBetweenDates(checkin, checkout)
       : await this.itinerariesService.findAllBetweenDatesWithinProperty(id, checkin, checkout);
@@ -53,7 +52,7 @@ export class PropertiesService {
 
     const propertyModels = typeof id === 'undefined'
       ? await this.findByCountryAndCity(country, city)
-      : [await this.findOne(id)];
+      : [await this.findById(id)];
 
     // update availability based on itineraries
     propertyModels.forEach(prop => {
@@ -76,7 +75,7 @@ export class PropertiesService {
         ).length == 0);
   }
 
-  async findByCity(q: string): Promise<PropertyDocument[] | null> {
+  async findByCity(q: string): Promise<PropertyDocument[]> {
     const geoData = await this.geocodeService.find(q);
     return this.propertyModel.find({
       'address.country_code': geoData[0]?.countryCode,
@@ -85,14 +84,14 @@ export class PropertiesService {
     }).exec();
   }
 
-  async findByCountry(q: string): Promise<PropertyDocument[] | null> {
+  async findByCountry(q: string): Promise<PropertyDocument[]> {
     const geoData = await this.geocodeService.find(q);
     return this.propertyModel.find({
       'address.country_code': geoData[0]?.countryCode
     }).exec();
   }
 
-  async findByCountryAndCity(country: string, city: string): Promise<PropertyDocument[] | null> {
+  async findByCountryAndCity(country: string, city: string): Promise<PropertyDocument[]> {
     const geoData = await this.geocodeService.find(`${city}, ${country}`);
     return this.propertyModel.find({
       'address.country_code': geoData[0]?.countryCode,
@@ -141,7 +140,7 @@ export class PropertiesService {
     return imageDtoWithLink;
   }
 
-  async deletePropertyImage(propertyId: string, imageId: string) {
+  async deletePropertyImage(propertyId: string, imageId: string): Promise<void> {
     const property = await this.propertyModel.findById(propertyId);
     if (property == null) {
       throw new BadRequestException('Property not found');
@@ -157,7 +156,7 @@ export class PropertiesService {
     rm(join(process.cwd(), images[0].link), () => { });
   }
 
-  async addRoomImage(propertyId: string, roomId: string, imageId: string) {
+  async addRoomImage(propertyId: string, roomId: string, imageId: string): Promise<void> {
     const property = await this.propertyModel.findById(propertyId);
     if (property == null) {
       throw new BadRequestException('Property not found');
@@ -179,7 +178,7 @@ export class PropertiesService {
       .exec();
   }
 
-  async removeRoomImage(propertyId: string, roomId: string, imageId: string) {
+  async removeRoomImage(propertyId: string, roomId: string, imageId: string): Promise<void> {
     const property = await this.propertyModel.findById(propertyId);
     if (property == null) {
       throw new BadRequestException('Property not found');

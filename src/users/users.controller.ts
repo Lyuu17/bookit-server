@@ -18,7 +18,7 @@ export class UsersController {
   @Roles(Role.ADMIN)
   @Get()
   @ApiOkResponse({ description: 'Get all users', type: [UserDto] })
-  async getAll() {
+  async getAll(): Promise<UserDto[]> {
     return this.usersFacade.getAll();
   }
 
@@ -28,12 +28,12 @@ export class UsersController {
   @ApiOkResponse({ description: 'Get user by user id', type: UserDto })
   @ApiNotFoundResponse({ description: 'User not found' })
   @ApiBadRequestResponse()
-  async getOneById(@Param('q') id: string) {
+  async findById(@Param('q') id: string): Promise<UserDto> {
     if (!isMongoId(id)) {
       throw new BadRequestException();
     }
 
-    const user = await this.usersFacade.getOneById(id);
+    const user = await this.usersFacade.findById(id);
     if (!user) {
       throw new NotFoundException();
     }

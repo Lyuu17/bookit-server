@@ -7,6 +7,7 @@ import { UsersModule } from 'src/users/users.module';
 import { ItinerariesController } from './itineraries.controller';
 import { ItinerariesConverter } from './itineraries.converter';
 import { ItinerariesFacade } from './itineraries.facade';
+import { ItinerariesSeeder } from './itineraries.seeder';
 import { ItinerariesService } from './itineraries.service';
 import { Itinerary, ItinerarySchema } from './schema/itinerary.schema';
 
@@ -24,7 +25,7 @@ import { Itinerary, ItinerarySchema } from './schema/itinerary.schema';
     UsersModule,
     forwardRef(() => PropertiesModule)
   ],
-  providers: [ItinerariesService, ItinerariesConverter, ItinerariesFacade],
+  providers: [ItinerariesService, ItinerariesConverter, ItinerariesFacade, ItinerariesSeeder],
   exports: [ItinerariesService],
   controllers: [ItinerariesController]
 })

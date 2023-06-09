@@ -14,7 +14,7 @@ export class AuthService {
     private jwtService: JwtService
   ) { }
 
-  async register(createUserDto: CreateUserDto) {
+  async register(createUserDto: CreateUserDto): Promise<AuthSuccessDto> {
     const newUser = await this.usersService.create(createUserDto);
     if (!newUser) {
       throw new UnauthorizedException('An account with that username already exists');
@@ -28,8 +28,8 @@ export class AuthService {
     return new AuthSuccessDto({ access_token: await this.jwtService.signAsync(payload) });
   }
 
-  async login(email: string, pass: string) {
-    const user = await this.usersService.findOne(email);
+  async login(email: string, pass: string): Promise<AuthSuccessDto> {
+    const user = await this.usersService.findByEmail(email);
     if (!user || !(await bcrypt.compare(pass, user.password))) {
       throw new UnauthorizedException('Invalid username or password');
     }

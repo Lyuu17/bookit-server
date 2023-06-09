@@ -6,6 +6,7 @@ import { User, UserSchema } from './schemas/user.schema';
 import { UsersController } from './users.controller';
 import { UsersConverter } from './users.converter';
 import { UsersFacade } from './users.facade';
+import { UsersSeeder } from './users.seeder';
 import { UsersService } from './users.service';
 
 @Module({
@@ -20,7 +21,7 @@ import { UsersService } from './users.service';
       }
     ])
   ],
-  providers: [UsersService, UsersConverter, UsersFacade],
+  providers: [UsersService, UsersConverter, UsersFacade, UsersSeeder],
   exports: [UsersService, UsersConverter, UsersFacade],
   controllers: [UsersController]
 })

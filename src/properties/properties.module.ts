@@ -9,6 +9,7 @@ import { UsersModule } from 'src/users/users.module';
 import { PropertiesController } from './properties.controller';
 import { PropertiesConverter } from './properties.converter';
 import { PropertiesFacade } from './properties.facade';
+import { PropertiesSeeder } from './properties.seeder';
 import { PropertiesService } from './properties.service';
 import { Property, PropertySchema } from './schemas/property.schema';
 
@@ -28,8 +29,8 @@ import { Property, PropertySchema } from './schemas/property.schema';
     ConfigModule,
     UsersModule
   ],
-  providers: [PropertiesService, PropertiesConverter, PropertiesFacade],
-  exports: [PropertiesService],
+  providers: [PropertiesService, PropertiesConverter, PropertiesFacade, PropertiesSeeder],
+  exports: [PropertiesFacade],
   controllers: [PropertiesController]
 })
 export class PropertiesModule { }

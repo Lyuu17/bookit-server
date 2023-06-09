@@ -6,17 +6,16 @@ import { ItinerariesService } from './itineraries.service';
 export class ItinerariesSeeder {
   constructor(
     private itinerariesService: ItinerariesService
-  ) { }
+  ) {
+    this.itinerariesService.deleteAll()
+      .then(() => {
+        import('./itineraries.json')
+          .then(e => e.forEach(async (dto: any) => {
+            dto.checkin = new Date(dto.checkin);
+            dto.checkout = new Date(dto.checkout);
 
-  async run() {
-    await this.itinerariesService.deleteMany();
-
-    import('./itineraries.json')
-      .then(e => e.forEach(async (dto: any) => {
-        dto.checkin = new Date(dto.checkin);
-        dto.checkout = new Date(dto.checkout);
-
-        await this.itinerariesService.create(dto);
-    }));
+            await this.itinerariesService.create(dto);
+          }));
+      })
   }
 }
