@@ -13,6 +13,11 @@ async function bootstrap() {
     .setTitle('BookIt')
     .setDescription('BookIt API documentation')
     .setVersion('1.0')
+    .addTag('Authentication')
+    .addTag('Geocode')
+    .addTag('Itineraries')
+    .addTag('Properties')
+    .addTag('Users')
     .addBearerAuth()
     .build();
   const document = SwaggerModule.createDocument(app, config);

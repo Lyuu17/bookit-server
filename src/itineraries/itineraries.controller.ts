@@ -1,5 +1,5 @@
 import { BadRequestException, Body, Controller, Get, Param, Post, Req, UseGuards } from '@nestjs/common';
-import { ApiBadRequestResponse, ApiOkResponse } from '@nestjs/swagger';
+import { ApiBadRequestResponse, ApiBearerAuth, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { isMongoId } from 'class-validator';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { Role } from 'src/enums/role.enum';
@@ -10,6 +10,8 @@ import { UsersFacade } from 'src/users/users.facade';
 import { ItineraryDto } from './dto/itinerary.dto';
 import { ItinerariesFacade } from './itineraries.facade';
 
+@ApiTags('Itineraries')
+@ApiBearerAuth()
 @Controller('itineraries')
 export class ItinerariesController {
   constructor(

@@ -1,9 +1,10 @@
 import { Controller, Get, Param } from '@nestjs/common';
-import { ApiOkResponse } from '@nestjs/swagger';
+import { ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { GeocodeService } from './geocode.service';
 
 import { GeocodeResponseDto } from './dto/geocode-response.dto';
 
+@ApiTags('Geocode')
 @Controller('geocode')
 export class GeocodeController {
   constructor(

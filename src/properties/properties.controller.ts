@@ -1,6 +1,6 @@
 import { BadRequestException, Body, Controller, Delete, Get, NotFoundException, Param, Patch, Post, Put, Query, UploadedFile, UseGuards, UseInterceptors } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { ApiBadRequestResponse, ApiNotFoundResponse, ApiOkResponse } from '@nestjs/swagger';
+import { ApiBadRequestResponse, ApiBearerAuth, ApiNotFoundResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { isMongoId } from 'class-validator';
 import { existsSync, mkdirSync } from 'fs';
 import { diskStorage } from 'multer';
@@ -17,6 +17,8 @@ import { PropertiesFacade } from './properties.facade';
 import { PropertiesGuard } from './properties.guard';
 import { PropertiesService } from './properties.service';
 
+@ApiTags('Properties')
+@ApiBearerAuth()
 @Controller('properties')
 export class PropertiesController {
   constructor(

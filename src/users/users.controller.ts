@@ -1,5 +1,5 @@
 import { BadRequestException, Controller, Get, NotFoundException, Param, Request, UseGuards } from '@nestjs/common';
-import { ApiBadRequestResponse, ApiNotFoundResponse, ApiOkResponse } from '@nestjs/swagger';
+import { ApiBadRequestResponse, ApiBearerAuth, ApiNotFoundResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { isMongoId } from 'class-validator';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { Role } from 'src/enums/role.enum';
@@ -8,6 +8,8 @@ import { RolesGuard } from 'src/roles/roles.guard';
 import { UserDto } from './dto/user.dto';
 import { UsersFacade } from './users.facade';
 
+@ApiTags('Users')
+@ApiBearerAuth()
 @Controller('users')
 export class UsersController {
   constructor(
