@@ -44,9 +44,9 @@ export class PropertiesService {
     /* store bed configuration as key: id, value: array */
     const bedconfigs = {};
     itineraries.forEach(itinerary => {
-      itinerary.bed_groups.forEach(bedgroupConfig => {
-        bedconfigs[bedgroupConfig.id.toString()] ||= [];
-        bedconfigs[bedgroupConfig.id.toString()] = [...bedconfigs[bedgroupConfig.id.toString()], itinerary];
+      itinerary.bed_groups.forEach(bedgroupConfigId => {
+        bedconfigs[bedgroupConfigId.toString()] ||= [];
+        bedconfigs[bedgroupConfigId.toString()] = [...bedconfigs[bedgroupConfigId.toString()], itinerary];
       });
     });
 
