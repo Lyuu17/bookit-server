@@ -1,5 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsDateString, IsEmail, IsNotEmpty } from "class-validator";
+import { IsDateString, IsEmail, IsNotEmpty, MaxLength } from "class-validator";
 
 export class CreateUserDto {
   @ApiProperty()
@@ -20,5 +20,6 @@ export class CreateUserDto {
 
   @ApiProperty()
   @IsDateString({ strict: true })
+  @MaxLength(10)
   readonly birthdate: string;
 }
