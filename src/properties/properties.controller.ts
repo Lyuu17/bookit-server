@@ -100,7 +100,7 @@ export class PropertiesController {
       throw new BadRequestException();
     }
 
-    return this.propertiesFacade.addOne(propertyDto);
+    return this.propertiesFacade.updateOne(propertyDto);
   }
 
   @UseGuards(JwtAuthGuard, RolesGuard)
