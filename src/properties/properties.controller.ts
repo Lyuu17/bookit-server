@@ -83,7 +83,7 @@ export class PropertiesController {
   }
 
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(Role.PROPERTY_MANAGER, Role.ADMIN)
+  @Roles(Role.ADMIN)
   @Post()
   @ApiOkResponse({ description: 'Add a property', type: PropertyDto })
   async addOne(@Body() propertyDto: PropertyDto) {
