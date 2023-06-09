@@ -9,6 +9,7 @@ import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { Role } from 'src/enums/role.enum';
 import { Roles } from 'src/roles/roles.decorator';
 import { RolesGuard } from 'src/roles/roles.guard';
+import { UsersFacade } from 'src/users/users.facade';
 import { ImageDto } from './dto/image.dto';
 import { PropertyDto } from './dto/property.dto';
 import { UpdatePropertyDto } from './dto/updateproperty.dto';
@@ -20,6 +21,7 @@ import { PropertiesService } from './properties.service';
 export class PropertiesController {
   constructor(
     private readonly propertiesService: PropertiesService,
+    private readonly usersFacade: UsersFacade,
     private readonly propertiesFacade: PropertiesFacade
   ) { }
 
@@ -102,6 +104,56 @@ export class PropertiesController {
     }
 
     return this.propertiesFacade.updateOne(id, updatePropertyDto);
+  }
+
+  @UseGuards(JwtAuthGuard, PropertiesGuard('property'))
+  @Get(':property/admins')
+  @ApiOkResponse({ description: 'Retrieve a list of property admin users' })
+  @ApiBadRequestResponse({ description: 'Invalid property' })
+  async getAdmins(@Param('property') propertyId: string) {
+    if (!isMongoId(propertyId)) {
+      throw new BadRequestException();
+    }
+
+    return this.propertiesFacade.getAdminUsers(propertyId);
+  }
+
+  @UseGuards(JwtAuthGuard, PropertiesGuard('property'))
+  @Post(':property/admins/:user')
+  @ApiOkResponse({ description: 'Add a property admin user' })
+  @ApiBadRequestResponse({ description: 'Invalid property' })
+  @ApiBadRequestResponse({ description: 'Invalid user' })
+  async addAdmin(@Param('property') propertyId: string, @Param('user') userId: string) {
+    if (!isMongoId(propertyId) || !isMongoId(userId)) {
+      throw new BadRequestException('Invalid property');
+    }
+
+    if (await this.usersFacade.getOneById(userId) == null) {
+      throw new BadRequestException('Invalid user');
+    }
+
+    await this.propertiesService.addAdminUser(propertyId, userId);
+
+    return this.propertiesFacade.getAdminUsers(propertyId);
+  }
+
+  @UseGuards(JwtAuthGuard, PropertiesGuard('property'))
+  @Delete(':property/admins/:user')
+  @ApiOkResponse({ description: 'Remove a property admin user' })
+  @ApiBadRequestResponse({ description: 'Invalid property' })
+  @ApiBadRequestResponse({ description: 'Invalid user' })
+  async removeAdmin(@Param('property') propertyId: string, @Param('user') userId: string) {
+    if (!isMongoId(propertyId) || !isMongoId(userId)) {
+      throw new BadRequestException('Invalid property');
+    }
+
+    if (await this.usersFacade.getOneById(userId) == null) {
+      throw new BadRequestException('Invalid user');
+    }
+
+    await this.propertiesService.removeAdminUser(propertyId, userId);
+
+    return this.propertiesFacade.getAdminUsers(propertyId);
   }
 
   @UseGuards(JwtAuthGuard, PropertiesGuard('id'))

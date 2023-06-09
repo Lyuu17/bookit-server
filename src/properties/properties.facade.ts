@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 
+import { UsersConverter } from 'src/users/users.converter';
 import { PropertyDto } from './dto/property.dto';
 import { UpdatePropertyDto } from './dto/updateproperty.dto';
 import { PropertiesConverter } from './properties.converter';
@@ -9,7 +10,8 @@ import { PropertiesService } from './properties.service';
 export class PropertiesFacade {
   constructor(
     private readonly propertiesService: PropertiesService,
-    private readonly propertiesConverter: PropertiesConverter
+    private readonly propertiesConverter: PropertiesConverter,
+    private readonly usersConverter: UsersConverter
   ) { }
 
   async getAll(): Promise<PropertyDto[]> {
@@ -56,6 +58,12 @@ export class PropertiesFacade {
   async updateOne(id: string, updatePropertyDto: UpdatePropertyDto) {
     return this.propertiesConverter.convertToDto(
       await this.propertiesService.update(id, updatePropertyDto)
+    );
+  }
+
+  async getAdminUsers(id: string) {
+    return this.usersConverter.convertToDtoArray(
+      await this.propertiesService.getAdminUsers(id)
     );
   }
 }

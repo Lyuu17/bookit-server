@@ -1,6 +1,6 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model, isValidObjectId } from 'mongoose';
+import { Model } from 'mongoose';
 
 import { rm } from 'fs';
 import { join, relative } from 'path';
@@ -109,22 +109,16 @@ export class PropertiesService {
     await this.propertyModel.deleteMany().exec();
   }
 
-  async addAdminUser(propertyId: string, userId: string) {
-    return isValidObjectId(propertyId) && isValidObjectId(userId)
-      ? this.propertyModel.findByIdAndUpdate(propertyId, { $addToSet: { adminUsers: userId } }, { new: true }).exec()
-      : null;
+  async addAdminUser(propertyId: string, userId: string): Promise<void> {
+    await this.propertyModel.findByIdAndUpdate(propertyId, { $addToSet: { adminUsers: userId } }).exec();
   }
 
-  async removeAdminUser(propertyId: string, userId: string) {
-    return isValidObjectId(propertyId) && isValidObjectId(userId)
-      ? this.propertyModel.findByIdAndUpdate(propertyId, { $pull: { adminUsers: userId } }, { new: true }).exec()
-      : null;
+  async removeAdminUser(propertyId: string, userId: string): Promise<void> {
+    await this.propertyModel.findByIdAndUpdate(propertyId, { $pull: { adminUsers: userId } }).exec();
   }
 
   async getAdminUsers(propertyId: string) {
-    return isValidObjectId(propertyId)
-      ? (await this.propertyModel.findById(propertyId).populate('adminUsers')).adminUsers
-      : null;
+    return (await this.propertyModel.findById(propertyId).populate('adminUsers').exec()).adminUsers;
   }
 
   async uploadPropertyImage(propertyId: string, imageDto: ImageDto, file: Express.Multer.File): Promise<ImageDto> {

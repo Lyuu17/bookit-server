@@ -21,7 +21,7 @@ import { UsersService } from './users.service';
     ])
   ],
   providers: [UsersService, UsersConverter, UsersFacade],
-  exports: [UsersService],
+  exports: [UsersService, UsersConverter, UsersFacade],
   controllers: [UsersController]
 })
 export class UsersModule { }
