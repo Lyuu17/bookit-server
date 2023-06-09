@@ -13,6 +13,7 @@ import { ImageDto } from './dto/image.dto';
 import { PropertyDto } from './dto/property.dto';
 import { UpdatePropertyDto } from './dto/updateproperty.dto';
 import { PropertiesFacade } from './properties.facade';
+import { PropertiesGuard } from './properties.guard';
 import { PropertiesService } from './properties.service';
 
 @Controller('properties')
@@ -91,8 +92,7 @@ export class PropertiesController {
     return this.propertiesFacade.addOne(propertyDto);
   }
 
-  @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(Role.PROPERTY_MANAGER, Role.ADMIN)
+  @UseGuards(JwtAuthGuard, PropertiesGuard('id'))
   @Patch(':id')
   @ApiOkResponse({ description: 'Update a property', type: PropertyDto })
   @ApiBadRequestResponse()
@@ -104,9 +104,8 @@ export class PropertiesController {
     return this.propertiesFacade.updateOne(id, updatePropertyDto);
   }
 
-  @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(Role.PROPERTY_MANAGER, Role.ADMIN)
-  @Post(':q/image')
+  @UseGuards(JwtAuthGuard, PropertiesGuard('id'))
+  @Post(':id/image')
   @UseInterceptors(FileInterceptor('file', {
     storage: diskStorage({
       destination: (req, file, cb) => {
@@ -133,15 +132,14 @@ export class PropertiesController {
   @ApiBadRequestResponse({ description: 'Upload failed' })
   @ApiBadRequestResponse({ description: 'Invalid property' })
   async uploadImage(
-    @Param('q') propertyId: string,
+    @Param('id') propertyId: string,
     @Body() imageData: ImageDto,
     @UploadedFile() file: Express.Multer.File
   ) {
     return this.propertiesService.uploadPropertyImage(propertyId, imageData, file);
   }
 
-  @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(Role.PROPERTY_MANAGER, Role.ADMIN)
+  @UseGuards(JwtAuthGuard, PropertiesGuard('property'))
   @Delete(':property/image/:image')
   @ApiOkResponse({ description: 'Delete an image of a property' })
   @ApiBadRequestResponse({ description: 'Invalid property' })
@@ -153,8 +151,7 @@ export class PropertiesController {
     return this.propertiesService.deletePropertyImage(propertyId, imageId);
   }
 
-  @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(Role.PROPERTY_MANAGER, Role.ADMIN)
+  @UseGuards(JwtAuthGuard, PropertiesGuard('property'))
   @Put(':property/room/:room/image/:image')
   @ApiOkResponse({ description: 'Add a property image to a room' })
   @ApiBadRequestResponse({ description: 'Invalid property' })
@@ -168,8 +165,7 @@ export class PropertiesController {
     return this.propertiesService.addRoomImage(propertyId, roomId, imageId);
   }
 
-  @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(Role.PROPERTY_MANAGER, Role.ADMIN)
+  @UseGuards(JwtAuthGuard, PropertiesGuard('property'))
   @Delete(':property/room/:room/image/:image')
   @ApiOkResponse({ description: 'Remove a property image from a room' })
   @ApiBadRequestResponse({ description: 'Invalid property' })
