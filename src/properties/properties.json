@@ -13,7 +13,7 @@
       "latitude": 45.499601,
       "longitude": 12.319276
     },
-    "phone": "0000000000",
+    "phone": "+39 0326 8064159",
     "checkin": {
       "begin_time": "7:00 AM",
       "end_time": "11:00 PM",
@@ -64,6 +64,896 @@
             "name": "Air conditioning",
             "value": "",
             "categories": "air_conditioning"
+          }
+        ],
+        "images": []
+      }
+    ],
+    "images": []
+  },
+  {
+    "name": "Annia Park Hotel Venice Airport",
+    "address": {
+      "street": "Via Triestina 161, Tessera",
+      "country_code": "IT",
+      "region": "Veneto",
+      "city": "Mestre",
+      "postal_code": "000000"
+    },
+    "location_coords": {
+      "latitude": 45.506679,
+      "longitude": 12.332336
+    },
+    "phone": "+39 0349 3532415",
+    "checkin": {
+      "begin_time": "7:00 AM",
+      "end_time": "11:00 PM",
+      "instructions": "",
+      "min_age": 18
+    },
+    "amenities": [
+      {
+        "name": "Free WiFi",
+        "value": "",
+        "categories": "wifi"
+      },
+      {
+        "name": "Parking included",
+        "value": "",
+        "categories": "parking"
+      },
+      {
+        "name": "Restaurant",
+        "value": "",
+        "categories": "restaurant_in_hotel"
+      },
+      {
+        "name": "Air conditioning",
+        "value": "",
+        "categories": "air_conditioning"
+      }
+    ],
+    "rooms": [
+      {
+        "name": "Junior Suite",
+        "bed_groups": [
+          {
+            "description": "1 Queen Bed",
+            "configuration": [
+              {
+                "type": "Queen Bed",
+                "size": "Queen",
+                "quantity": 1,
+                "base_price": 402.0
+              }
+            ]
+          }
+        ],
+        "amenities": [
+          {
+            "name": "Access via exterior corridors",
+            "value": "",
+            "categories": "accessibility"
+          },
+          {
+            "name": "Bathroom emergency pull cord",
+            "value": "",
+            "categories": "accessibility"
+          },
+          {
+            "name": "Hair dryer",
+            "value": "",
+            "categories": "dryer"
+          }
+        ],
+        "images": []
+      },
+      {
+        "name": "Suite",
+        "bed_groups": [
+          {
+            "description": "1 Queen Bed",
+            "configuration": [
+              {
+                "type": "Queen Bed",
+                "size": "Queen",
+                "quantity": 1,
+                "base_price": 491.0
+              }
+            ]
+          }
+        ],
+        "amenities": [
+          {
+            "name": "Access via exterior corridors",
+            "value": "",
+            "categories": "accessibility"
+          },
+          {
+            "name": "Bathroom emergency pull cord",
+            "value": "",
+            "categories": "accessibility"
+          },
+          {
+            "name": "Hair dryer",
+            "value": "",
+            "categories": "dryer"
+          }
+        ],
+        "images": []
+      },
+      {
+        "name": "Twin Room",
+        "bed_groups": [
+          {
+            "description": "2 Twin Beds",
+            "configuration": [
+              {
+                "type": "Twin Beds",
+                "size": "Twin",
+                "quantity": 2,
+                "base_price": 501.0
+              }
+            ]
+          }
+        ],
+        "amenities": [
+          {
+            "name": "Access via exterior corridors",
+            "value": "",
+            "categories": "accessibility"
+          },
+          {
+            "name": "Bathroom emergency pull cord",
+            "value": "",
+            "categories": "accessibility"
+          },
+          {
+            "name": "Hair dryer",
+            "value": "",
+            "categories": "dryer"
+          }
+        ],
+        "images": []
+      }
+    ],
+    "images": []
+  },
+  {
+    "name": "Best Western Titian Inn Hotel Venice Airport",
+    "address": {
+      "street": "Via Orlanda 240, Tessera",
+      "country_code": "IT",
+      "region": "Veneto",
+      "city": "Mestre",
+      "postal_code": "30173"
+    },
+    "location_coords": {
+      "latitude": 45.50204,
+      "longitude": 12.324586
+    },
+    "phone": "+39 0349 3532415",
+    "checkin": {
+      "begin_time": "7:00 AM",
+      "end_time": "11:00 PM",
+      "instructions": "",
+      "min_age": 18
+    },
+    "amenities": [
+      {
+        "name": "Free WiFi",
+        "value": "",
+        "categories": "wifi"
+      },
+      {
+        "name": "Parking included",
+        "value": "",
+        "categories": "parking"
+      },
+      {
+        "name": "Restaurant",
+        "value": "",
+        "categories": "restaurant_in_hotel"
+      },
+      {
+        "name": "Air conditioning",
+        "value": "",
+        "categories": "air_conditioning"
+      }
+    ],
+    "rooms": [
+      {
+        "name": "Superior Room",
+        "bed_groups": [
+          {
+            "description": "1 King Bed",
+            "configuration": [
+              {
+                "type": "Non Smoking",
+                "size": "King",
+                "quantity": 1,
+                "base_price": 193.0
+              }
+            ]
+          }
+        ],
+        "amenities": [
+          {
+            "name": "Access via exterior corridors",
+            "value": "",
+            "categories": "accessibility"
+          },
+          {
+            "name": "Bathroom emergency pull cord",
+            "value": "",
+            "categories": "accessibility"
+          },
+          {
+            "name": "Hair dryer",
+            "value": "",
+            "categories": "dryer"
+          }
+        ],
+        "images": []
+      },
+      {
+        "name": "Business Room",
+        "bed_groups": [
+          {
+            "description": "1 Twin Bed",
+            "configuration": [
+              {
+                "type": "Non Smoking (Bed is French Bed)",
+                "size": "Twin",
+                "quantity": 1,
+                "base_price": 193.0
+              }
+            ]
+          }
+        ],
+        "amenities": [
+          {
+            "name": "Access via exterior corridors",
+            "value": "",
+            "categories": "accessibility"
+          },
+          {
+            "name": "Bathroom emergency pull cord",
+            "value": "",
+            "categories": "accessibility"
+          },
+          {
+            "name": "Hair dryer",
+            "value": "",
+            "categories": "dryer"
+          }
+        ],
+        "images": []
+      }
+    ],
+    "images": []
+  },
+  {
+    "name": "Hotel Arts Barcelona",
+    "address": {
+      "street": "Marina 19–21, Barcelona",
+      "country_code": "ES",
+      "region": "Catalonia",
+      "city": "Barcelona",
+      "postal_code": "08005"
+    },
+    "location_coords": {
+      "latitude": 41.38697,
+      "longitude": 2.19708
+    },
+    "phone": "+39 774 935 948",
+    "checkin": {
+      "begin_time": "7:00 AM",
+      "end_time": "11:00 PM",
+      "instructions": "",
+      "min_age": 18
+    },
+    "amenities": [
+      {
+        "name": "Free WiFi",
+        "value": "",
+        "categories": "wifi"
+      },
+      {
+        "name": "Parking included",
+        "value": "",
+        "categories": "parking"
+      },
+      {
+        "name": "Restaurant",
+        "value": "",
+        "categories": "restaurant_in_hotel"
+      },
+      {
+        "name": "Air conditioning",
+        "value": "",
+        "categories": "air_conditioning"
+      },
+      {
+        "name": "Gym",
+        "value": "",
+        "categories": "gym"
+      }
+    ],
+    "rooms": [
+      {
+        "name": "Deluxe Room",
+        "bed_groups": [
+          {
+            "description": "1 King Bed",
+            "configuration": [
+              {
+                "type": "Non Smoking",
+                "size": "King",
+                "quantity": 1,
+                "base_price": 397.0
+              }
+            ]
+          },
+          {
+            "description": "2 Double Bed",
+            "configuration": [
+              {
+                "type": "Non Smoking",
+                "size": "Double",
+                "quantity": 2,
+                "base_price": 397.0
+              }
+            ]
+          }
+        ],
+        "amenities": [
+          {
+            "name": "Access via exterior corridors",
+            "value": "",
+            "categories": "accessibility"
+          },
+          {
+            "name": "Bathroom emergency pull cord",
+            "value": "",
+            "categories": "accessibility"
+          },
+          {
+            "name": "Hair dryer",
+            "value": "",
+            "categories": "dryer"
+          }
+        ],
+        "images": []
+      },
+      {
+        "name": "Panoramic Room",
+        "bed_groups": [
+          {
+            "description": "1 King Bed",
+            "configuration": [
+              {
+                "type": "City View",
+                "size": "King",
+                "quantity": 1,
+                "base_price": 426.0
+              }
+            ]
+          },
+          {
+            "description": "2 Double Bed",
+            "configuration": [
+              {
+                "type": "Non Smoking, City View",
+                "size": "Double",
+                "quantity": 2,
+                "base_price": 426.0
+              }
+            ]
+          }
+        ],
+        "amenities": [
+          {
+            "name": "Access via exterior corridors",
+            "value": "",
+            "categories": "accessibility"
+          },
+          {
+            "name": "Bathroom emergency pull cord",
+            "value": "",
+            "categories": "accessibility"
+          },
+          {
+            "name": "Hair dryer",
+            "value": "",
+            "categories": "dryer"
+          }
+        ],
+        "images": []
+      }
+    ],
+    "images": []
+  },
+  {
+    "name": "Renaissance Barcelona Hotel",
+    "address": {
+      "street": "Pau Claris 122",
+      "country_code": "ES",
+      "region": "Catalonia",
+      "city": "Barcelona",
+      "postal_code": "8009"
+    },
+    "location_coords": {
+      "latitude": 41.39243,
+      "longitude": 2.1675
+    },
+    "phone": "+34 778 561 155",
+    "checkin": {
+      "begin_time": "7:00 AM",
+      "end_time": "11:00 PM",
+      "instructions": "",
+      "min_age": 18
+    },
+    "amenities": [
+      {
+        "name": "Free WiFi",
+        "value": "",
+        "categories": "wifi"
+      },
+      {
+        "name": "Parking included",
+        "value": "",
+        "categories": "parking"
+      },
+      {
+        "name": "Restaurant",
+        "value": "",
+        "categories": "restaurant_in_hotel"
+      },
+      {
+        "name": "Air conditioning",
+        "value": "",
+        "categories": "air_conditioning"
+      },
+      {
+        "name": "Gym",
+        "value": "",
+        "categories": "gym"
+      }
+    ],
+    "rooms": [
+      {
+        "name": "Room",
+        "bed_groups": [
+          {
+            "description": "1 Queen Bed",
+            "configuration": [
+              {
+                "type": "Non Smoking (Urban)",
+                "size": "Queen",
+                "quantity": 1,
+                "base_price": 306.0
+              }
+            ]
+          }
+        ],
+        "amenities": [
+          {
+            "name": "Access via exterior corridors",
+            "value": "",
+            "categories": "accessibility"
+          },
+          {
+            "name": "Bathroom emergency pull cord",
+            "value": "",
+            "categories": "accessibility"
+          },
+          {
+            "name": "Hair dryer",
+            "value": "",
+            "categories": "dryer"
+          }
+        ],
+        "images": []
+      },
+      {
+        "name": "Superior Room",
+        "bed_groups": [
+          {
+            "description": "1 King Bed",
+            "configuration": [
+              {
+                "type": "Non Smoking (Urban)",
+                "size": "King",
+                "quantity": 1,
+                "base_price": 347.0
+              }
+            ]
+          },
+          {
+            "description": "1 King Bed",
+            "configuration": [
+              {
+                "type": "Non Smoking, Balcony (Urban)",
+                "size": "King",
+                "quantity": 2,
+                "base_price": 365.0
+              }
+            ]
+          }
+        ],
+        "amenities": [
+          {
+            "name": "Access via exterior corridors",
+            "value": "",
+            "categories": "accessibility"
+          },
+          {
+            "name": "Bathroom emergency pull cord",
+            "value": "",
+            "categories": "accessibility"
+          },
+          {
+            "name": "Hair dryer",
+            "value": "",
+            "categories": "dryer"
+          }
+        ],
+        "images": []
+      }
+    ],
+    "images": []
+  },
+  {
+    "name": "Occidental Barcelona 1929",
+    "address": {
+      "street": "de la Creu Coberta, 20-22",
+      "country_code": "ES",
+      "region": "Catalonia",
+      "city": "Barcelona",
+      "postal_code": "08014"
+    },
+    "location_coords": {
+      "latitude": 41.37528,
+      "longitude": 2.147852
+    },
+    "phone": "+34 778 561 155",
+    "checkin": {
+      "begin_time": "7:00 AM",
+      "end_time": "11:00 PM",
+      "instructions": "",
+      "min_age": 18
+    },
+    "amenities": [
+      {
+        "name": "Free WiFi",
+        "value": "",
+        "categories": "wifi"
+      },
+      {
+        "name": "Parking included",
+        "value": "",
+        "categories": "parking"
+      },
+      {
+        "name": "Restaurant",
+        "value": "",
+        "categories": "restaurant_in_hotel"
+      },
+      {
+        "name": "Air conditioning",
+        "value": "",
+        "categories": "air_conditioning"
+      },
+      {
+        "name": "Gym",
+        "value": "",
+        "categories": "gym"
+      }
+    ],
+    "rooms": [
+      {
+        "name": "Superior Room",
+        "bed_groups": [
+          {
+            "description": "",
+            "configuration": [
+              {
+                "type": "",
+                "size": "King",
+                "quantity": 1,
+                "base_price": 193.0
+              }
+            ]
+          }
+        ],
+        "amenities": [
+          {
+            "name": "Access via exterior corridors",
+            "value": "",
+            "categories": "accessibility"
+          },
+          {
+            "name": "Bathroom emergency pull cord",
+            "value": "",
+            "categories": "accessibility"
+          },
+          {
+            "name": "Hair dryer",
+            "value": "",
+            "categories": "dryer"
+          }
+        ],
+        "images": []
+      },
+      {
+        "name": "Premium Room",
+        "bed_groups": [
+          {
+            "description": "",
+            "configuration": [
+              {
+                "type": "",
+                "size": "King",
+                "quantity": 1,
+                "base_price": 252.0
+              }
+            ]
+          }
+        ],
+        "amenities": [
+          {
+            "name": "Access via exterior corridors",
+            "value": "",
+            "categories": "accessibility"
+          },
+          {
+            "name": "Bathroom emergency pull cord",
+            "value": "",
+            "categories": "accessibility"
+          },
+          {
+            "name": "Hair dryer",
+            "value": "",
+            "categories": "dryer"
+          }
+        ],
+        "images": []
+      }
+    ],
+    "images": []
+  },
+  {
+    "name": "Only YOU Hotel Atocha",
+    "address": {
+      "street": "Paseo Infanta Isabel 13, Atocha",
+      "country_code": "ES",
+      "region": "Community of Madrid",
+      "city": "Madrid",
+      "postal_code": "28014"
+    },
+    "location_coords": {
+      "latitude": 40.407005,
+      "longitude": -3.688419
+    },
+    "phone": "+34 778 561 155",
+    "checkin": {
+      "begin_time": "7:00 AM",
+      "end_time": "11:00 PM",
+      "instructions": "",
+      "min_age": 18
+    },
+    "amenities": [
+      {
+        "name": "Free WiFi",
+        "value": "",
+        "categories": "wifi"
+      },
+      {
+        "name": "Parking included",
+        "value": "",
+        "categories": "parking"
+      },
+      {
+        "name": "Restaurant",
+        "value": "",
+        "categories": "restaurant_in_hotel"
+      },
+      {
+        "name": "Air conditioning",
+        "value": "",
+        "categories": "air_conditioning"
+      },
+      {
+        "name": "Gym",
+        "value": "",
+        "categories": "gym"
+      }
+    ],
+    "rooms": [
+      {
+        "name": "Deluxe Room",
+        "bed_groups": [
+          {
+            "description": "",
+            "configuration": [
+              {
+                "type": "",
+                "size": "King",
+                "quantity": 1,
+                "base_price": 269.0
+              }
+            ]
+          }
+        ],
+        "amenities": [
+          {
+            "name": "Access via exterior corridors",
+            "value": "",
+            "categories": "accessibility"
+          },
+          {
+            "name": "Bathroom emergency pull cord",
+            "value": "",
+            "categories": "accessibility"
+          },
+          {
+            "name": "Hair dryer",
+            "value": "",
+            "categories": "dryer"
+          }
+        ],
+        "images": []
+      },
+      {
+        "name": "Premium Room",
+        "bed_groups": [
+          {
+            "description": "",
+            "configuration": [
+              {
+                "type": "",
+                "size": "King",
+                "quantity": 1,
+                "base_price": 293.0
+              }
+            ]
+          }
+        ],
+        "amenities": [
+          {
+            "name": "Access via exterior corridors",
+            "value": "",
+            "categories": "accessibility"
+          },
+          {
+            "name": "Bathroom emergency pull cord",
+            "value": "",
+            "categories": "accessibility"
+          },
+          {
+            "name": "Hair dryer",
+            "value": "",
+            "categories": "dryer"
+          }
+        ],
+        "images": []
+      }
+    ],
+    "images": []
+  },
+  {
+    "name": "Hotel Fenix Gran Meliá - The Leading Hotels of the World",
+    "address": {
+      "street": "Hermosilla 2, Madrid",
+      "country_code": "ES",
+      "region": "Community of Madrid",
+      "city": "Madrid",
+      "postal_code": "28001"
+    },
+    "location_coords": {
+      "latitude": 40.426517,
+      "longitude": -3.689302
+    },
+    "phone": "+34 778 561 155",
+    "checkin": {
+      "begin_time": "7:00 AM",
+      "end_time": "11:00 PM",
+      "instructions": "",
+      "min_age": 18
+    },
+    "amenities": [
+      {
+        "name": "Free WiFi",
+        "value": "",
+        "categories": "wifi"
+      },
+      {
+        "name": "Parking included",
+        "value": "",
+        "categories": "parking"
+      },
+      {
+        "name": "Restaurant",
+        "value": "",
+        "categories": "restaurant_in_hotel"
+      },
+      {
+        "name": "Air conditioning",
+        "value": "",
+        "categories": "air_conditioning"
+      },
+      {
+        "name": "Gym",
+        "value": "",
+        "categories": "gym"
+      }
+    ],
+    "rooms": [
+      {
+        "name": "Presidential Penthouse Suite Red Level",
+        "bed_groups": [
+          {
+            "description": "",
+            "configuration": [
+              {
+                "type": "",
+                "size": "King",
+                "quantity": 1,
+                "base_price": 3547
+              }
+            ]
+          }
+        ],
+        "amenities": [
+          {
+            "name": "Access via exterior corridors",
+            "value": "",
+            "categories": "accessibility"
+          },
+          {
+            "name": "Bathroom emergency pull cord",
+            "value": "",
+            "categories": "accessibility"
+          },
+          {
+            "name": "Hair dryer",
+            "value": "",
+            "categories": "dryer"
+          }
+        ],
+        "images": []
+      },
+      {
+        "name": "Presidential Penthouse Suite Red Level (2+1)",
+        "bed_groups": [
+          {
+            "description": "",
+            "configuration": [
+              {
+                "type": "",
+                "size": "King",
+                "quantity": 1,
+                "base_price": 3630
+              }
+            ]
+          }
+        ],
+        "amenities": [
+          {
+            "name": "Access via exterior corridors",
+            "value": "",
+            "categories": "accessibility"
+          },
+          {
+            "name": "Bathroom emergency pull cord",
+            "value": "",
+            "categories": "accessibility"
+          },
+          {
+            "name": "Hair dryer",
+            "value": "",
+            "categories": "dryer"
           }
         ],
         "images": []
