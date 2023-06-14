@@ -27,10 +27,10 @@ import { Property, PropertySchema } from './schemas/property.schema';
     forwardRef(() => ItinerariesModule),
     GeocodeModule,
     ConfigModule,
-    UsersModule
+    forwardRef(() => UsersModule)
   ],
   providers: [PropertiesService, PropertiesConverter, PropertiesFacade, PropertiesSeeder],
-  exports: [PropertiesFacade],
+  exports: [PropertiesFacade, PropertiesService, PropertiesConverter],
   controllers: [PropertiesController]
 })
 export class PropertiesModule { }

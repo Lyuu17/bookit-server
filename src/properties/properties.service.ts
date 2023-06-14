@@ -199,4 +199,10 @@ export class PropertiesService {
       { $pull: { 'rooms.$.images': imageId }})
       .exec();
   }
+
+  async getAllManagedByAdmin(id: string): Promise<PropertyDocument[]> {
+    return await this.propertyModel.find({
+      adminUsers: { $in: id }
+    }).exec();
+  }
 }

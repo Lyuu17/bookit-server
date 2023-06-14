@@ -3,6 +3,7 @@ import { ApiBadRequestResponse, ApiBearerAuth, ApiNotFoundResponse, ApiOkRespons
 import { isMongoId } from 'class-validator';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { Role } from 'src/enums/role.enum';
+import { PropertyDto } from 'src/properties/dto/property.dto';
 import { Roles } from 'src/roles/roles.decorator';
 import { RolesGuard } from 'src/roles/roles.guard';
 import { UserDto } from './dto/user.dto';
@@ -29,6 +30,13 @@ export class UsersController {
   @ApiOkResponse({ description: 'Get all users', type: [UserDto] })
   async getAll(): Promise<UserDto[]> {
     return this.usersFacade.getAll();
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Get('properties')
+  @ApiOkResponse({ description: 'Get all properties managed by this user', type: [PropertyDto] })
+  async getAllManagedByAdmin(@Request() req): Promise<PropertyDto[]> {
+    return this.usersFacade.getAllManagedByAdmin(req.user.userId);
   }
 
   @UseGuards(JwtAuthGuard, RolesGuard)

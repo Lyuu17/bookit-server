@@ -22,7 +22,7 @@ import { Itinerary, ItinerarySchema } from './schema/itinerary.schema';
         },
       }
     ]),
-    UsersModule,
+    forwardRef(() => UsersModule),
     forwardRef(() => PropertiesModule)
   ],
   providers: [ItinerariesService, ItinerariesConverter, ItinerariesFacade, ItinerariesSeeder],
